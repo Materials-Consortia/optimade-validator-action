@@ -8,7 +8,7 @@ To run `optimade_validator` for an index meta-database at `http://gh_actions_hos
 Within the same job, first, start a server, e.g., using the `docker-compose.yml` setup from this repository, and then add the step
 
 ```yml
-uses: Materials-Consortia/optimade-python-tools@master
+uses: Materials-Consortia/optimade-validator-action@master
 with:
   port: 5001
   path: /v0
@@ -22,7 +22,7 @@ To run `optimade_validator` for a regular OPTiMaDe _deployed_ implementation, te
 - `https://example.org:443/optimade/example/v0.10.1`
 
 ```yml
-uses: Materials-Consortia/optimade-python-tools@master
+uses: Materials-Consortia/optimade-validator-action@master
 with:
   protocol: https
   domain: example.org
