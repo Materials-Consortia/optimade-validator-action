@@ -33,52 +33,15 @@ with:
 
 ## Inputs
 
-### `protocol`
-
-**Optional** Protocol for the OPTiMaDe URL.  
-**Default**: `http`
-
-### `domain`
-
-**Optional** Domain for the OPTiMaDe URL (defaults to the GitHub Actions runner host).  
-**Default**: `gh_actions_host`
-
-### `port`
-
-**Optional** Port for the OPTiMaDe URL.  
-**Default**: `5000`
-
-### `path`
-
-**Optional** Path for the OPTiMaDe (versioned) base URL - MUST start with `/`  
-_Note_: If `all versioned paths` is `true`, this MUST be un-versioned, e.g., `/optimade` or `/`, otherwise it MUST be versioned, e.g., the default value.  
-**Default**: `/v0`
-
-### `all versioned paths`
-
-**Optional** Whether to test all possible versioned base URLs:
-
-- /vMAJOR
-- /vMAJOR.MINOR
-- /vMAJOR.MINOR.PATCH
-
-If this is `'true'`, the input `'path'` MUST exempt the version part (e.g., `'/optimade'` instead of `'/optimade/v0'`).  
-If this is `'false'`, the input `'path'` MUST include the version part (e.g., `'/optimade/v0'` instead of `'/optimade'`).  
-**Default**: `false`
-
-### `index`
-
-**Optional** Whether or not this is an index meta-database.  
-**Default**: `false`
-
-### `validator version`
-
-**Required** Full version of an OPTiMaDe Python tools release to PyPI, e.g., `'0.6.0'` or `'0.3.4'`, which hosts the `optimade_validator`.
-It can also be a branch, tag, or git commit to use from the GitHub repository, e.g., `'master'`, `'v0.6.0'` or `'5a5e903'`.
-See [the pip documentation](https://pip.pypa.io/en/latest/reference/pip_install/#git) for more information of what is allowed here.
-Finally, it may also be `'latest'` (default), which is understood to be the latest official release of the `optimade` package on PyPI.
-Note, for the latest development version, choose `'master'`.
-**Default**: `latest`
+| Input | Description | Usage | Default |
+| :---: |    :---     | :---: |  :---:  |
+| `protocol` | Protocol for the OPTiMaDe URL | Optional | `http`
+| `domain` | Domain for the OPTiMaDe URL (defaults to the GitHub Actions runner host) | Optional | `gh_actions_host`
+| `port` | Port for the OPTiMaDe URL | Optional | `5000`
+| `path` | Path for the OPTiMaDe (versioned) base URL - MUST start with `/`<br>_Note_: If `all versioned paths` is `true`, this MUST be un-versioned, e.g., `/optimade` or `/`, otherwise it MUST be versioned, e.g., the default value | Optional | `/v0`
+| `all_versioned_paths` | Whether to test all possible versioned base URLs:<br><br>/vMAJOR<br>/vMAJOR.MINOR<br>/vMAJOR.MINOR.PATCH<br><br>If this is `'true'`, the input `'path'` MUST exempt the version part (e.g., `'/optimade'` instead of `'/optimade/v0'`).<br>If this is `'false'`, the input `'path'` MUST include the version part (e.g., `'/optimade/v0'` instead of `'/optimade'`) | Optional | `false`
+| `index` | Whether or not this is an index meta-database | Optional | `false`
+| `validator_version` | Full version of an OPTiMaDe Python tools release to PyPI, e.g., `'v0.6.0'` or `'0.3.4'`, which hosts the `optimade_validator`. It can also be a branch, tag, or git commit to use from the GitHub repository, e.g., `'master'` or `'5a5e903'`.<br>See [the pip documentation](https://pip.pypa.io/en/latest/reference/pip_install/#git) for more information of what is allowed here.<br>Finally, it may also be `'latest'` (default), which is understood to be the latest official release of the `optimade` package on PyPI.<br>Note, for the latest development version, choose `'master'`. | **Required** | `latest`
 
 ## Running test suite (developers)
 
