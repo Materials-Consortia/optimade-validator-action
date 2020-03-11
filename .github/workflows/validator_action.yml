@@ -17,7 +17,7 @@ jobs:
 
       - name: Set up and run regular server
         run: |
-          git clone git@github.com:Materials-Consortia/optimade-python-tools.git
+          git clone https://github.com/Materials-Consortia/optimade-python-tools
           docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
           .github/workflows/wait_for_it.sh localhost:3213 -t 120
           sleep 15
@@ -37,7 +37,7 @@ jobs:
 
       - name: Set up and run index server
         run: |
-          git clone git@github.com:Materials-Consortia/optimade-python-tools.git
+          git clone https://github.com/Materials-Consortia/optimade-python-tools
           docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade-index &
           .github/workflows/wait_for_it.sh localhost:3214 -t 120
           sleep 15
@@ -58,7 +58,7 @@ jobs:
 
       - name: Set up and run regular server (which includes all versioned base URLs)
         run: |
-          git clone git@github.com:Materials-Consortia/optimade-python-tools.git
+          git clone https://github.com/Materials-Consortia/optimade-python-tools
           docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
           .github/workflows/wait_for_it.sh localhost:3213 -t 120
           sleep 15
