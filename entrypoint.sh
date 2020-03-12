@@ -20,7 +20,7 @@ fi
 DOCKER_HOST_IP=$(cat /docker_host_ip)
 echo ${DOCKER_HOST_IP} gh_actions_host >> /etc/hosts
 
-run_validator="optimade_validator"
+run_validator="optimade_validator --verbosity 2"
 
 if [ ! -z "${INPUT_PORT}" ]; then
     BASE_URL="${INPUT_PROTOCOL}://${INPUT_DOMAIN}:${INPUT_PORT}"
