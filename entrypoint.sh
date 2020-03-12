@@ -1,5 +1,21 @@
 #!/bin/sh
 
+# Install OPTiMaDe Python tools
+if [ "${INPUT_VALIDATOR_VERSION}" = "latest" ]; then
+    echo "Installing latest version of optimade"
+    python -m pip install --no-cache -U --upgrade-strategy=eager optimade
+elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^[0-9]\.[0-9]\.[0-9]$'; then
+    echo "Installing version ${INPUT_VALIDATOR_VERSION} of optimade"
+    python -m pip install --no-cache optimade==$1
+elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^v[0-9]\.[0-9]\.[0-9]$'; then
+    OPTIMADE_VERSION=$(echo ${INPUT_VALIDATOR_VERSION} | cut -c 2-)
+    echo "Installing version ${OPTIMADE_VERSION} of optimade"
+    python -m pip install --no-cache optimade==${OPTIMADE_VERSION}
+else
+    echo "Installing branch, tag or commit ${INPUT_VALIDATOR_VERSION} of optimade (from GitHub)"
+    python -m pip install --no-cache "https://github.com/Materials-Consortia/optimade-python-tools/tarball/${INPUT_VALIDATOR_VERSION}"
+fi
+
 # Retrieve and add GitHub Actions host runner IP to known hosts
 DOCKER_HOST_IP=$(cat /docker_host_ip)
 echo ${DOCKER_HOST_IP} gh_actions_host >> /etc/hosts

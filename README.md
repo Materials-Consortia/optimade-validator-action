@@ -70,3 +70,12 @@ If this is `'false'`, the input `'path'` MUST include the version part (e.g., `'
 
 **Optional** Whether or not this is an index meta-database.  
 **Default**: `false`
+
+### `validator version`
+
+**Required** Full version of an OPTiMaDe Python tools release to PyPI, e.g., `'0.6.0'` or `'0.3.4'`, which hosts the `optimade_validator`.
+It can also be a branch, tag, or git commit to use from the GitHub repository, e.g., `'master'`, `'v0.6.0'` or `'5a5e903'`.
+See [the pip documentation](https://pip.pypa.io/en/latest/reference/pip_install/#git) for more information of what is allowed here.
+Finally, it may also be `'latest'` (default), which is understood to be the latest official release of the `optimade` package on PyPI.
+Note, for the latest development version, choose `'master'`.
+**Default**: `latest`
