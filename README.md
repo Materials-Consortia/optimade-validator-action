@@ -2,13 +2,15 @@
 
 This action runs `optimade_validator` from the `optimade` package found in the [`optimade-python-tools` repository](https://github.com/Materials-Consortia/optimade-python-tools) on either a locally running server or a public server.
 
+All minor and patch updates to v1 will be folded into the `v1` tag, so that using the action `@v1` is recommended, since it results in using the latest v1.minor.patch.
+
 ## Example usage
 
 To run `optimade_validator` for an index meta-database at `http://gh_actions_host:5001/v0` do the following:  
 Within the same job, first, start a server, e.g., using the `docker-compose.yml` setup from this repository, and then add the step
 
 ```yml
-uses: Materials-Consortia/optimade-validator-action@master
+uses: Materials-Consortia/optimade-validator-action@v1
 with:
   port: 5001
   path: /v0
@@ -22,7 +24,7 @@ To run `optimade_validator` for a regular OPTiMaDe _deployed_ implementation, te
 - `https://example.org:443/optimade/example/v0.10.1`
 
 ```yml
-uses: Materials-Consortia/optimade-validator-action@master
+uses: Materials-Consortia/optimade-validator-action@v1
 with:
   protocol: https
   domain: example.org
