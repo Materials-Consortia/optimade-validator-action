@@ -77,6 +77,19 @@ jobs:
           path: ""
           all versioned paths: yes
 
+  bats:
+    runs-on: ubuntu-latest
+    name: Run BATS test suite for entrypoint.sh
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Build BATS environment
+        run: docker build -t optimade_bats ./tests
+
+      - name: Run BATS tests
+        run: ./run_tests.sh
+
   validator_version:
     runs-on: ubuntu-latest
     name: Use validator from git commit sha
