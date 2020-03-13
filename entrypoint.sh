@@ -58,19 +58,27 @@ case ${INPUT_ALL_VERSIONED_PATHS} in
     y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
         for version in '0' '0.10' '0.10.1'; do
             if [ "${INPUT_PATH}" = "/" ]; then
+                # For testing
+                echo "run_validator: ${run_validator}${INPUT_PATH}v${version}${index}" >> ./tests/.entrypoint-run_validator.txt
                 sh -c "${run_validator}${INPUT_PATH}v${version}${index}"
             else
+                # For testing
+                echo "run_validator: ${run_validator}${INPUT_PATH}/v${version}${index}" >> ./tests/.entrypoint-run_validator.txt
                 sh -c "${run_validator}${INPUT_PATH}/v${version}${index}"
             fi
         done
         ;;
     n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
         run_validator="${run_validator}${INPUT_PATH}${index}"
+        # For testing
+        echo "run_validator: ${run_validator}" > ./tests/.entrypoint-run_validator.txt
         sh -c "${run_validator}"
         ;;
     *)
         echo "Non-valid input for 'all versioned paths': ${INPUT_ALL_VERSIONED_PATHS}. Will use default (false)."
         run_validator="${run_validator}${INPUT_PATH}${index}"
+        # For testing
+        echo "run_validator: ${run_validator}" > ./tests/.entrypoint-run_validator.txt
         sh -c "${run_validator}"
         ;;
 esac
