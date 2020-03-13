@@ -20,7 +20,20 @@ fi
 DOCKER_HOST_IP=$(cat /docker_host_ip)
 echo ${DOCKER_HOST_IP} gh_actions_host >> /etc/hosts
 
-run_validator="optimade_validator --verbosity 2"
+run_validator="optimade_validator"
+
+if echo ${INPUT_VERBOSITY} | grep -Eq '[^0-9]'; then
+    # Bad value for `verbosity`
+    echo "Non-valid input for 'verbosity': ${INPUT_VERBOSITY}. Will use default (1)."
+    INPUT_VERBOSITY=1
+fi
+echo "Using verbosity level: ${INPUT_VERBOSITY}"
+run_validator="${run_validator} --verbosity ${INPUT_VERBOSITY}"
+
+if [ -n "${INPUT_AS_TYPE}" ]; then
+    echo "Validating as type: ${INPUT_AS_TYPE}"
+    run_validator="${run_validator} --as_type ${INPUT_AS_TYPE}"
+fi
 
 if [ ! -z "${INPUT_PORT}" ]; then
     BASE_URL="${INPUT_PROTOCOL}://${INPUT_DOMAIN}:${INPUT_PORT}"
