@@ -1,26 +1,28 @@
 #!/usr/bin/env bats
 
-@test "Test passing 'latest' works" {
+load 'test_fixtures'
+
+@test "validator_version='latest'" {
     export INPUT_VALIDATOR_VERSION=latest
     run ../entrypoint.sh
-    [ "${lines[0]}" = "Installing latest version of optimade" ]
+    assert_output --partial "Installing latest version of optimade"
 }
 
-@test "Test passing valid version" {
+@test "validator_version='0.6.0'" {
     export INPUT_VALIDATOR_VERSION=0.6.0
     run ../entrypoint.sh
-    [ "${lines[0]}" = "Installing version $INPUT_VALIDATOR_VERSION of optimade" ]
+    assert_output --partial "Installing version $INPUT_VALIDATOR_VERSION of optimade"
 }
 
-@test "Test passing valid version prefixed with 'v'" {
+@test "validator_version='v0.6.0'" {
     export INPUT_VALIDATOR_VERSION=v0.6.0
     OUTPUT_OPTIMADE_VERSION=0.6.0
     run ../entrypoint.sh
-    [ "${lines[0]}" = "Installing version $OUTPUT_OPTIMADE_VERSION of optimade" ]
+    assert_output --partial "Installing version $OUTPUT_OPTIMADE_VERSION of optimade"
 }
 
-@test "Test passing branch" {
+@test "validator_version='master'" {
     export INPUT_VALIDATOR_VERSION=master
     run ../entrypoint.sh
-    [ "${lines[0]}" = "Installing branch, tag or commit $INPUT_VALIDATOR_VERSION of optimade (from GitHub)" ]
+    assert_output --partial "Installing branch, tag or commit $INPUT_VALIDATOR_VERSION of optimade (from GitHub)"
 }
