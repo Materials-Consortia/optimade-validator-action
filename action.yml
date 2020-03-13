@@ -16,6 +16,10 @@ inputs:
     required: false
     default: false
 
+  as type:
+    description: Validate the request URL with the provided type, rather than scanning the entire implementation
+    required: false
+
   domain:
     description: Domain for the OPTiMaDe URL (defaults to the GH Actions runner host)
     required: false
@@ -49,6 +53,11 @@ inputs:
       Note, for the latest development version, choose 'master'.
     required: true
     default: latest
+
+  verbosity:
+    description: The verbosity of the output
+    required: false
+    default: 1
 
 runs:
   using: 'docker'
