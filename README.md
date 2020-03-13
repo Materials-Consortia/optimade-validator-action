@@ -4,6 +4,12 @@ This action runs `optimade_validator` from the `optimade` package found in the [
 
 All minor and patch updates to v1 will be folded into the `v1` tag, so that using the action `@v1` is recommended, since it results in using the latest v1.minor.patch.
 
+Latest versions:
+
+| Used tag | Effective version |
+| :---: | :---: |
+| `v1` | [`v1.1.0`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v1.1.0)
+
 ## Example usage
 
 To run `optimade_validator` for an index meta-database at `http://gh_actions_host:5001/v0` do the following:  
