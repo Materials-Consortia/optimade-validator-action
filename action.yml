@@ -6,21 +6,7 @@ branding:
   color: green
 
 inputs:
-  protocol:
-    description: Protocol for the OPTiMaDe URL
-    required: false
-    default: http
-  domain:
-    description: Domain for the OPTiMaDe URL (defaults to the GH Actions runner host)
-    required: false
-    default: gh_actions_host
-  port:
-    description: Port for the OPTiMaDe URL
-    required: false
-  path:
-    description: Path of the OPTiMaDe (versioned) base URL - MUST start with '/'
-    required: false
-    default: /v0
+
   all versioned paths:
     description: >
       Whether to test all possible versioned base URLs:
@@ -29,10 +15,31 @@ inputs:
       If this is 'false', the input 'path' MUST include the version part (e.g., '/optimade/v0' instead of '/optimade').
     required: false
     default: false
+
+  domain:
+    description: Domain for the OPTiMaDe URL (defaults to the GH Actions runner host)
+    required: false
+    default: gh_actions_host
+
   index:
     description: Whether or not this is an index meta-database
     required: false
     default: false
+
+  path:
+    description: Path of the OPTiMaDe (versioned) base URL - MUST start with '/'
+    required: false
+    default: /v0
+
+  port:
+    description: Port for the OPTiMaDe URL
+    required: false
+
+  protocol:
+    description: Protocol for the OPTiMaDe URL
+    required: false
+    default: http
+
   validator version:
     description: >
       Full version of an OPTiMaDe Python tools release to PyPI, e.g., '0.6.0' or '0.3.4', which hosts the `optimade_validator`.
@@ -42,6 +49,7 @@ inputs:
       Note, for the latest development version, choose 'master'.
     required: true
     default: latest
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
