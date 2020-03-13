@@ -17,7 +17,9 @@ inputs:
     default: false
 
   as type:
-    description: Validate the request URL with the provided type, rather than scanning the entire implementation
+    description: >
+      Validate the request URL with the provided type, rather than scanning the entire implementation.
+      Example values: 'structures', 'reference'. For a full list of values see `optimade-python-tools`.
     required: false
 
   domain:
