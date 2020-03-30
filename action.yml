@@ -1,5 +1,5 @@
-name: OPTiMaDe validator
-description: Validate your OPTiMaDe server using the optimade-python-tools validator
+name: OPTIMADE validator
+description: Validate your OPTIMADE server using the optimade-python-tools validator
 author: Casper Welzel Andersen, Matthew Evans
 branding:
   icon: server
@@ -23,7 +23,7 @@ inputs:
     required: false
 
   domain:
-    description: Domain for the OPTiMaDe URL (defaults to the GH Actions runner host)
+    description: Domain for the OPTIMADE URL (defaults to the GH Actions runner host)
     required: false
     default: gh_actions_host
 
@@ -33,22 +33,22 @@ inputs:
     default: false
 
   path:
-    description: Path of the OPTiMaDe (versioned) base URL - MUST start with '/'
+    description: Path of the OPTIMADE (versioned) base URL - MUST start with '/'
     required: false
     default: /v0
 
   port:
-    description: Port for the OPTiMaDe URL
+    description: Port for the OPTIMADE URL
     required: false
 
   protocol:
-    description: Protocol for the OPTiMaDe URL
+    description: Protocol for the OPTIMADE URL
     required: false
     default: http
 
   validator version:
     description: >
-      Full version of an OPTiMaDe Python tools release to PyPI, e.g., '0.6.0' or '0.3.4', which hosts the `optimade_validator`.
+      Full version of an OPTIMADE Python tools release to PyPI, e.g., '0.6.0' or '0.3.4', which hosts the `optimade_validator`.
       It can also be a branch, tag, or git commit to use from the GitHub repository, e.g., 'master', 'v0.6.0' or '5a5e903'.
       See https://pip.pypa.io/en/latest/reference/pip_install/#git for more information of what is allowed here.
       Finally, it may also be 'latest' (default), which is understood to be the latest official release of the `optimade` package on PyPI.

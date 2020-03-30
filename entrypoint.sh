@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Install OPTiMaDe Python tools
+# Install OPTIMADE Python tools
 if [ "${INPUT_VALIDATOR_VERSION}" = "latest" ]; then
     echo "Installing latest version of optimade"
     python -m pip install --no-cache -U --upgrade-strategy=eager optimade
