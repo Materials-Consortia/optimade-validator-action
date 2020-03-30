@@ -1,0 +1,8 @@
+name: Update tag vMAJOR upon release of newest vMAJOR.MINOR.PATCH version
+
+on:
+  push:
+    release:
+      types: [published]
+
+jobs:
