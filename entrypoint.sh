@@ -13,7 +13,9 @@ elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^v[0-9]\.[0-9]\.[0-9]$'; then
     python -m pip install --no-cache optimade==${OPTIMADE_VERSION}
 else
     echo "Installing branch, tag or commit ${INPUT_VALIDATOR_VERSION} of optimade (from GitHub)"
-    python -m pip install --no-cache "https://github.com/Materials-Consortia/optimade-python-tools/tarball/${INPUT_VALIDATOR_VERSION}"
+    git clone "https://github.com/Materials-Consortia/optimade-python-tools"
+    git reset --hard ${INPUT_VALIDATOR_VERSION}
+    pip install -e .
 fi
 
 # Retrieve and add GitHub Actions host runner IP to known hosts
