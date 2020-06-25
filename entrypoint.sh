@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Install OPTIMADE Python tools
 if [ "${INPUT_VALIDATOR_VERSION}" = "latest" ]; then
@@ -55,7 +55,7 @@ case ${INPUT_INDEX} in
 esac
 
 
-API_VERSION=$(python -c "from optimade import __api_version__; versions = [__api_version__.split('-')[0].split('+')[0].split('.')[0], '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:2]), '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:3])]; print(' '.join(versions))")
+API_VERSION=($(python -c "from optimade import __api_version__; versions = [__api_version__.split('-')[0].split('+')[0].split('.')[0], '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:2]), '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:3])]; print(' '.join(versions))"))
 case ${INPUT_ALL_VERSIONED_PATHS} in
     y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
         for version in "${API_VERSION[@]}"; do
