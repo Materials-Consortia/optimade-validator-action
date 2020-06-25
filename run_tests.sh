@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DOCKER_BATS_IMAGE_NAME=optimade_bats
 DOCKER_BATS_TEST_PATH=./tests
