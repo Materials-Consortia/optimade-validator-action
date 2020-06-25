@@ -58,7 +58,7 @@ esac
 API_VERSION=$(python -c "from optimade import __api_version__; versions = [__api_version__.split('-')[0].split('+')[0].split('.')[0], '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:2]), '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:3])]; print(' '.join(versions))")
 case ${INPUT_ALL_VERSIONED_PATHS} in
     y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
-        for version in ${API_VERSION[@]}; do
+        for version in "${API_VERSION[@]}"; do
             if [ "${INPUT_PATH}" = "/" ]; then
                 # For testing
                 echo "run_validator: ${run_validator}${INPUT_PATH}v${version}${index}" >> ./tests/.entrypoint-run_validator.txt
