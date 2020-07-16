@@ -28,11 +28,27 @@ if echo ${INPUT_VERBOSITY} | grep -Eq '[^0-9]'; then
     INPUT_VERBOSITY=1
 fi
 echo "Using verbosity level: ${INPUT_VERBOSITY}"
-run_validator="${run_validator} --verbosity ${INPUT_VERBOSITY}"
+
+i=0
+while [[ $i -lt $INPUT_VERBOSITY ]]
+do
+    run_validator="${run_validator} -v"
+    ((i = i + 1))
+done
 
 if [ -n "${INPUT_AS_TYPE}" ]; then
     echo "Validating as type: ${INPUT_AS_TYPE}"
-    run_validator="${run_validator} --as_type ${INPUT_AS_TYPE}"
+    run_validator="${run_validator} --as-type ${INPUT_AS_TYPE}"
+fi
+
+if [ -n "${INPUT_SKIP_OPTIONAL}" ]; then
+    echo "Skipping optional tests."
+    run_validator="${run_validator} --skip-optional"
+fi
+
+if [ -n "${INPUT_FAIL_FAST}" ]; then
+    echo "Will exit on first failure."
+    run_validator="${run_validator} --fail-fast"
 fi
 
 if [ ! -z "${INPUT_PORT}" ]; then

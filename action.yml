@@ -27,6 +27,11 @@ inputs:
     required: false
     default: gh_actions_host
 
+  fail fast:
+    description: Whether or not to exit and return a non-zero error code on first failure.
+    required: false
+    default: false
+
   index:
     description: Whether or not this is an index meta-database
     required: false
@@ -45,6 +50,11 @@ inputs:
     description: Protocol for the OPTIMADE URL
     required: false
     default: http
+
+  skip optional:
+    description: Whether or not to skip tests for optional features.
+    required: false
+    default: false
 
   validator version:
     description: >
