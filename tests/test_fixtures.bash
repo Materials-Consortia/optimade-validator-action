@@ -24,7 +24,7 @@ function setup() {
 
 function teardown() {
     if [ "${TEST_FINAL_RUN_VALIDATOR}" = "default" ] || [ -z "${TEST_FINAL_RUN_VALIDATOR}" ]; then
-        TEST_FINAL_RUN_VALIDATOR="optimade_validator --verbosity 1 --fail-fast --skip-optional http://gh_actions_host/v0"
+        TEST_FINAL_RUN_VALIDATOR="optimade-validator --verbosity 1 --fail-fast --skip-optional http://gh_actions_host/v0"
     fi
     run cat /code/tests/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_FINAL_RUN_VALIDATOR}"

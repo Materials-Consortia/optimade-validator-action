@@ -16,7 +16,7 @@ load 'test_fixtures'
     run ${ENTRYPOINT_SH}
     assert_output --partial "Using verbosity level: ${VALID_VERBOSITY_VALUE}"
 
-    TEST_FINAL_RUN_VALIDATOR="optimade_validator ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
+    TEST_FINAL_RUN_VALIDATOR="optimade-validator ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
 }
 
 @test "verbosity='test' (invalid value, should use default instead)" {
@@ -36,5 +36,5 @@ load 'test_fixtures'
     run ${ENTRYPOINT_SH}
     assert_output --partial "Using verbosity level: ${VALID_VERBOSITY_VALUE}"
 
-    TEST_FINAL_RUN_VALIDATOR="optimade_validator -v -v -v ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
+    TEST_FINAL_RUN_VALIDATOR="optimade-validator -v -v -v ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
 }

@@ -2,7 +2,7 @@
 
 [![GitHub Marketplace](https://img.shields.io/badge/Marketplace-v1-undefined.svg?logo=github&logoColor=white&style=flat)](https://github.com/marketplace/actions/optimade-validator)
 
-This action runs `optimade_validator` from the `optimade` package found in the [`optimade-python-tools` repository](https://github.com/Materials-Consortia/optimade-python-tools) on either a locally running server or a public server.
+This action runs `optimade-validator` from the `optimade` package found in the [`optimade-python-tools` repository](https://github.com/Materials-Consortia/optimade-python-tools) on either a locally running server or a public server.
 
 All minor and patch updates to v1 will be folded into the `v1` tag, so that using the action `@v1` is recommended, since it results in using the latest v1.minor.patch.
 
@@ -14,7 +14,7 @@ Latest versions:
 
 ## Example usage
 
-To run `optimade_validator` for an index meta-database at `http://gh_actions_host:5001/v0` do the following:  
+To run `optimade-validator` for an index meta-database at `http://gh_actions_host:5001/v0` do the following:  
 Within the same job, first, start a server, e.g., using the `docker-compose.yml` setup from this repository, and then add the step
 
 ```yml
@@ -25,7 +25,7 @@ with:
   index: yes
 ```
 
-To run `optimade_validator` for a regular OPTIMADE _deployed_ implementation, testing all possible versioned base URLs:
+To run `optimade-validator` for a regular OPTIMADE _deployed_ implementation, testing all possible versioned base URLs:
 
 - `https://example.org:443/optimade/example/v0`
 - `https://example.org:443/optimade/example/v0.10`
@@ -54,7 +54,7 @@ with:
 | `port` | Port for the OPTIMADE URL | Optional | `5000`
 | `protocol` | Protocol for the OPTIMADE URL | Optional | `http`
 | `skip_optional` | Whether or not to skip tests for optional features. | Optional | `false`
-| `validator_version` | Full version of an OPTIMADE Python tools release to PyPI, e.g., `'v0.6.0'` or `'0.3.4'`, which hosts the `optimade_validator`. It can also be a branch, tag, or git commit to use from the GitHub repository, e.g., `'master'` or `'5a5e903'`.<br>See [the pip documentation](https://pip.pypa.io/en/latest/reference/pip_install/#git) for more information of what is allowed here.<br>Finally, it may also be `'latest'` (default), which is understood to be the latest official release of the `optimade` package on PyPI.<br>Note, for the latest development version, choose `'master'`. | **Required** | `latest`
+| `validator_version` | Full version of an OPTIMADE Python tools release to PyPI, e.g., `'v0.6.0'` or `'0.3.4'`, which hosts the `optimade-validator`. It can also be a branch, tag, or git commit to use from the GitHub repository, e.g., `'master'` or `'5a5e903'`.<br>See [the pip documentation](https://pip.pypa.io/en/latest/reference/pip_install/#git) for more information of what is allowed here.<br>Finally, it may also be `'latest'` (default), which is understood to be the latest official release of the `optimade` package on PyPI.<br>Note, for the latest development version, choose `'master'`. | **Required** | `latest`
 | `verbosity` | The verbosity of the output.<br>`0`: minimalistic, `1`: informational, `2`+: debug | Optional | `1`
 
 ## Running test suite (developers)

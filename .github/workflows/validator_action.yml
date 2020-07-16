@@ -1,4 +1,4 @@
-name: Test optimade_validator GitHub Action
+name: Test optimade-validator GitHub Action
 
 on:
   pull_request:

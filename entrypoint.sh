@@ -20,7 +20,7 @@ fi
 DOCKER_HOST_IP=$(cat /docker_host_ip)
 echo ${DOCKER_HOST_IP} gh_actions_host >> /etc/hosts
 
-run_validator="optimade_validator"
+run_validator="optimade-validator"
 
 if echo ${INPUT_VERBOSITY} | grep -Eq '[^0-9]'; then
     # Bad value for `verbosity`

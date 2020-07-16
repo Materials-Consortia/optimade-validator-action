@@ -16,7 +16,7 @@ load 'test_fixtures'
     run ${ENTRYPOINT_SH}
     assert_output --partial "Validating as type: ${VALID_AS_TYPE_VALUE}"
 
-    TEST_FINAL_RUN_VALIDATOR="optimade_validator --verbosity ${INPUT_VERBOSITY} --as-type ${VALID_AS_TYPE_VALUE} ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
+    TEST_FINAL_RUN_VALIDATOR="optimade-validator --verbosity ${INPUT_VERBOSITY} --as-type ${VALID_AS_TYPE_VALUE} ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
 }
 
 @test "as_type='non_valid_input' (invalid value, should fail with status 1 and message)" {
@@ -27,5 +27,5 @@ load 'test_fixtures'
     assert_failure 1
     assert_output --partial "${INVALID_AS_TYPE_VALUE} is not a valid type, must be one of "
 
-    TEST_FINAL_RUN_VALIDATOR="optimade_validator --verbosity ${INPUT_VERBOSITY} --as-type ${INVALID_AS_TYPE_VALUE} ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
+    TEST_FINAL_RUN_VALIDATOR="optimade-validator --verbosity ${INPUT_VERBOSITY} --as-type ${INVALID_AS_TYPE_VALUE} ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
 }
