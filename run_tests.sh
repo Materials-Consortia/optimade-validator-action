@@ -21,4 +21,4 @@ if [ -n "$1" ]; then
     fi
 fi
 
-docker run -i -v "$(pwd):/code" --workdir /code $DOCKER_BATS_IMAGE_NAME $DOCKER_BATS_TEST_PATH
+docker run -it -v "$(pwd):/code" --workdir /code ${DOCKER_BATS_IMAGE_NAME} ${DOCKER_BATS_TEST_PATH}

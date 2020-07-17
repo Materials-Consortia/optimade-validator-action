@@ -59,14 +59,14 @@ with:
 
 ## Running test suite (developers)
 
-The test suite is based on [BATS](https://github.com/bats-core/bats-core) and should be run in [docker](https://github.com/bats-core/bats-core#running-bats-in-docker).
-The reason to run in docker, is that the `entrypoint.sh` file will install the `optimade` package.
-And to not pollute your local environment, it is safer to run it in a docker container.
+The test suite is based on [BATS](https://github.com/bats-core/bats-core) and should be run in [Docker](https://github.com/bats-core/bats-core#running-bats-in-docker).
+The reason to run in Docker, is that the `entrypoint.sh` file will install the `optimade` package.
+And to not pollute your local environment, it is safer to run it in a Docker container.
 
 Steps to setup your test environment:
 
 1. Git clone this repository to your local environment
-1. Install docker (this depends on your OS, see [the docker documentation](https://docs.docker.com/install/))
+1. Install Docker (this depends on your OS, see [the Docker documentation](https://docs.docker.com/install/))
 1. Run in a terminal (based on a Unix system):
 
    ```sh
@@ -87,11 +87,21 @@ or
 ```
 
 This is a file that contains the previous line and runs it, for posterity.
-Furthermore, it takes one argument: the docker tag.
-So if you named the built docker image something different from `optimade_bats`, you can pass the name to `run_tests.sh` and it will work, e.g.,
+Furthermore, it takes two arguments.
+
+One is the Docker tag.
+So if you named the built Docker image something different from `optimade_bats`, you can pass the name to `run_tests.sh` and it will work, e.g.,
 
 ```sh
 ./run_tests.sh my_custom_image_name
 ```
 
 will run the tests with image `my_custom_image_name` instead of `optimade_bats`.
+
+Another is the relative or absolute path to the `.bats` files directory or a single `.bats` file, e.g.,
+
+```sh
+./run_tests.sh ./tests/test_verbosity.bats
+```
+
+will run the tests in the `test_verbosity.bats` file under the `tests` directory relative to where you're running the `run_tests.sh` file.
