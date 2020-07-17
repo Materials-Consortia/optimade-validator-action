@@ -27,7 +27,6 @@ jobs:
         with:
           port: 3213
           path: /v1
-          validator version: master
 
   validator_index:
     runs-on: ubuntu-latest
@@ -49,7 +48,6 @@ jobs:
           port: 3214
           path: /v1
           index: yes
-          validator version: master
 
   all_versioned_paths:
     runs-on: ubuntu-latest
@@ -71,7 +69,6 @@ jobs:
           port: 3213
           path: /
           all versioned paths: yes
-          validator version: master
 
       - name: Run action (setting path to empty string)
         uses: ./
@@ -79,7 +76,6 @@ jobs:
           port: 3213
           path: ""
           all versioned paths: yes
-          validator version: master
 
   bats:
     runs-on: ubuntu-latest
@@ -113,4 +109,4 @@ jobs:
         with:
           port: 3213
           path: /v1
-          validator version: 38d822c73f3ca47986ada1e5e88f5fbdb6bdfd94
+          validator version: c6551e27f64abdaa94afd401db22af9ef2afd23d
