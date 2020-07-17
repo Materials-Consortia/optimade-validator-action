@@ -21,4 +21,8 @@ if [ -n "$1" ]; then
     fi
 fi
 
-docker run -it -v "$(pwd):/code" --workdir /code ${DOCKER_BATS_IMAGE_NAME} ${DOCKER_BATS_TEST_PATH}
+if [ "${CI}" == "true" ]; then
+    docker run -i -v "$(pwd):/code" --workdir /code ${DOCKER_BATS_IMAGE_NAME} ${DOCKER_BATS_TEST_PATH}
+else
+    docker run -it -v "$(pwd):/code" --workdir /code ${DOCKER_BATS_IMAGE_NAME} ${DOCKER_BATS_TEST_PATH}
+fi
