@@ -41,15 +41,29 @@ if [ -n "${INPUT_AS_TYPE}" ]; then
     run_validator="${run_validator} --as-type ${INPUT_AS_TYPE}"
 fi
 
-if [ -n "${INPUT_SKIP_OPTIONAL}" ]; then
-    echo "Skipping optional tests."
-    run_validator="${run_validator} --skip-optional"
-fi
+case ${INPUT_SKIP_OPTIONAL} in
+    y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
+        echo "Skipping optional tests."
+        run_validator="${run_validator} --skip-optional"
+        ;;
+    n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
+        ;;
+    *)
+        echo "Non-valid input for 'skip_optional': ${INPUT_SKIP_OPTIONAL}. Will use default (false)."
+        ;;
+esac
 
-if [ -n "${INPUT_FAIL_FAST}" ]; then
-    echo "Will exit on first failure."
-    run_validator="${run_validator} --fail-fast"
-fi
+case ${INPUT_FAIL_FAST} in
+    y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
+        echo "Will exit on first failure."
+        run_validator="${run_validator} --fail-fast"
+        ;;
+    n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
+        ;;
+    *)
+        echo "Non-valid input for 'fail_fast': ${INPUT_FAIL_FAST}. Will use default (false)."
+        ;;
+esac
 
 if [ ! -z "${INPUT_PORT}" ]; then
     BASE_URL="${INPUT_PROTOCOL}://${INPUT_DOMAIN}:${INPUT_PORT}"
