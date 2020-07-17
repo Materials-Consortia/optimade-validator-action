@@ -11,8 +11,8 @@ inputs:
     description: >
       Whether to test all possible versioned base URLs:
         /vMAJOR; /vMAJOR.MINOR; /vMAJOR.MINOR.PATCH
-      If this is 'true', the input 'path' MUST exempt the version part (e.g., '/optimade' instead of '/optimade/v0').
-      If this is 'false', the input 'path' MUST include the version part (e.g., '/optimade/v0' instead of '/optimade').
+      If this is 'true', the input 'path' MUST exempt the version part (e.g., '/optimade' instead of '/optimade/v1').
+      If this is 'false', the input 'path' MUST include the version part (e.g., '/optimade/v1' instead of '/optimade').
     required: false
     default: false
 
@@ -27,6 +27,11 @@ inputs:
     required: false
     default: gh_actions_host
 
+  fail fast:
+    description: Whether or not to exit and return a non-zero error code on first failure.
+    required: false
+    default: false
+
   index:
     description: Whether or not this is an index meta-database
     required: false
@@ -35,7 +40,7 @@ inputs:
   path:
     description: Path of the OPTIMADE (versioned) base URL - MUST start with '/'
     required: false
-    default: /v0
+    default: /v1
 
   port:
     description: Port for the OPTIMADE URL
@@ -46,9 +51,14 @@ inputs:
     required: false
     default: http
 
+  skip optional:
+    description: Whether or not to skip tests for optional features.
+    required: false
+    default: false
+
   validator version:
     description: >
-      Full version of an OPTIMADE Python tools release to PyPI, e.g., '0.6.0' or '0.3.4', which hosts the `optimade_validator`.
+      Full version of an OPTIMADE Python tools release to PyPI, e.g., '0.6.0' or '0.3.4', which hosts the `optimade-validator`.
       It can also be a branch, tag, or git commit to use from the GitHub repository, e.g., 'master', 'v0.6.0' or '5a5e903'.
       See https://pip.pypa.io/en/latest/reference/pip_install/#git for more information of what is allowed here.
       Finally, it may also be 'latest' (default), which is understood to be the latest official release of the `optimade` package on PyPI.

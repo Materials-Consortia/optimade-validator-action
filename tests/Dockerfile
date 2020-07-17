@@ -1,4 +1,4 @@
-FROM bats/bats
+FROM bats/bats:1.2.1
 
 RUN echo "**** Installing Python 3 ****" && \
     apk add --no-cache python3 && \
@@ -10,7 +10,7 @@ RUN echo "**** Installing Python 3 ****" && \
     if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi
 
 ENV BATS_TEST_HELPERS /test_helpers
-RUN echo "**** Updating BATS with bats-support and bats-assert-1 ****" && \
+RUN echo "**** Updating BATS with bats-support and bats-assert ****" && \
     apk add --no-cache git && \
-    git clone https://github.com/jasonkarns/bats-support ${BATS_TEST_HELPERS}/bats-support && \
-    git clone https://github.com/jasonkarns/bats-assert-1 ${BATS_TEST_HELPERS}/bats-assert
+    git clone https://github.com/bats-core/bats-support ${BATS_TEST_HELPERS}/bats-support && \
+    git clone https://github.com/bats-core/bats-assert ${BATS_TEST_HELPERS}/bats-assert
