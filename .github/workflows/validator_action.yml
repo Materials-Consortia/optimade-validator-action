@@ -109,4 +109,4 @@ jobs:
         with:
           port: 3213
           path: /v1
-          validator version: d71275a38f3c0e778408f22b6a2566c1e901793a
+          validator version: 001a642db72c303bffdd3ad368a8d8f5b846e282
