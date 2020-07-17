@@ -19,7 +19,7 @@ function setup() {
     export INPUT_INDEX=false
     export INPUT_PATH=/v1
     export INPUT_PROTOCOL=http
-    export INPUT_VALIDATOR_VERSION=001a642db72c303bffdd3ad368a8d8f5b846e282
+    export INPUT_VALIDATOR_VERSION=latest
     export INPUT_VERBOSITY=1
     export INPUT_FAIL_FAST=false
     export INPUT_SKIP_OPTIONAL=false
