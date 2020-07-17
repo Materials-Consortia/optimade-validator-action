@@ -106,3 +106,14 @@ Another is the relative or absolute path to the `.bats` files directory or a sin
 ```
 
 will run the tests in the `test_verbosity.bats` file under the `tests` directory relative to where you're running the `run_tests.sh` file.
+
+## Concerning action versions and `optimade-python-tools`
+
+Since this action installs [`optimade-python-tools`](https://github.com/Materials-Consortia/optimade-python-tools) and runs the validator from this repository, the versions of this Action relies on different versions of the `optimade` package in the `optimade-python-tools` repository.
+
+To keep it simple, this overview will only consider the major versions of this Action:
+
+| Action version | `optimade` package versions | Supported OPTIMADE API specification version(s) |
+| :---: | :---: | :---: |
+| [`v2`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v2.0.0) | [`v0.10.0`](https://github.com/Materials-Consortia/optimade-python-tools/releases/v0.10.0)+ | [`v1.0.0`](https://github.com/Materials-Consortia/OPTIMADE/blob/v1.0.0/optimade.rst) |
+| [`v1`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v1.2.0) | [`v0.7.0`](https://github.com/Materials-Consortia/optimade-python-tools/releases/v0.7.0) - [`v0.9.8`](https://github.com/Materials-Consortia/optimade-python-tools/releases/v0.9.8) | [`v0.10.0`](https://github.com/Materials-Consortia/OPTIMADE/blob/v0.10.0/optimade.md) - [`v1.0.0`](https://github.com/Materials-Consortia/OPTIMADE/blob/v1.0.0/optimade.rst) |
