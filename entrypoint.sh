@@ -6,14 +6,14 @@ if [ "${INPUT_VALIDATOR_VERSION}" = "latest" ]; then
     python -m pip install --no-cache -U --upgrade-strategy=eager optimade
 elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^[0-9]\.[0-9]\.[0-9]$'; then
     echo "Installing version ${INPUT_VALIDATOR_VERSION} of optimade"
-    python -m pip install --no-cache optimade==$1
+    python -m pip install --no-cache -U optimade==$1
 elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^v[0-9]\.[0-9]\.[0-9]$'; then
     OPTIMADE_VERSION=$(echo ${INPUT_VALIDATOR_VERSION} | cut -c 2-)
     echo "Installing version ${OPTIMADE_VERSION} of optimade"
-    python -m pip install --no-cache optimade==${OPTIMADE_VERSION}
+    python -m pip install --no-cache -U optimade==${OPTIMADE_VERSION}
 else
     echo "Installing branch, tag or commit ${INPUT_VALIDATOR_VERSION} of optimade (from GitHub)"
-    python -m pip install --no-cache "https://github.com/Materials-Consortia/optimade-python-tools/tarball/${INPUT_VALIDATOR_VERSION}"
+    python -m pip install --no-cache -U "https://github.com/Materials-Consortia/optimade-python-tools/tarball/${INPUT_VALIDATOR_VERSION}"
 fi
 
 # Retrieve and add GitHub Actions host runner IP to known hosts
@@ -91,11 +91,11 @@ case ${INPUT_ALL_VERSIONED_PATHS} in
         for version in "${API_VERSION[@]}"; do
             if [ "${INPUT_PATH}" = "/" ]; then
                 # For testing
-                echo "run_validator: ${run_validator}${INPUT_PATH}v${version}${index}" >> ./tests/.entrypoint-run_validator.txt
+                echo "run_validator: ${run_validator}${INPUT_PATH}v${version}${index}" > ./tests/.entrypoint-run_validator.txt
                 sh -c "${run_validator}${INPUT_PATH}v${version}${index}"
             else
                 # For testing
-                echo "run_validator: ${run_validator}${INPUT_PATH}/v${version}${index}" >> ./tests/.entrypoint-run_validator.txt
+                echo "run_validator: ${run_validator}${INPUT_PATH}/v${version}${index}" > ./tests/.entrypoint-run_validator.txt
                 sh -c "${run_validator}${INPUT_PATH}/v${version}${index}"
             fi
         done
