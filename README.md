@@ -11,7 +11,7 @@ Latest versions:
 | Used tag | Effective version |
 | :---: | :---: |
 | `v2` | [`v2.0.0`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v2.0.0)
-| `v1` | [`v1.1.0`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v1.1.0)
+| `v1` | [`v1.2.0`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v1.2.0)
 
 ## Example usage
 
@@ -50,7 +50,7 @@ with:
 | `as_type` | Validate the request URL with the provided type, rather than scanning the entire implementation<br>Example values: 'structures', 'reference'. For a full list of values see `optimade-python-tools`. | Optional | - | `v1+`
 | `domain` | Domain for the OPTIMADE URL (defaults to the GitHub Actions runner host) | Optional | `gh_actions_host` | `v1+`
 | `fail_fast` | Whether or not to exit and return a non-zero error code on first failure. | Optional | `false` | `v2+`
-| `index` | Whether or not this is an index meta-database | Optional | `false` | `v2+`
+| `index` | Whether or not this is an index meta-database | Optional | `false` | `v1+`
 | `path` | Path for the OPTIMADE (versioned) base URL - MUST start with `/`<br>_Note_: If `all versioned paths` is `true`, this MUST be un-versioned, e.g., `/optimade` or `/`, otherwise it MUST be versioned, e.g., the default value | Optional | `/v1` | `v1+`
 | `port` | Port for the OPTIMADE URL | Optional | `5000` | `v1+`
 | `protocol` | Protocol for the OPTIMADE URL | Optional | `http` | `v1+`
