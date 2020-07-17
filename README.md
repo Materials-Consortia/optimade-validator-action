@@ -14,22 +14,22 @@ Latest versions:
 
 ## Example usage
 
-To run `optimade-validator` for an index meta-database at `http://gh_actions_host:5001/v0` do the following:  
+To run `optimade-validator` for an index meta-database at `http://gh_actions_host:5001/v1` do the following:  
 Within the same job, first, start a server, e.g., using the `docker-compose.yml` setup from this repository, and then add the step
 
 ```yml
 uses: Materials-Consortia/optimade-validator-action@v1
 with:
   port: 5001
-  path: /v0
+  path: /v1
   index: yes
 ```
 
 To run `optimade-validator` for a regular OPTIMADE _deployed_ implementation, testing all possible versioned base URLs:
 
-- `https://example.org:443/optimade/example/v0`
-- `https://example.org:443/optimade/example/v0.10`
-- `https://example.org:443/optimade/example/v0.10.1`
+- `https://example.org:443/optimade/example/v1`
+- `https://example.org:443/optimade/example/v1.0`
+- `https://example.org:443/optimade/example/v1.0.0`
 
 ```yml
 uses: Materials-Consortia/optimade-validator-action@v1
@@ -45,12 +45,12 @@ with:
 
 | Input | Description | Usage | Default |
 | :---: |    :---     | :---: |  :---:  |
-| `all_versioned_paths` | Whether to test all possible versioned base URLs:<br><br>/vMAJOR<br>/vMAJOR.MINOR<br>/vMAJOR.MINOR.PATCH<br><br>If this is `'true'`, the input `'path'` MUST exempt the version part (e.g., `'/optimade'` instead of `'/optimade/v0'`).<br>If this is `'false'`, the input `'path'` MUST include the version part (e.g., `'/optimade/v0'` instead of `'/optimade'`) | Optional | `false`
+| `all_versioned_paths` | Whether to test all possible versioned base URLs:<br><br>/vMAJOR<br>/vMAJOR.MINOR<br>/vMAJOR.MINOR.PATCH<br><br>If this is `'true'`, the input `'path'` MUST exempt the version part (e.g., `'/optimade'` instead of `'/optimade/v1'`).<br>If this is `'false'`, the input `'path'` MUST include the version part (e.g., `'/optimade/v1'` instead of `'/optimade'`) | Optional | `false`
 | `as_type` | Validate the request URL with the provided type, rather than scanning the entire implementation<br>Example values: 'structures', 'reference'. For a full list of values see `optimade-python-tools`. | Optional | -
 | `domain` | Domain for the OPTIMADE URL (defaults to the GitHub Actions runner host) | Optional | `gh_actions_host`
 | `fail_fast` | Whether or not to exit and return a non-zero error code on first failure. | Optional | `false`
 | `index` | Whether or not this is an index meta-database | Optional | `false`
-| `path` | Path for the OPTIMADE (versioned) base URL - MUST start with `/`<br>_Note_: If `all versioned paths` is `true`, this MUST be un-versioned, e.g., `/optimade` or `/`, otherwise it MUST be versioned, e.g., the default value | Optional | `/v0`
+| `path` | Path for the OPTIMADE (versioned) base URL - MUST start with `/`<br>_Note_: If `all versioned paths` is `true`, this MUST be un-versioned, e.g., `/optimade` or `/`, otherwise it MUST be versioned, e.g., the default value | Optional | `/v1`
 | `port` | Port for the OPTIMADE URL | Optional | `5000`
 | `protocol` | Protocol for the OPTIMADE URL | Optional | `http`
 | `skip_optional` | Whether or not to skip tests for optional features. | Optional | `false`
