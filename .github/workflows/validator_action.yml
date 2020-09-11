@@ -114,19 +114,12 @@ jobs:
   validator_version_fail:
     runs-on: ubuntu-latest
     name: Use validator with wrong version
-    continue-on-error: ${{ matrix.fail_run }}
-
-    strategy:
-      fail-fast: false
-      max-parallel: 1
-      matrix:
-        fail_run: [true, false]
+    continue-on-error: true
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Set up and run regular server
-        if: ${{ matrix.fail_run }}
         run: |
           git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
           docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
@@ -134,7 +127,7 @@ jobs:
           sleep 15
 
       - name: Run action
-        if: ${{ matrix.fail_run }}
+        id: action
         uses: ./
         with:
           port: 3213
@@ -142,9 +135,8 @@ jobs:
           validator version: "0.0.0"
 
       - name: Make sure the "fail_run" failed
-        if: ${{ ! matrix.fail_run }}
         run: |
-          if [ "${{ needs.validator_version_fail.result }}" == "failure" ]; then
+          if [ "${{ steps.action.outcome }}" == "failure" && "${{ steps.action.conclusion }}" == "success" ]; then
             exit 0
           else
             exit 1
