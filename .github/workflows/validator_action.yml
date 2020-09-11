@@ -114,7 +114,6 @@ jobs:
   validator_version_fail:
     runs-on: ubuntu-latest
     name: Use validator with wrong version
-    continue-on-error: true
 
     steps:
       - uses: actions/checkout@v2
@@ -128,6 +127,7 @@ jobs:
 
       - name: Run action
         id: action
+        continue-on-error: true
         uses: ./
         with:
           port: 3213
