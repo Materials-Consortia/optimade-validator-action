@@ -6,6 +6,7 @@ load 'test_fixtures'
     VERBOSITY_DEFAULT=${INPUT_VERBOSITY}  # Use value from 'test_fixtures.bash'
     run ${ENTRYPOINT_SH}
     assert_output --partial "Using verbosity level: ${VERBOSITY_DEFAULT}"
+    refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_FINAL_RUN_VALIDATOR}"
@@ -16,6 +17,7 @@ load 'test_fixtures'
     export INPUT_VERBOSITY=${VALID_VERBOSITY_VALUE}
     run ${ENTRYPOINT_SH}
     assert_output --partial "Using verbosity level: ${VALID_VERBOSITY_VALUE}"
+    refute_output --partial "ERROR"
 
     TEST_FINAL_RUN_VALIDATOR="optimade-validator ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
@@ -39,6 +41,7 @@ load 'test_fixtures'
     export INPUT_VERBOSITY=${VALID_VERBOSITY_VALUE}
     run ${ENTRYPOINT_SH}
     assert_output --partial "Using verbosity level: ${VALID_VERBOSITY_VALUE}"
+    refute_output --partial "ERROR"
 
     TEST_FINAL_RUN_VALIDATOR="optimade-validator -v -v -v ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
