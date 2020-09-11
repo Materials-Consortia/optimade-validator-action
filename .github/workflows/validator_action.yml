@@ -135,7 +135,7 @@ jobs:
           validator version: "0.0.0"
 
       - name: Make sure the "fail_run" failed
-        if: ( "${{ steps.action.outcome }}" != "failure" || "${{ steps.action.conclusion }}" != "success" )
+        if: ${{ steps.action.outcome }} != "failure" || ${{ steps.action.conclusion }} != "success"
         run: |
           echo "Outcome: ${{ steps.action.outcome }}, Conclusion: ${{ steps.action.conclusion }}"
           exit 1
