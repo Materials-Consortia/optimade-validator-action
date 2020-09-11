@@ -134,7 +134,7 @@ jobs:
           path: /v1
           validator version: "0.0.0"
 
-      - name: Make sure the "fail_run" failed
+      - name: This runs ONLY if 'Run action' doesn't fail as expected
         if: steps.action.outcome != 'failure' || steps.action.conclusion != 'success'
         run: |
           echo "Outcome: ${{ steps.action.outcome }} (not 'failure'), Conclusion: ${{ steps.action.conclusion }} (not 'success')"
