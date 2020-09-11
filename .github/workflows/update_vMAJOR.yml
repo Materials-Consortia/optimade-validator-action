@@ -6,3 +6,38 @@ on:
       types: [published]
 
 jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: github.repository == 'Materials-Consortia/optimade-validator-action' && startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+    - name: Update version and update 'master'
+      uses: CasperWA/push-protected@v1
+      with:
+        token: ${{ secrets.RELEASE_PAT_CASPER }}
+        changes: .github/update_version/update_version.sh
+        unprotect_reviews: true
+
+    - name: Update tags to latest commit (getting the newest version locally)
+      run: |
+        git config --local user.email "dev@optimade.org"
+        git config --local user.name "OPTIMADE Developers"
+
+        git fetch origin
+        git branch master origin/master
+        git checkout master
+
+        # Create new full version (v<MAJOR>.<MINOR>.<PATCH>) tag
+        TAG_MSG=.github/update_version/release_tag_msg.txt
+        sed -i "s|TAG_NAME|${GITHUB_REF#refs/tags/}|g" "${TAG_MSG}"
+
+        git tag -af -F "${TAG_MSG}" ${GITHUB_REF#refs/tags/}
+
+        # Move/update v<MAJOR> tag
+        MAJOR_VERSION=$( echo ${GITHUB_REF#refs/tags/v} | cut -d "." -f 1 )
+        TAG_MSG=.github/update_version/major_version_tag_msg.txt
+        sed -i "s|MAJOR|${MAJOR_VERSION}|g" "${TAG_MSG}"
+
+        git tag -af -F "${TAG_MSG}" v${MAJOR_VERSION}
+
+        git push -f --tags
