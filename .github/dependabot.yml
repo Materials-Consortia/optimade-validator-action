@@ -1,0 +1,24 @@
+version: 2
+updates:
+- package-ecosystem: docker
+  directory: "/"
+  schedule:
+    interval: daily
+  target-branch: master
+  labels:
+  - docker_dependencies
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: daily
+  target-branch: master
+  labels:
+  - CI
+- package-ecosystem: docker
+  directory: "/tests"
+  schedule:
+    interval: daily
+  target-branch: master
+  labels:
+  - docker_dependencies
+  - tests
