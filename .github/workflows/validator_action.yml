@@ -144,7 +144,7 @@ jobs:
       - name: Make sure the "fail_run" failed
         if: ${{ ! matrix.fail_run }}
         run: |
-          if [ "${{ job.status }}" == "failure" ]; then
+          if [ "${{ needs.validator_version_fail.result }}" == "failure" ]; then
             exit 0
           else
             exit 1
