@@ -136,4 +136,6 @@ jobs:
 
       - name: Make sure the "fail_run" failed
         if: ( "${{ steps.action.outcome }}" != "failure" || "${{ steps.action.conclusion }}" != "success" )
-        run: exit 1
+        run: |
+          echo "Outcome: ${{ steps.action.outcome }}, Conclusion: ${{ steps.action.conclusion }}"
+          exit 1
