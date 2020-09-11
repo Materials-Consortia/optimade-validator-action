@@ -117,6 +117,8 @@ jobs:
     continue-on-error: ${{ matrix.fail_run }}
 
     strategy:
+      fail-fast: false
+      max-parallel: 1
       matrix:
         fail_run: [true, false]
 
