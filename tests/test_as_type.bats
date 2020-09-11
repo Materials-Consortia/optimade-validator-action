@@ -6,6 +6,7 @@ load 'test_fixtures'
     # There isn't a default for as_type, so it shouldn't result in --as-type being set
     run ${ENTRYPOINT_SH}
     refute_output --partial "Validating as type: "
+    refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_FINAL_RUN_VALIDATOR}"
@@ -16,6 +17,7 @@ load 'test_fixtures'
     export INPUT_AS_TYPE=${VALID_AS_TYPE_VALUE}
     run ${ENTRYPOINT_SH}
     assert_output --partial "Validating as type: ${VALID_AS_TYPE_VALUE}"
+    refute_output --partial "ERROR"
 
     TEST_FINAL_RUN_VALIDATOR="optimade-validator $( for i in {1..${INPUT_VERBOSITY}}; do echo '-v '; done; )--as-type ${VALID_AS_TYPE_VALUE} ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
