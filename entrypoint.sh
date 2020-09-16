@@ -86,7 +86,7 @@ case ${INPUT_INDEX} in
 esac
 
 # Run validator for unversioned base URL
-# For testing
+# Echo line is for testing
 echo "run_validator: ${run_validator}${INPUT_PATH}${index}" > ./tests/.entrypoint-run_validator.txt
 sh -c "${run_validator}${INPUT_PATH}${index}"
 
@@ -101,22 +101,22 @@ case ${INPUT_ALL_VERSIONED_PATHS} in
     y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
         for version in "${API_VERSION[@]}"; do
             run_validator_version="${run_validator}${INPUT_PATH}${filler}${version}${index}"
-            # For testing
-            echo "run_validator: ${run_validator_version}" > ./tests/.entrypoint-run_validator.txt
+            # Echo line is for testing
+            echo "run_validator: ${run_validator_version}" >> ./tests/.entrypoint-run_validator.txt
             sh -c "${run_validator_version}"
         done
         ;;
     n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
         run_validator="${run_validator}${INPUT_PATH}${filler}${API_VERSION[0]}${index}"
-        # For testing
-        echo "run_validator: ${run_validator}" > ./tests/.entrypoint-run_validator.txt
+        # Echo line is for testing
+        echo "run_validator: ${run_validator}" >> ./tests/.entrypoint-run_validator.txt
         sh -c "${run_validator}"
         ;;
     *)
         echo "Non-valid input for 'all versioned paths': ${INPUT_ALL_VERSIONED_PATHS}. Will use default (false)."
         run_validator="${run_validator}${INPUT_PATH}${filler}${API_VERSION[0]}${index}"
-        # For testing
-        echo "run_validator: ${run_validator}" > ./tests/.entrypoint-run_validator.txt
+        # Echo line is for testing
+        echo "run_validator: ${run_validator}" >> ./tests/.entrypoint-run_validator.txt
         sh -c "${run_validator}"
         ;;
 esac

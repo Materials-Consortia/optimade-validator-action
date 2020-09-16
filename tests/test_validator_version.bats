@@ -9,7 +9,8 @@ load 'test_fixtures'
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_FINAL_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
+run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "validator_version='0.6.0'" {
@@ -19,7 +20,8 @@ load 'test_fixtures'
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_FINAL_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
+run_validator: ${TEST_BASE_RUN_VALIDATOR}v0"
 }
 
 @test "validator_version='v0.6.0'" {
@@ -30,7 +32,8 @@ load 'test_fixtures'
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_FINAL_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
+run_validator: ${TEST_BASE_RUN_VALIDATOR}v0"
 }
 
 @test "validator_version='master'" {
@@ -40,12 +43,14 @@ load 'test_fixtures'
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_FINAL_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
+run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "validator_version='0.0.0' (invalid value, should fail with status 1 and message)" {
     export INPUT_VALIDATOR_VERSION=0.0.0
-    run ${ENTRYPOINT_SH}
+    # For this test `set -e` is necessary, since this is what we are testing
+    run ${REAL_ENTRYPOINT_SH}
     assert_output --partial "Installing version $INPUT_VALIDATOR_VERSION of optimade"
     assert_failure 1
     assert_output --partial "ERROR"
