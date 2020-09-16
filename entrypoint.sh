@@ -85,31 +85,36 @@ case ${INPUT_INDEX} in
         ;;
 esac
 
+# Run validator for unversioned base URL
+# For testing
+echo "run_validator: ${run_validator}${INPUT_PATH}${index}" > ./tests/.entrypoint-run_validator.txt
+sh -c "${run_validator}${INPUT_PATH}${index}"
 
+# Run validator for versioned base URL(s)
+if [ "${INPUT_PATH}" = "/" ]; then
+    filler="v"
+else
+    filler="/v"
+fi
 API_VERSION=($(python -c "from optimade import __api_version__; versions = [__api_version__.split('-')[0].split('+')[0].split('.')[0], '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:2]), '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:3])]; print(' '.join(versions))"))
 case ${INPUT_ALL_VERSIONED_PATHS} in
     y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
         for version in "${API_VERSION[@]}"; do
-            if [ "${INPUT_PATH}" = "/" ]; then
-                # For testing
-                echo "run_validator: ${run_validator}${INPUT_PATH}v${version}${index}" > ./tests/.entrypoint-run_validator.txt
-                sh -c "${run_validator}${INPUT_PATH}v${version}${index}"
-            else
-                # For testing
-                echo "run_validator: ${run_validator}${INPUT_PATH}/v${version}${index}" > ./tests/.entrypoint-run_validator.txt
-                sh -c "${run_validator}${INPUT_PATH}/v${version}${index}"
-            fi
+            run_validator="${run_validator}${INPUT_PATH}${filler}${version}${index}"
+            # For testing
+            echo "run_validator: ${run_validator}" > ./tests/.entrypoint-run_validator.txt
+            sh -c "${run_validator}"
         done
         ;;
     n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
-        run_validator="${run_validator}${INPUT_PATH}${index}"
+        run_validator="${run_validator}${INPUT_PATH}${filler}${API_VERSION[0]}${index}"
         # For testing
         echo "run_validator: ${run_validator}" > ./tests/.entrypoint-run_validator.txt
         sh -c "${run_validator}"
         ;;
     *)
         echo "Non-valid input for 'all versioned paths': ${INPUT_ALL_VERSIONED_PATHS}. Will use default (false)."
-        run_validator="${run_validator}${INPUT_PATH}${index}"
+        run_validator="${run_validator}${INPUT_PATH}${filler}${API_VERSION[0]}${index}"
         # For testing
         echo "run_validator: ${run_validator}" > ./tests/.entrypoint-run_validator.txt
         sh -c "${run_validator}"

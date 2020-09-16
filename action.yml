@@ -12,7 +12,7 @@ inputs:
       Whether to test all possible versioned base URLs:
         /vMAJOR; /vMAJOR.MINOR; /vMAJOR.MINOR.PATCH
       If this is 'true', the input 'path' MUST exempt the version part (e.g., '/optimade' instead of '/optimade/v1').
-      If this is 'false', the input 'path' MUST include the version part (e.g., '/optimade/v1' instead of '/optimade').
+      If this is 'false', the action will only validate the implementation at 'path'.
     required: false
     default: false
 
@@ -38,9 +38,12 @@ inputs:
     default: false
 
   path:
-    description: Path of the OPTIMADE (versioned) base URL - MUST start with '/'
+    description: >
+      Path of the OPTIMADE (versioned) base URL - MUST start with '/'.
+      The path MUST NOT include the versioned part of the base URL.
+      Rather, it MUST point to the unversioned base URL of your OPTIMADE implementation.
     required: false
-    default: /v1
+    default: /
 
   port:
     description: Port for the OPTIMADE URL
