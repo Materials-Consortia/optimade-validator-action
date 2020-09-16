@@ -11,8 +11,7 @@ inputs:
     description: >
       Whether to test all possible versioned base URLs:
         /vMAJOR; /vMAJOR.MINOR; /vMAJOR.MINOR.PATCH
-      If this is 'true', the input 'path' MUST exempt the version part (e.g., '/optimade' instead of '/optimade/v1').
-      If this is 'false', the action will only validate the implementation at 'path'.
+      The latter two being optional base URLs according to the specification.
     required: false
     default: false
 
@@ -23,7 +22,7 @@ inputs:
     required: false
 
   domain:
-    description: Domain for the OPTIMADE URL (defaults to the GH Actions runner host)
+    description: Domain for the OPTIMADE URL (defaults to the GH Actions runner host).
     required: false
     default: gh_actions_host
 
@@ -33,7 +32,7 @@ inputs:
     default: false
 
   index:
-    description: Whether or not this is an index meta-database
+    description: Whether or not this is an index meta-database.
     required: false
     default: false
 
@@ -46,11 +45,11 @@ inputs:
     default: /
 
   port:
-    description: Port for the OPTIMADE URL
+    description: Port for the OPTIMADE URL.
     required: false
 
   protocol:
-    description: Protocol for the OPTIMADE URL
+    description: Protocol for the OPTIMADE URL.
     required: false
     default: http
 
