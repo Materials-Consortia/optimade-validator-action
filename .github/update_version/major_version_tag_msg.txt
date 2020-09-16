@@ -1,0 +1,3 @@
+vMAJOR
+
+This is the latest vMAJOR.MINOR.PATCH
