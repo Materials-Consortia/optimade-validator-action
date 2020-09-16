@@ -100,10 +100,10 @@ API_VERSION=($(python -c "from optimade import __api_version__; versions = [__ap
 case ${INPUT_ALL_VERSIONED_PATHS} in
     y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
         for version in "${API_VERSION[@]}"; do
-            run_validator="${run_validator}${INPUT_PATH}${filler}${version}${index}"
+            run_validator_version="${run_validator}${INPUT_PATH}${filler}${version}${index}"
             # For testing
-            echo "run_validator: ${run_validator}" > ./tests/.entrypoint-run_validator.txt
-            sh -c "${run_validator}"
+            echo "run_validator: ${run_validator_version}" > ./tests/.entrypoint-run_validator.txt
+            sh -c "${run_validator_version}"
         done
         ;;
     n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
