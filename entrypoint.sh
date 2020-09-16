@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 # Install OPTIMADE Python tools
 if [ "${INPUT_VALIDATOR_VERSION}" = "latest" ]; then

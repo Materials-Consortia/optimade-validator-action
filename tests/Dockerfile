@@ -14,3 +14,6 @@ RUN echo "**** Updating BATS with bats-support and bats-assert ****" && \
     apk add --no-cache git && \
     git clone https://github.com/bats-core/bats-support ${BATS_TEST_HELPERS}/bats-support && \
     git clone https://github.com/bats-core/bats-assert ${BATS_TEST_HELPERS}/bats-assert
+
+RUN echo "**** Imitating the Action's Dockerfile, retrieving Docker host IP ****" && \
+    echo $(ip route | awk '{print $3}') > /docker_host_ip
