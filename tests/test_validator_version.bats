@@ -42,3 +42,14 @@ load 'test_fixtures'
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_FINAL_RUN_VALIDATOR}"
 }
+
+@test "validator_version='0.0.0' (invalid value, should fail with status 1 and message)" {
+    export INPUT_VALIDATOR_VERSION=0.0.0
+    run ${ENTRYPOINT_SH}
+    assert_output --partial "Installing version $INPUT_VALIDATOR_VERSION of optimade"
+    assert_failure 1
+    assert_output --partial "ERROR"
+
+    run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    assert_output --partial "No such file or directory"
+}

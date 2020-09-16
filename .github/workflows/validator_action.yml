@@ -111,3 +111,32 @@ jobs:
           port: 3213
           path: /v1
           validator version: c6551e27f64abdaa94afd401db22af9ef2afd23d
+
+  validator_version_fail:
+    runs-on: ubuntu-latest
+    name: Use validator with wrong version
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up and run regular server
+        run: |
+          git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
+          docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
+          .github/workflows/wait_for_it.sh localhost:3213 -t 120
+          sleep 15
+
+      - name: Run action
+        id: action
+        continue-on-error: true
+        uses: ./
+        with:
+          port: 3213
+          path: /v1
+          validator version: "0.0.0"
+
+      - name: This runs ONLY if 'Run action' doesn't fail as expected
+        if: steps.action.outcome != 'failure' || steps.action.conclusion != 'success'
+        run: |
+          echo "Outcome: ${{ steps.action.outcome }} (not 'failure'), Conclusion: ${{ steps.action.conclusion }} (not 'success')"
+          exit 1
