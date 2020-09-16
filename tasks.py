@@ -47,4 +47,4 @@ def setver(_, ver=""):
         strip="\n",
     )
 
-    print("Bumped version to {}".format(ver))
+    print(f"Bumped version to {ver}")
