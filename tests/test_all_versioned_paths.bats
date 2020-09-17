@@ -37,6 +37,12 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "all_versioned_paths=True for old spec v0.10.1" {
+    # Unfortunately, we cannot test the correct parsing of `__api_version__`,
+    # since we do not support OPTIMADE Python tools versions < 0.10.0.
+    # The change from __api_version__ 1.0.0-rc1 to 1.0.0 happened for version 0.9.7.
+    # This test will be kept here to be implemented later when/if the OPTIMADE API
+    # specification moves to a version > 1.0.0 (as long as it's still supported).
+    skip "Update when specification version > 1.0.0 is released and used in OPTIMADE Python tools."
     # Use OPTIMADE Python tools commit immediately prior to updating to
     # OPTIMADE specification v1.0.0-rc2.
     # The supported OPTIMADE specification version prior to v1.0.0-rc2 was v0.10.1.
