@@ -38,7 +38,7 @@ inputs:
 
   path:
     description: >
-      Path of the OPTIMADE (versioned) base URL - MUST start with '/'.
+      Path to append to the domain to reach the OPTIMADE unversioned base URL - MUST start with `/`.
       The path MUST NOT include the versioned part of the base URL.
       Rather, it MUST point to the unversioned base URL of your OPTIMADE implementation.
     required: false
