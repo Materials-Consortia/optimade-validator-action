@@ -17,6 +17,14 @@ else
     python -m pip install --no-cache -U "https://github.com/Materials-Consortia/optimade-python-tools/tarball/${INPUT_VALIDATOR_VERSION}"
 fi
 
+# Check optimade-python-tools version is >0.10
+PACKAGE_VERSION=($(python -c "from optimade import __version__; print(__version__.replace('.', ' '))"))
+
+if [ ${PACKAGE_VERSION[0]} -eq 0 ] && [ ${PACKAGE_VERSION[1]} -lt 10 ]; then
+    echo "Incompatible validator version requested ${INPUT_VALIDATOR_VERSION}, please use >=0.10."
+    exit 1
+fi
+
 # Retrieve and add GitHub Actions host runner IP to known hosts
 DOCKER_HOST_IP=$(cat /docker_host_ip)
 echo ${DOCKER_HOST_IP} gh_actions_host >> /etc/hosts
