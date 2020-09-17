@@ -5,10 +5,10 @@ set -e
 if [ "${INPUT_VALIDATOR_VERSION}" = "latest" ]; then
     echo "Installing latest version of optimade"
     python -m pip install --no-cache -U --upgrade-strategy=eager optimade
-elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^[0-9]\.[0-9]\.[0-9]$'; then
+elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
     echo "Installing version ${INPUT_VALIDATOR_VERSION} of optimade"
     python -m pip install --no-cache -U optimade==${INPUT_VALIDATOR_VERSION}
-elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^v[0-9]\.[0-9]\.[0-9]$'; then
+elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
     OPTIMADE_VERSION=$(echo ${INPUT_VALIDATOR_VERSION} | cut -c 2-)
     echo "Installing version ${OPTIMADE_VERSION} of optimade"
     python -m pip install --no-cache -U optimade==${OPTIMADE_VERSION}
