@@ -62,7 +62,7 @@ This can be chosen using the input `validator_version`.
 | `domain` | Domain for the OPTIMADE URL (defaults to the GitHub Actions runner host) | Optional | `gh_actions_host` | `v1+`
 | `fail_fast` | Whether or not to exit and return a non-zero error code on first failure. | Optional | `false` | `v2+`
 | `index` | Whether or not this is an index meta-database | Optional | `false` | `v1+`
-| `path` | Path for the OPTIMADE (versioned) base URL - MUST start with `/`<br>The path MUST NOT include the versioned part of the base URL. Rather, it MUST point to the unversioned base URL of your OPTIMADE implementation. | Optional | `/` | `v1+`
+| `path` | Path to append to the domain to reach the OPTIMADE unversioned base URL - MUST start with `/`<br>The path MUST NOT include the versioned part of the base URL. Rather, it MUST point to the unversioned base URL of your OPTIMADE implementation` | Optional | `/` | `v1+`
 | `port` | Port for the OPTIMADE URL | Optional | `5000` | `v1+`
 | `protocol` | Protocol for the OPTIMADE URL | Optional | `http` | `v1+`
 | `skip_optional` | Whether or not to skip tests for optional features. | Optional | `false` | `v2+`
