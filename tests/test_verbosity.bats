@@ -9,7 +9,8 @@ load 'test_fixtures'
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_FINAL_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
+run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "verbosity=0" {
@@ -19,9 +20,10 @@ load 'test_fixtures'
     assert_output --partial "Using verbosity level: ${VALID_VERBOSITY_VALUE}"
     refute_output --partial "ERROR"
 
-    TEST_FINAL_RUN_VALIDATOR="optimade-validator ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
+    TEST_BASE_RUN_VALIDATOR="optimade-validator ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_FINAL_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
+run_validator: ${TEST_BASE_RUN_VALIDATOR}v1"
 }
 
 @test "verbosity='test' (invalid value, should use default instead)" {
@@ -33,7 +35,8 @@ load 'test_fixtures'
     assert_output --partial "Using verbosity level: ${VERBOSITY_DEFAULT}"
 
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_FINAL_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
+run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "verbosity=3" {
@@ -43,7 +46,8 @@ load 'test_fixtures'
     assert_output --partial "Using verbosity level: ${VALID_VERBOSITY_VALUE}"
     refute_output --partial "ERROR"
 
-    TEST_FINAL_RUN_VALIDATOR="optimade-validator -v -v -v ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
+    TEST_BASE_RUN_VALIDATOR="optimade-validator -v -v -v ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
     run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_FINAL_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
+run_validator: ${TEST_BASE_RUN_VALIDATOR}v1"
 }
