@@ -1,12 +1,11 @@
 from pathlib import Path
 import re
+import sys
 from typing import Tuple
 
 try:
     from invoke import task
 except ImportError:
-    import sys
-
     sys.exit("'invoke' MUST be installed to run these tasks.")
 
 
@@ -30,14 +29,13 @@ def setver(_, ver=""):
     """Sets the OPTIMADE Validator Action version"""
     match = re.fullmatch(r"v?([0-9]+\.[0-9]+\.[0-9]+)", ver)
     if not match or (match and len(match.groups()) != 1):
-        print(
-            "Error: Please specify version as 'Major.Minor.Patch' or 'vMajor.Minor.Patch'"
-        )
-        sys.exit(1)
+        sys.exit("Error: Please specify version as 'Major.Minor.Patch' or 'vMajor.Minor.Patch'")
     ver = match.group(1)
 
     major_version = ver.split(".")[0]
-    tag_url = "https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/"
+    tag_url = (
+        "https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/"
+    )
     update_file(
         TOP_DIR.joinpath("README.md"),
         (
