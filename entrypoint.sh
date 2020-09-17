@@ -5,16 +5,24 @@ set -e
 if [ "${INPUT_VALIDATOR_VERSION}" = "latest" ]; then
     echo "Installing latest version of optimade"
     python -m pip install --no-cache -U --upgrade-strategy=eager optimade
-elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^[0-9]\.[0-9]\.[0-9]$'; then
+elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
     echo "Installing version ${INPUT_VALIDATOR_VERSION} of optimade"
     python -m pip install --no-cache -U optimade==${INPUT_VALIDATOR_VERSION}
-elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^v[0-9]\.[0-9]\.[0-9]$'; then
+elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
     OPTIMADE_VERSION=$(echo ${INPUT_VALIDATOR_VERSION} | cut -c 2-)
     echo "Installing version ${OPTIMADE_VERSION} of optimade"
     python -m pip install --no-cache -U optimade==${OPTIMADE_VERSION}
 else
     echo "Installing branch, tag or commit ${INPUT_VALIDATOR_VERSION} of optimade (from GitHub)"
     python -m pip install --no-cache -U "https://github.com/Materials-Consortia/optimade-python-tools/tarball/${INPUT_VALIDATOR_VERSION}"
+fi
+
+# Check optimade-python-tools version is >0.10
+PACKAGE_VERSION=($(python -c "from optimade import __version__; print(__version__.replace('.', ' '))"))
+
+if [ ${PACKAGE_VERSION[0]} -eq 0 ] && [ ${PACKAGE_VERSION[1]} -lt 10 ]; then
+    echo "Incompatible validator version requested ${INPUT_VALIDATOR_VERSION}, please use >=0.10."
+    exit 1
 fi
 
 # Retrieve and add GitHub Actions host runner IP to known hosts
