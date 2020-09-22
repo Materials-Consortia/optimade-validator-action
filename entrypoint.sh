@@ -31,7 +31,21 @@ echo ${DOCKER_HOST_IP} gh_actions_host >> /etc/hosts
 
 run_validator="optimade-validator"
 
-if echo ${INPUT_VERBOSITY} | grep -Eq '[^0-9]'; then
+case ${INPUT_CREATE_OUTPUT} in
+    y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
+        echo "Will create JSON output, retrievable through '\${{ steps.<step_id>.outputs.results }}'."
+        echo "Verbosity level will be reset to '-1'."
+        run_validator="${run_validator} --json"
+        INPUT_VERBOSITY=-1
+        ;;
+    n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
+        ;;
+    *)
+        echo "Non-valid input for 'create_output': ${INPUT_CREATE_OUTPUT}. Will use default (false)."
+        ;;
+esac
+
+if echo ${INPUT_VERBOSITY} | grep -Eq -e '[^-?0-9]'; then
     # Bad value for `verbosity`
     echo "Non-valid input for 'verbosity': ${INPUT_VERBOSITY}. Will use default (1)."
     INPUT_VERBOSITY=1
@@ -96,7 +110,7 @@ esac
 # Run validator for unversioned base URL
 # Echo line is for testing
 echo "run_validator: ${run_validator}${INPUT_PATH}${index}" > ./tests/.entrypoint-run_validator.txt
-sh -c "${run_validator}${INPUT_PATH}${index}"
+sh -c "${run_validator}${INPUT_PATH}${index}" | tee "unversioned.json"
 
 # Run validator for versioned base URL(s)
 if [ "${INPUT_PATH}" = "/" ]; then
@@ -111,20 +125,26 @@ case ${INPUT_ALL_VERSIONED_PATHS} in
             run_validator_version="${run_validator}${INPUT_PATH}${filler}${version}${index}"
             # Echo line is for testing
             echo "run_validator: ${run_validator_version}" >> ./tests/.entrypoint-run_validator.txt
-            sh -c "${run_validator_version}"
+            sh -c "${run_validator_version}" | tee "v${version}.json"
         done
         ;;
     n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
         run_validator="${run_validator}${INPUT_PATH}${filler}${API_VERSION[0]}${index}"
         # Echo line is for testing
         echo "run_validator: ${run_validator}" >> ./tests/.entrypoint-run_validator.txt
-        sh -c "${run_validator}"
+        sh -c "${run_validator}" | tee "v${API_VERSION[0]}.json"
         ;;
     *)
         echo "Non-valid input for 'all versioned paths': ${INPUT_ALL_VERSIONED_PATHS}. Will use default (false)."
         run_validator="${run_validator}${INPUT_PATH}${filler}${API_VERSION[0]}${index}"
         # Echo line is for testing
         echo "run_validator: ${run_validator}" >> ./tests/.entrypoint-run_validator.txt
-        sh -c "${run_validator}"
+        sh -c "${run_validator}" | tee "v${API_VERSION[0]}.json"
         ;;
 esac
+
+# Create output 'results'
+RESULTS=$(python helper.py results)
+# First echo line is for testing
+echo "results: ${RESULTS}"
+echo "::set-output name=results::${RESULTS}"

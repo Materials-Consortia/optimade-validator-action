@@ -36,6 +36,13 @@ inputs:
     required: false
     default: false
 
+  create output:
+    description: >
+      Use `-j/--json` option for `optimade-validator`.
+      This will overwrite the `verbosity` input parameter, since it will be set to `-1` when using the `-j/--json` option.
+    required: false
+    default: false
+
   path:
     description: >
       Path to append to the domain to reach the OPTIMADE unversioned base URL - MUST start with `/`.
@@ -72,6 +79,14 @@ inputs:
     description: The verbosity of the output
     required: false
     default: 1
+
+outputs:
+
+  results:
+    description: >
+      JSON object with results overview from `optimade-validator`.
+      This is equivalent to passing `-j/--json` to `optimade-validator`.
+      NOTE: This is only set if `create output` is set to `True`.
 
 runs:
   using: 'docker'
