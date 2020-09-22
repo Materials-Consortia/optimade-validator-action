@@ -110,7 +110,7 @@ esac
 # Run validator for unversioned base URL
 # Echo line is for testing
 echo "run_validator: ${run_validator}${INPUT_PATH}${index}" > ./tests/.entrypoint-run_validator.txt
-sh -c "${run_validator}${INPUT_PATH}${index}" | tee "unversioned.json"
+sh -c "${run_validator}${INPUT_PATH}${index}" | tee -p exit-nopipe "unversioned.json"
 
 # Run validator for versioned base URL(s)
 if [ "${INPUT_PATH}" = "/" ]; then
