@@ -26,6 +26,31 @@ def delete_files(path):
         os.remove(filename)
 
 
+def optimade_api_version():
+    """Print OPTIMADE API version supported in currently installed optimade package as input for shell array"""
+    try:
+        from optimade import __api_version__
+    except ImportError:
+        exit("optimade MUST be installed to run 'api-version'")
+
+    versions = [
+        __api_version__.split('-')[0].split('+')[0].split('.')[0],
+        '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:2]),
+        '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:3]),
+    ]
+    print(' '.join(versions))
+
+
+def optimade_package_version():
+    """Print optimade package version in currently installed environment as input for shell array"""
+    try:
+        from optimade import __version__
+    except ImportError:
+        exit("optimade MUST be installed to run 'package-version'")
+
+    print(__version__.split('-')[0].split('+')[0].replace('.', ' '))
+
+
 if __name__ == "__main__":
     commands = ["api-versions", "package-version", "results"]
 
@@ -34,9 +59,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.cmd == "api-versions":
-        pass
+        optimade_api_version()
     elif args.cmd == "package-version":
-        pass
+        optimade_package_version()
     elif args.cmd == "results":
         create_output()
         delete_files("*.json")
