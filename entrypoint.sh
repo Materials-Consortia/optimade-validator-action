@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -e
+set -o pipefail
 
 # Install OPTIMADE Python tools
 if [ "${INPUT_VALIDATOR_VERSION}" = "latest" ]; then
@@ -110,7 +111,7 @@ esac
 # Run validator for unversioned base URL
 # Echo line is for testing
 echo "run_validator: ${run_validator}${INPUT_PATH}${index}" > ./tests/.entrypoint-run_validator.txt
-sh -c "${run_validator}${INPUT_PATH}${index}" | tee -p exit-nopipe "unversioned.json"
+sh -c "${run_validator}${INPUT_PATH}${index}" | tee "unversioned.json"
 
 # Run validator for versioned base URL(s)
 if [ "${INPUT_PATH}" = "/" ]; then
@@ -143,8 +144,15 @@ case ${INPUT_ALL_VERSIONED_PATHS} in
         ;;
 esac
 
+# This retrieves the _latest run_ `optimade-validator` and saves the exit code,
+# which is to be used as the whole script's exit code.
+# This is _only_ for testing, since in "normal" conditions `set -e` would be set,
+# as well as `set -o pipefail`, meaning the script should instantly exit and fail
+# if any error occurs.
+EXIT_CODE=${PIPESTATUS[0]}
+
 # Create output 'results'
 RESULTS=$(python helper.py results)
-# First echo line is for testing
-echo "results: ${RESULTS}"
 echo "::set-output name=results::${RESULTS}"
+
+exit ${EXIT_CODE}
