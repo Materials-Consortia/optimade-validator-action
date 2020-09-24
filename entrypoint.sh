@@ -34,13 +34,14 @@ run_validator="optimade-validator"
 
 case ${INPUT_CREATE_OUTPUT} in
     y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
-        if ! ( [ ${PACKAGE_VERSION[0]} -eq 0 ] && [ ${PACKAGE_VERSION[1]} -lt 13 ] ); then
+        if [ ${PACKAGE_VERSION[0]} -eq 0 ] && ( ( [ ${PACKAGE_VERSION[1]} -eq 12 ] && [ ${PACKAGE_VERSION[2]} -lt 1 ] ) || [ ${PACKAGE_VERSION[1]} -lt 12 ] ); then
+            # optimade < 0.12.1
+            echo "create_output not supported for the chosen validator_version (${INPUT_VALIDATOR_VERSION})"
+        else
             echo "Will create JSON output, retrievable through '\${{ steps.<step_id>.outputs.results }}'."
             echo "Verbosity level will be reset to '-1'."
             run_validator="${run_validator} --json"
             INPUT_VERBOSITY=-1
-        else
-            echo "create_output not supported for the chosen validator_version (${INPUT_VALIDATOR_VERSION})"
         fi
         ;;
     n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
