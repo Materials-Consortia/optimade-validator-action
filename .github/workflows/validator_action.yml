@@ -168,7 +168,7 @@ jobs:
           import json, os
           expected_keys = ["unversioned", "v1"]  # complete list
           expected_results_keys = ["success_count", "failure_count"]  # not complete list
-          results = json.loads(os.getenv("RESULTS", {}))
+          results = json.loads(os.getenv("RESULTS"))
           assert len(results) == len(expected_keys)
           for key in expected_keys:
             assert key in results
@@ -192,7 +192,7 @@ jobs:
           import json, os
           expected_keys = ["unversioned", "v1", "v1.0", "v1.0.0"]  # complete list
           expected_results_keys = ["success_count", "failure_count"]  # not complete list
-          results = json.loads(os.getenv("RESULTS", {}))
+          results = json.loads(os.getenv("RESULTS"))
           assert len(results) == len(expected_keys)
           for key in expected_keys:
             assert key in results
