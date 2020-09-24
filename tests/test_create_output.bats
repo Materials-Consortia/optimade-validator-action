@@ -3,7 +3,6 @@
 load 'test_fixtures'
 
 @test "create_output=True" {
-    skip "Unskip when 'optimade' has made a new release (newer than v0.12.0)"
     export INPUT_CREATE_OUTPUT=True
     run ${ENTRYPOINT_SH}
     assert_output --partial "Will create JSON output"
