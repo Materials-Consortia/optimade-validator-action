@@ -158,6 +158,6 @@ EXIT_CODE=${PIPESTATUS[0]}
 
 # Create output 'results'
 RESULTS=$(python helper.py results)
-echo "::set-output name=results::${RESULTS//\"/\\\"}"
+echo "::set-output name=results::${RESULTS}"
 
 exit ${EXIT_CODE}
