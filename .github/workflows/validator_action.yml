@@ -164,17 +164,7 @@ jobs:
       - name: Check "default" output
         env:
           RESULTS: ${{ steps.action.outputs.results }}
-        run: |
-          import json, os
-          expected_keys = ["unversioned", "v1"]  # complete list
-          expected_results_keys = ["success_count", "failure_count"]  # not complete list
-          results = json.loads(os.getenv("RESULTS"))
-          assert len(results) == len(expected_keys)
-          for key in expected_keys:
-            assert key in results
-            for sub_key in expected_results_keys:
-              assert sub_key in results[key]
-        shell: python
+        run: python .github/workflows/ci_helper.py default
 
       - name: Run action with all_versioned_paths to retrieve output
         id: action_all
@@ -188,14 +178,4 @@ jobs:
       - name: Check "all_versioned_paths" output
         env:
           RESULTS: ${{ steps.action_all.outputs.results }}
-        run: |
-          import json, os
-          expected_keys = ["unversioned", "v1", "v1.0", "v1.0.0"]  # complete list
-          expected_results_keys = ["success_count", "failure_count"]  # not complete list
-          results = json.loads(os.getenv("RESULTS"))
-          assert len(results) == len(expected_keys)
-          for key in expected_keys:
-            assert key in results
-            for sub_key in expected_results_keys:
-              assert sub_key in results[key]
-        shell: python
+        run: python .github/workflows/ci_helper.py all_versioned_paths
