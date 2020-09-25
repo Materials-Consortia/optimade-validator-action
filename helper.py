@@ -15,7 +15,7 @@ def create_output():
                 results[name] = json.load(handle)
             except json.JSONDecodeError:
                 continue
-    print(json.dumps(results, indent=2))
+    print(json.dumps(results, indent=None, separators=(",", ":")))
 
 
 def delete_files(path):
