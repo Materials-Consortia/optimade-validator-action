@@ -15,11 +15,11 @@ def create_output():
                 results[name] = json.load(handle)
             except json.JSONDecodeError:
                 continue
-    print(json.dumps(results))
+    print(json.dumps(results, indent=2))
 
 
 def delete_files(path):
-    """Delete files"""
+    """Deletes all files matching the pattern passed in `path`."""
     import os
 
     for filename in iglob(path):

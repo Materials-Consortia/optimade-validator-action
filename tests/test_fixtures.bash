@@ -23,7 +23,7 @@ function setup_file() {
     export INPUT_PATH=/
     export INPUT_PROTOCOL=http
     export INPUT_SKIP_OPTIONAL=false
-    export INPUT_VALIDATOR_VERSION=master
+    export INPUT_VALIDATOR_VERSION=latest
     export INPUT_VERBOSITY=1
 
     # Validator runs executed (with defaults)
