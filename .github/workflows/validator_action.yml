@@ -163,7 +163,7 @@ jobs:
 
       - name: Check "default" output
         env:
-          RESULTS: ${{ steps.action.outputs.results }}
+          RESULTS: "${{ steps.action.outputs.results }}"
         run: python .github/workflows/ci_helper.py default
 
       - name: Run action with all_versioned_paths to retrieve output
@@ -177,5 +177,5 @@ jobs:
 
       - name: Check "all_versioned_paths" output
         env:
-          RESULTS: ${{ steps.action_all.outputs.results }}
+          RESULTS: "${{ steps.action_all.outputs.results }}"
         run: python .github/workflows/ci_helper.py all_versioned_paths
