@@ -23,7 +23,12 @@ def delete_files(path):
     import os
 
     for filename in iglob(path):
-        os.remove(filename)
+        if os.path.isfile(filename):
+            os.remove(filename)
+        else:
+            import warnings
+
+            warnings.warn(f"{filename!r} does not seem to be a file, did not remove it.")
 
 
 def optimade_api_version():
