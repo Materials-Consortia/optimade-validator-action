@@ -182,7 +182,7 @@ jobs:
 
   external_run:
     runs-on: ubuntu-latest
-    name: Run action with as if external
+    name: Run action as if external
     steps:
       - name: Set up and run regular server
         run: |
