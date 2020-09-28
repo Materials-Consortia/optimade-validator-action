@@ -34,10 +34,14 @@ function setup_file() {
     rm -f ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
     rm -f ${ENTRYPOINT_SH}
 
-    # Comment out "set -e" from entrypoint.sh in a new test entrypoint.sh
+    # Create BATS test entrypoint.sh at ${ENTRYPOINT_SH}
     while IFS="" read -r line || [ -n "${line}" ]; do
         if [[ "${line}" =~ ^set[[:blank:]]-e$ ]]; then
+            # Comment out "set -e" from entrypoint.sh in a new test entrypoint.sh
             line="# ${line}"
+        fi
+        if [[ "${line}" =~ ^.*helper\.py.*$ ]]; then
+            line="${line/\/helper\.py/helper.py}"
         fi
         printf "%s\n" "${line}" >> ${ENTRYPOINT_SH}
     done < ${REAL_ENTRYPOINT_SH}
