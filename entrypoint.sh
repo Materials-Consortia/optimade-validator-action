@@ -19,7 +19,7 @@ else
 fi
 
 # Check optimade-python-tools version is >0.10
-PACKAGE_VERSION=($(python helper.py package-version))
+PACKAGE_VERSION=($(python /helper.py package-version))
 
 if [ ${PACKAGE_VERSION[0]} -eq 0 ] && [ ${PACKAGE_VERSION[1]} -lt 10 ]; then
     echo "Incompatible validator version requested ${INPUT_VALIDATOR_VERSION}, please use >=0.10."
@@ -124,7 +124,7 @@ if [ "${INPUT_PATH}" = "/" ]; then
 else
     filler="/v"
 fi
-API_VERSION=($(python helper.py api-versions))
+API_VERSION=($(python /helper.py api-versions))
 case ${INPUT_ALL_VERSIONED_PATHS} in
     y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
         for version in "${API_VERSION[@]}"; do
@@ -157,7 +157,7 @@ esac
 EXIT_CODE=${PIPESTATUS[0]}
 
 # Create output 'results'
-RESULTS=$(python helper.py results)
+RESULTS=$(python /helper.py results)
 echo "::set-output name=results::${RESULTS}"
 
 exit ${EXIT_CODE}
