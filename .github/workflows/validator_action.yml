@@ -192,6 +192,6 @@ jobs:
           sleep 15
 
       - name: Run action (as if external)
-        uses: Materials-Consortia/optimade-validator-action@{{ github.sha }}
+        uses: Materials-Consortia/optimade-validator-action@${{ github.sha }}
         with:
           port: 3213
