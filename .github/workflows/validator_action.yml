@@ -179,3 +179,19 @@ jobs:
         env:
           RESULTS: "${{ steps.action_all.outputs.results }}"
         run: python .github/workflows/ci_helper.py all_versioned_paths
+
+  external_run:
+    runs-on: ubuntu-latest
+    name: Run action with as if external
+    steps:
+      - name: Set up and run regular server
+        run: |
+          git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
+          docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
+          .github/workflows/wait_for_it.sh localhost:3213 -t 120
+          sleep 15
+
+      - name: Run action (as if external)
+        uses: Materials-Consortia/optimade-validator-action@{{ github.sha }}
+        with:
+          port: 3213
