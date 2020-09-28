@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -e
+set -o pipefail
 
 # Install OPTIMADE Python tools
 if [ "${INPUT_VALIDATOR_VERSION}" = "latest" ]; then
@@ -18,7 +19,7 @@ else
 fi
 
 # Check optimade-python-tools version is >0.10
-PACKAGE_VERSION=($(python -c "from optimade import __version__; print(__version__.replace('.', ' '))"))
+PACKAGE_VERSION=($(python helper.py package-version))
 
 if [ ${PACKAGE_VERSION[0]} -eq 0 ] && [ ${PACKAGE_VERSION[1]} -lt 10 ]; then
     echo "Incompatible validator version requested ${INPUT_VALIDATOR_VERSION}, please use >=0.10."
@@ -31,7 +32,26 @@ echo ${DOCKER_HOST_IP} gh_actions_host >> /etc/hosts
 
 run_validator="optimade-validator"
 
-if echo ${INPUT_VERBOSITY} | grep -Eq '[^0-9]'; then
+case ${INPUT_CREATE_OUTPUT} in
+    y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
+        if [ ${PACKAGE_VERSION[0]} -eq 0 ] && ( ( [ ${PACKAGE_VERSION[1]} -eq 12 ] && [ ${PACKAGE_VERSION[2]} -lt 1 ] ) || [ ${PACKAGE_VERSION[1]} -lt 12 ] ); then
+            # optimade < 0.12.1
+            echo "create_output not supported for the chosen validator_version (${INPUT_VALIDATOR_VERSION})"
+        else
+            echo "Will create JSON output, retrievable through '\${{ steps.<step_id>.outputs.results }}'."
+            echo "Verbosity level will be reset to '-1'."
+            run_validator="${run_validator} --json"
+            INPUT_VERBOSITY=-1
+        fi
+        ;;
+    n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
+        ;;
+    *)
+        echo "Non-valid input for 'create_output': ${INPUT_CREATE_OUTPUT}. Will use default (false)."
+        ;;
+esac
+
+if echo ${INPUT_VERBOSITY} | grep -Eq -e '[^-?0-9]'; then
     # Bad value for `verbosity`
     echo "Non-valid input for 'verbosity': ${INPUT_VERBOSITY}. Will use default (1)."
     INPUT_VERBOSITY=1
@@ -96,7 +116,7 @@ esac
 # Run validator for unversioned base URL
 # Echo line is for testing
 echo "run_validator: ${run_validator}${INPUT_PATH}${index}" > ./tests/.entrypoint-run_validator.txt
-sh -c "${run_validator}${INPUT_PATH}${index}"
+sh -c "${run_validator}${INPUT_PATH}${index}" | tee "unversioned.json"
 
 # Run validator for versioned base URL(s)
 if [ "${INPUT_PATH}" = "/" ]; then
@@ -104,27 +124,40 @@ if [ "${INPUT_PATH}" = "/" ]; then
 else
     filler="/v"
 fi
-API_VERSION=($(python -c "from optimade import __api_version__; versions = [__api_version__.split('-')[0].split('+')[0].split('.')[0], '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:2]), '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:3])]; print(' '.join(versions))"))
+API_VERSION=($(python helper.py api-versions))
 case ${INPUT_ALL_VERSIONED_PATHS} in
     y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
         for version in "${API_VERSION[@]}"; do
             run_validator_version="${run_validator}${INPUT_PATH}${filler}${version}${index}"
             # Echo line is for testing
             echo "run_validator: ${run_validator_version}" >> ./tests/.entrypoint-run_validator.txt
-            sh -c "${run_validator_version}"
+            sh -c "${run_validator_version}" | tee "v${version}.json"
         done
         ;;
     n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
         run_validator="${run_validator}${INPUT_PATH}${filler}${API_VERSION[0]}${index}"
         # Echo line is for testing
         echo "run_validator: ${run_validator}" >> ./tests/.entrypoint-run_validator.txt
-        sh -c "${run_validator}"
+        sh -c "${run_validator}" | tee "v${API_VERSION[0]}.json"
         ;;
     *)
         echo "Non-valid input for 'all versioned paths': ${INPUT_ALL_VERSIONED_PATHS}. Will use default (false)."
         run_validator="${run_validator}${INPUT_PATH}${filler}${API_VERSION[0]}${index}"
         # Echo line is for testing
         echo "run_validator: ${run_validator}" >> ./tests/.entrypoint-run_validator.txt
-        sh -c "${run_validator}"
+        sh -c "${run_validator}" | tee "v${API_VERSION[0]}.json"
         ;;
 esac
+
+# This retrieves the _latest run_ `optimade-validator` and saves the exit code,
+# which is to be used as the whole script's exit code.
+# This is _only_ for testing, since in "normal" conditions `set -e` would be set,
+# as well as `set -o pipefail`, meaning the script should instantly exit and fail
+# if any error occurs.
+EXIT_CODE=${PIPESTATUS[0]}
+
+# Create output 'results'
+RESULTS=$(python helper.py results)
+echo "::set-output name=results::${RESULTS}"
+
+exit ${EXIT_CODE}

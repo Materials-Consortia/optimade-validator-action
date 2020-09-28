@@ -12,7 +12,6 @@ jobs:
   validator_regular:
     runs-on: ubuntu-latest
     name: Regular server
-
     steps:
       - uses: actions/checkout@v2
 
@@ -32,7 +31,6 @@ jobs:
   validator_index:
     runs-on: ubuntu-latest
     name: Index server
-
     steps:
       - uses: actions/checkout@v2
 
@@ -53,7 +51,6 @@ jobs:
   all_versioned_paths:
     runs-on: ubuntu-latest
     name: All versioned paths for regular server
-
     steps:
       - uses: actions/checkout@v2
 
@@ -81,7 +78,6 @@ jobs:
   bats:
     runs-on: ubuntu-latest
     name: Run BATS test suite for entrypoint.sh
-
     steps:
       - uses: actions/checkout@v2
 
@@ -94,7 +90,6 @@ jobs:
   validator_version:
     runs-on: ubuntu-latest
     name: Use validator from git commit sha
-
     steps:
       - uses: actions/checkout@v2
 
@@ -115,7 +110,6 @@ jobs:
   validator_version_fail:
     runs-on: ubuntu-latest
     name: Use validator with wrong version
-
     steps:
       - uses: actions/checkout@v2
 
@@ -140,3 +134,48 @@ jobs:
         run: |
           echo "Outcome: ${{ steps.action.outcome }} (not 'failure'), Conclusion: ${{ steps.action.conclusion }} (not 'success')"
           exit 1
+
+  results_output:
+    runs-on: ubuntu-latest
+    name: Retrieve and check validator results
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Set up and run regular server
+        run: |
+          git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
+          docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
+          .github/workflows/wait_for_it.sh localhost:3213 -t 120
+          sleep 15
+
+      - name: Run action to retrieve output
+        id: action
+        uses: ./
+        with:
+          port: 3213
+          path: /
+          create output: true
+
+      - name: Check "default" output
+        env:
+          RESULTS: "${{ steps.action.outputs.results }}"
+        run: python .github/workflows/ci_helper.py default
+
+      - name: Run action with all_versioned_paths to retrieve output
+        id: action_all
+        uses: ./
+        with:
+          port: 3213
+          path: /
+          create output: true
+          all versioned paths: true
+
+      - name: Check "all_versioned_paths" output
+        env:
+          RESULTS: "${{ steps.action_all.outputs.results }}"
+        run: python .github/workflows/ci_helper.py all_versioned_paths

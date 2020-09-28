@@ -19,6 +19,7 @@ function setup_file() {
     export INPUT_DOMAIN=gh_actions_host
     export INPUT_FAIL_FAST=false
     export INPUT_INDEX=false
+    export INPUT_CREATE_OUTPUT=false
     export INPUT_PATH=/
     export INPUT_PROTOCOL=http
     export INPUT_SKIP_OPTIONAL=false
