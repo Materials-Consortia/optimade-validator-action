@@ -89,7 +89,7 @@ Steps to setup your test environment:
 Now you can run
 
 ```sh
-docker run -i -v "$(pwd):/code" --workdir /code/tests optimade_bats .
+docker run --rm -it -v "$(pwd):/code" --workdir /code optimade_bats ./tests
 ```
 
 or
