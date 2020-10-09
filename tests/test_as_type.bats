@@ -8,7 +8,7 @@ load 'test_fixtures'
     refute_output --partial "Validating as type: "
     refute_output --partial "ERROR"
 
-    run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
 run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
@@ -21,7 +21,7 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     refute_output --partial "ERROR"
 
     TEST_BASE_RUN_VALIDATOR="optimade-validator $( for i in {1..${INPUT_VERBOSITY}}; do echo '-v '; done; )--as-type ${VALID_AS_TYPE_VALUE} ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
-    run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
 run_validator: ${TEST_BASE_RUN_VALIDATOR}v1"
 }
@@ -36,7 +36,7 @@ run_validator: ${TEST_BASE_RUN_VALIDATOR}v1"
     assert_output --partial "${INVALID_AS_TYPE_VALUE} is not a valid type, must be one of "
 
     TEST_BASE_RUN_VALIDATOR="optimade-validator $( for i in {1..${INPUT_VERBOSITY}}; do echo '-v '; done; )--as-type ${INVALID_AS_TYPE_VALUE} ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
-    run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
 run_validator: ${TEST_BASE_RUN_VALIDATOR}v1"
 }
