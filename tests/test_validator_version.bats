@@ -8,7 +8,7 @@ load 'test_fixtures'
     assert_output --partial "Installing latest version of optimade"
     refute_output --partial "ERROR"
 
-    run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
 run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
@@ -19,7 +19,7 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     assert_output --partial "Installing version $INPUT_VALIDATOR_VERSION of optimade"
     refute_output --partial "ERROR"
 
-    run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
 run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
@@ -31,7 +31,7 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     assert_output --partial "Installing version $OUTPUT_OPTIMADE_VERSION of optimade"
     refute_output --partial "ERROR"
 
-    run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
 run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
@@ -42,7 +42,7 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     assert_output --partial "Installing branch, tag or commit $INPUT_VALIDATOR_VERSION of optimade (from GitHub)"
     refute_output --partial "ERROR"
 
-    run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
 run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
@@ -55,7 +55,7 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     assert_failure 1
     assert_output --partial "ERROR"
 
-    run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output --partial "No such file or directory"
 }
 
@@ -66,7 +66,7 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     assert_failure 1
     refute_output --partial "ERROR"  # This checks if pip fails, it should not
 
-    run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output --partial "No such file or directory"
 }
 
@@ -77,7 +77,7 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     assert_failure 1
     refute_output --partial "ERROR"  # This checks if pip fails, it should not
 
-    run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output --partial "No such file or directory"
 }
 
@@ -88,6 +88,6 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     assert_failure 1
     refute_output --partial "ERROR"  # This checks if pip fails, it should not
 
-    run cat ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output --partial "No such file or directory"
 }

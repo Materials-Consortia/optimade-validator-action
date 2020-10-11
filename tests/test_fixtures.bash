@@ -31,7 +31,7 @@ function setup_file() {
     export TEST_MAJOR_RUN_VALIDATOR="${TEST_BASE_RUN_VALIDATOR}v1"
 
     # Clean "cache"
-    rm -f ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    rm -f ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     rm -f ${ENTRYPOINT_SH}
 
     # Create BATS test entrypoint.sh at ${ENTRYPOINT_SH}
@@ -49,7 +49,7 @@ function setup_file() {
 }
 
 function teardown() {
-    rm -f ${DOCKER_BATS_WORKDIR}/tests/.entrypoint-run_validator.txt
+    rm -f ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
 }
 
 function teardown_file() {
