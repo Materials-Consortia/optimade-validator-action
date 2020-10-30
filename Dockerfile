@@ -1,4 +1,4 @@
-FROM python:3.9.0
+FROM python:3.9
 
 RUN echo $(ip route | awk '{print $3}') > /docker_host_ip
 
