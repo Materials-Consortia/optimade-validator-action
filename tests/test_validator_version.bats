@@ -9,8 +9,7 @@ load 'test_fixtures'
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "validator_version='0.10.0'" {
@@ -20,8 +19,7 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "validator_version='v0.10.0'" {
@@ -32,8 +30,7 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "validator_version='master'" {
@@ -43,8 +40,7 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "validator_version='0.0.0' (invalid value, should fail with status 1 and message)" {

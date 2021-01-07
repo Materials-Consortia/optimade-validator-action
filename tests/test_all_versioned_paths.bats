@@ -8,12 +8,23 @@ load 'test_fixtures'
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "all_versioned_paths=True" {
     export INPUT_ALL_VERSIONED_PATHS=True
+    run ${ENTRYPOINT_SH}
+    refute_output --partial "ERROR"
+
+    OPTIMADE_VERSION=("v1.0" "v1.0.0")
+    run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
+    assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}
+run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[0]}
+run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[1]}"
+}
+
+@test "all_versioned_paths=True & validate_unversioned_path=True" {
+    export INPUT_ALL_VERSIONED_PATHS=True INPUT_VALIDATE_UNVERSIONED_PATH=True
     run ${ENTRYPOINT_SH}
     refute_output --partial "ERROR"
 
@@ -25,6 +36,7 @@ run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[0]}
 run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[1]}"
 }
 
+
 @test "all_versioned_paths=invalid_value" {
     # For an invalid value, it should fallback to the default (false)
     export INPUT_ALL_VERSIONED_PATHS=invalid_value
@@ -32,8 +44,7 @@ run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[1]}"
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "all_versioned_paths=True for old spec v0.10.1" {
@@ -53,8 +64,7 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 
     OPTIMADE_VERSION=("v0" "v0.10" "v0.10.1")
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[0]}
+    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[0]}
 run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[1]}
 run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[2]}"
 }

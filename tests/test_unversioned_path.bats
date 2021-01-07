@@ -8,8 +8,7 @@ load 'test_fixtures'
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "validate_unversioned_path=True" {
@@ -20,8 +19,7 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     OPTIMADE_VERSION=("v1.0" "v1.0.0")
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_MAJOR_RUN_VALIDATOR}
+run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "validate_unversioned_path=invalid_value" {
@@ -31,6 +29,5 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }

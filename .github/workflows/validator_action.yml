@@ -189,3 +189,17 @@ jobs:
         env:
           RESULTS: "${{ steps.action_all.outputs.results }}"
         run: python .github/workflows/ci_helper.py all_versioned_paths
+
+      - name: Run action with validate_unversioned_path to retrieve output
+        id: action_unversioned
+        uses: ./
+        with:
+          port: 3213
+          path: /
+          create output: true
+          validate_unversioned_path: true
+
+      - name: Check "validate_unversioned_path" output
+        env:
+          RESULTS: "${{ steps.action_unversioned.outputs.results }}"
+        run: python .github/workflows/ci_helper.py validate_unversioned_path
