@@ -22,11 +22,19 @@ jobs:
           .github/workflows/wait_for_it.sh localhost:3213 -t 120
           sleep 15
 
-      - name: Run action
+      - name: Run action (validating the unversioned path)
         uses: ./
         with:
           port: 3213
           path: /
+          validate_unversioned_path: yes
+
+      - name: Run action (without validating the unversioned path)
+        uses: ./
+        with:
+          port: 3213
+          path: /
+          validate_unversioned_path: yes
 
   validator_index:
     runs-on: ubuntu-latest
@@ -67,6 +75,7 @@ jobs:
           port: 3213
           path: /
           all versioned paths: yes
+          validate_unversioned_path: yes
 
       - name: Run action (setting path to empty string)
         uses: ./
@@ -74,6 +83,7 @@ jobs:
           port: 3213
           path: ""
           all versioned paths: yes
+          validate_unversioned_path: yes
 
   bats:
     runs-on: ubuntu-latest

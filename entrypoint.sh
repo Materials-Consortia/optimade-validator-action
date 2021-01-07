@@ -115,8 +115,17 @@ esac
 
 # Run validator for unversioned base URL
 # Echo line is for testing
-echo "run_validator: ${run_validator}${INPUT_PATH}${index}" > ./.entrypoint-run_validator.txt
-sh -c "${run_validator}${INPUT_PATH}${index}" | tee "unversioned.json"
+case ${INPUT_VALIDATE_UNVERSIONED_PATH} in
+    y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
+        echo "run_validator: ${run_validator}${INPUT_PATH}${index}" > ./.entrypoint-run_validator.txt
+        sh -c "${run_validator}${INPUT_PATH}${index}" | tee "unversioned.json"
+        ;;
+    n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
+        ;;
+    *)
+        echo "Invalid input for 'validate unversioned path': ${INPUT_VALIDATE_UNVERSIONED_PATH}. Will use default (false)."
+        ;;
+esac
 
 # Run validator for versioned base URL(s)
 if [ "${INPUT_PATH}" = "/" ]; then

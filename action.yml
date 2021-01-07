@@ -9,11 +9,17 @@ inputs:
 
   all versioned paths:
     description: >
-      Whether to test all possible versioned base URLs:
-        /vMAJOR; /vMAJOR.MINOR; /vMAJOR.MINOR.PATCH
-      The latter two being optional base URLs according to the specification.
+      Whether to test the optional versioned URLs:
+        /vMAJOR.MINOR; /vMAJOR.MINOR.PATCH
+      If false, only the mandatory /vMAJOR url will be tested.
     required: false
     default: false
+
+  validate unversioned paths:
+      description: >
+        Whether to validate the base URL as a full OPTIMADE implementation.
+      required: false
+      default: false
 
   as type:
     description: >
