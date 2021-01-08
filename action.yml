@@ -17,7 +17,11 @@ inputs:
 
   validate unversioned paths:
       description: >
-        Whether to validate the base URL as a full OPTIMADE implementation.
+        Whether to validate the input URL as a full OPTIMADE implementation without appending any version.
+        This action assumes that the `path` parameter will contain an unversioned URL.
+        As it is not mandatory to run a full OPTIMADE implementation from the unversioned URL,
+        by default, this action will not perform any validation of this URL, beyond checking
+        the `/versions` endpoint.
       required: false
       default: false
 

@@ -34,7 +34,7 @@ jobs:
         with:
           port: 3213
           path: /
-          validate_unversioned_path: yes
+          validate_unversioned_path: no
 
   validator_index:
     runs-on: ubuntu-latest
