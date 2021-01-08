@@ -26,6 +26,7 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     # For an invalid value, it should fallback to the default (false)
     export INPUT_VALIDATE_UNVERSIONED_PATH=invalid_value
     run ${ENTRYPOINT_SH}
+    assert_output --partial "Non-valid input for 'validate unversioned path': ${INPUT_VALIDATE_UNVERSIONED_PATH}. Will use default (false)."
     refute_output --partial "ERROR"
 
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt

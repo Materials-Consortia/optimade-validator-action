@@ -123,7 +123,7 @@ case ${INPUT_VALIDATE_UNVERSIONED_PATH} in
     n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
         ;;
     *)
-        echo "Invalid input for 'validate unversioned path': ${INPUT_VALIDATE_UNVERSIONED_PATH}. Will use default (false)."
+        echo "Non-valid input for 'validate unversioned path': ${INPUT_VALIDATE_UNVERSIONED_PATH}. Will use default (false)."
         ;;
 esac
 

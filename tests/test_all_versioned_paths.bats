@@ -42,6 +42,7 @@ run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[1]}"
     export INPUT_ALL_VERSIONED_PATHS=invalid_value
     run ${ENTRYPOINT_SH}
     refute_output --partial "ERROR"
+    assert_output --partial "Non-valid input for 'all versioned paths': ${INPUT_ALL_VERSIONED_PATHS}. Will use default (false)."
 
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
