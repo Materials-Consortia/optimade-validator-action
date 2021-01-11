@@ -11,7 +11,7 @@ inputs:
     description: >
       Whether to test the optional versioned URLs:
         /vMAJOR.MINOR; /vMAJOR.MINOR.PATCH
-      If false, only the mandatory /vMAJOR url will be tested.
+      If `false`, only the mandatory /vMAJOR URL will be tested.
     required: false
     default: false
 
