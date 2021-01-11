@@ -57,7 +57,8 @@ This can be chosen using the input `validator_version`.
 
 | Input | Description | Usage | Default | Action version |
 | :---: |    :---     | :---: |  :---:  |      :---:     |
-| `all_versioned_paths` | Whether to test all possible versioned base URLs:<br><br>/vMAJOR<br>/vMAJOR.MINOR<br>/vMAJOR.MINOR.PATCH<br><br>The latter two being optional base URLs according to the specification. | Optional | `false` | `v1+`
+| `all_versioned_paths` | Whether to test the optional versioned base URLs:<br><br>/vMAJOR<br>/vMAJOR.MINOR<br>/vMAJOR.MINOR.PATCH<br><br>If `false`, only the mandatory /vMAJOR URL will be tested. | Optional | `false` | `v1+`
+| `validate_unversioned_path` | Whether to validate the input URL as a full OPTIMADE implementation without appending any version.<br><br>This action assumes that the 'path' parameter will contain an unversioned URL. As it is not mandatory to run a full OPTIMADE implementation from the unversioned URL, by default, this action will not perform any validation of this URL, beyond checking the `/versions` endpoint. | Optional | `false` | `v2.3+` 
 | `as_type` | Validate the request URL with the provided type, rather than scanning the entire implementation.<br>Example values: `structures`, `reference`. For a full list of values see the [OPTIMADE Python tools documentation](https://www.optimade.org/optimade-python-tools/api_reference/validator/validator/#optimade.validator.validator.ImplementationValidator.__init__). | Optional | - | `v1+`
 | `domain` | Domain for the OPTIMADE URL (defaults to the GitHub Actions runner host). | Optional | `gh_actions_host` | `v1+`
 | `fail_fast` | Whether or not to exit and return a non-zero error code on first failure. | Optional | `false` | `v2+`

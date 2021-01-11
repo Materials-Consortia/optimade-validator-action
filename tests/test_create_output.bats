@@ -12,8 +12,7 @@ load 'test_fixtures'
 
     TEST_BASE_RUN_VALIDATOR="optimade-validator --json ${INPUT_PROTOCOL}://${INPUT_DOMAIN}${INPUT_PATH}"
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_BASE_RUN_VALIDATOR}v1"
+    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}v1"
 }
 
 @test "create_output='test' (invalid value, should use default instead)" {
@@ -25,8 +24,7 @@ run_validator: ${TEST_BASE_RUN_VALIDATOR}v1"
     refute_output --partial "Non-valid input for 'verbosity'"
 
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
 @test "create_output=True (with validator_version that hasn't got the '--json' option)" {
@@ -41,6 +39,5 @@ run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
     refute_output --partial "Non-valid input for 'verbosity'"
 
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
-    assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
-run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
+    assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }

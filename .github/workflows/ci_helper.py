@@ -3,6 +3,7 @@ import argparse
 import json
 import os
 
+
 def check_output(expected_keys: list):
     expected_results_keys = ["success_count", "failure_count"]  # not complete list
     results = json.loads(os.getenv("RESULTS"))
@@ -16,15 +17,17 @@ def check_output(expected_keys: list):
 
 
 if __name__ == "__main__":
-    commands = ["default", "all_versioned_paths"]
+    commands = ["default", "all_versioned_paths", "validate_unversioned_path"]
 
     parser = argparse.ArgumentParser()
     parser.add_argument("cmd", help="Command to run.", type=str, choices=commands)
     args = parser.parse_args()
 
     if args.cmd == "default":
-        check_output(["unversioned", "v1"])
+        check_output(["v1"])
     elif args.cmd == "all_versioned_paths":
-        check_output(["unversioned", "v1", "v1.0", "v1.0.0"])
+        check_output(["v1", "v1.0", "v1.0.0"])
+    elif args.cmd == "validate_unversioned_path":
+        check_output(["unversioned", "v1"])
     else:
         exit(f"Wrong command, it must be one of {commands}")
