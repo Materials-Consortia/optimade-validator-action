@@ -211,7 +211,7 @@ jobs:
           port: 3213
           path: "/v1.0/structures"
           create output: false
-          verbosity: 2
+          verbosity: 3
           as type: structures
 
       - name: Check "as type" output
