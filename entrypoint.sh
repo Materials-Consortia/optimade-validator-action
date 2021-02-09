@@ -94,7 +94,7 @@ case ${INPUT_FAIL_FAST} in
         ;;
 esac
 
-if [ ! -z "${INPUT_PORT}" ]; then
+if [ -n "${INPUT_PORT}" ]; then
     BASE_URL="${INPUT_PROTOCOL}://${INPUT_DOMAIN}:${INPUT_PORT}"
 else
     BASE_URL="${INPUT_PROTOCOL}://${INPUT_DOMAIN}"
