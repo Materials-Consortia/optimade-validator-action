@@ -209,8 +209,9 @@ jobs:
         uses: ./
         with:
           port: 3213
-          path: /v1.0/structures
-          create output: true
+          path: "/v1.0/structures"
+          create output: false
+          verbosity: 2
           as type: structures
 
       - name: Check "as type" output
