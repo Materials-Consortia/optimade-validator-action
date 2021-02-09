@@ -51,23 +51,23 @@ This means it will always check the mandatory base URLs:
 - Major-versioned base URL (`/vMAJOR`, e.g. `/v1`)
 
 The major version number will be determined based on the validator version used, i.e., the supported OPTIMADE API version in the [OPTIMADE Python tools repository](https://github.com/Materials-Consortia/optimade-python-tools/blob/master/optimade/__init__.py#L2).
-This can be chosen using the input `validator_version`.
+This can be chosen using the input `validator version`.
 
 ## Inputs
 
 | Input | Description | Usage | Default | Action version |
 | :---: |    :---     | :---: |  :---:  |      :---:     |
-| `all_versioned_paths` | Whether to test the optional versioned base URLs:<br><br>/vMAJOR<br>/vMAJOR.MINOR<br>/vMAJOR.MINOR.PATCH<br><br>If `false`, only the mandatory /vMAJOR URL will be tested. | Optional | `false` | `v1+`
-| `validate_unversioned_path` | Whether to validate the input URL as a full OPTIMADE implementation without appending any version.<br><br>This action assumes that the 'path' parameter will contain an unversioned URL. As it is not mandatory to run a full OPTIMADE implementation from the unversioned URL, by default, this action will not perform any validation of this URL, beyond checking the `/versions` endpoint. | Optional | `false` | `v2.3+` 
-| `as_type` | Validate the request URL with the provided type, rather than scanning the entire implementation.<br>Example values: `structures`, `reference`. For a full list of values see the [OPTIMADE Python tools documentation](https://www.optimade.org/optimade-python-tools/api_reference/validator/validator/#optimade.validator.validator.ImplementationValidator.__init__). | Optional | - | `v1+`
+| `all versioned paths` | Whether to test the optional versioned base URLs:<br><br>/vMAJOR<br>/vMAJOR.MINOR<br>/vMAJOR.MINOR.PATCH<br><br>If `false`, only the mandatory /vMAJOR URL will be tested. | Optional | `false` | `v1+`
+| `validate unversioned path` | Whether to validate the input URL as a full OPTIMADE implementation without appending any version.<br><br>This action assumes that the 'path' parameter will contain an unversioned URL. As it is not mandatory to run a full OPTIMADE implementation from the unversioned URL, by default, this action will not perform any validation of this URL, beyond checking the `/versions` endpoint. | Optional | `false` | `v2.3+` 
+| `as type` | Validate the request URL with the provided type, rather than scanning the entire implementation.<br>Example values: `structures`, `reference`. For a full list of values see the [OPTIMADE Python tools documentation](https://www.optimade.org/optimade-python-tools/api_reference/validator/validator/#optimade.validator.validator.ImplementationValidator.__init__). | Optional | - | `v1+`
 | `domain` | Domain for the OPTIMADE URL (defaults to the GitHub Actions runner host). | Optional | `gh_actions_host` | `v1+`
-| `fail_fast` | Whether or not to exit and return a non-zero error code on first failure. | Optional | `false` | `v2+`
+| `fail fast` | Whether or not to exit and return a non-zero error code on first failure. | Optional | `false` | `v2+`
 | `index` | Whether or not this is an index meta-database. | Optional | `false` | `v1+`
 | `path` | Path to append to the domain to reach the OPTIMADE unversioned base URL - MUST start with `/`.<br>The path MUST NOT include the versioned part of the base URL. Rather, it MUST point to the unversioned base URL of your OPTIMADE implementation. | Optional | `/` | `v1+`
 | `port` | Port for the OPTIMADE URL. | Optional | `5000` | `v1+`
 | `protocol` | Protocol for the OPTIMADE URL. | Optional | `http` | `v1+`
-| `skip_optional` | Whether or not to skip tests for optional features. | Optional | `false` | `v2+`
-| `validator_version` | Full version of an OPTIMADE Python tools release to PyPI, e.g., `'v0.6.0'` or `'0.3.4'`, which hosts the `optimade-validator`. It can also be a branch, tag, or git commit to use from the GitHub repository, e.g., `'master'` or `'5a5e903'`.<br>See [the pip documentation](https://pip.pypa.io/en/latest/reference/pip_install/#git) for more information of what is allowed here.<br>Finally, it may also be `'latest'` (default), which is understood to be the latest official release of the `optimade` package on PyPI.<br>Note, for the latest development version, choose `'master'`. | **Required** | `latest` | `v1+`
+| `skip optional` | Whether or not to skip tests for optional features. | Optional | `false` | `v2+`
+| `validator version` | Full version of an OPTIMADE Python tools release to PyPI, e.g., `'v0.6.0'` or `'0.3.4'`, which hosts the `optimade-validator`. It can also be a branch, tag, or git commit to use from the GitHub repository, e.g., `'master'` or `'5a5e903'`.<br>See [the pip documentation](https://pip.pypa.io/en/latest/reference/pip_install/#git) for more information of what is allowed here.<br>Finally, it may also be `'latest'` (default), which is understood to be the latest official release of the `optimade` package on PyPI.<br>Note, for the latest development version, choose `'master'`. | **Required** | `latest` | `v1+`
 | `verbosity` | The verbosity of the output.<br>`0`: minimalistic, `1`: informational, `2`+: debug | Optional | `1` | `v1+`
 
 ## Running test suite (developers)

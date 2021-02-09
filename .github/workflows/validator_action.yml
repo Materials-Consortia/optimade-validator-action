@@ -27,14 +27,14 @@ jobs:
         with:
           port: 3213
           path: /
-          validate_unversioned_path: yes
+          validate unversioned path: yes
 
       - name: Run action (without validating the unversioned path)
         uses: ./
         with:
           port: 3213
           path: /
-          validate_unversioned_path: no
+          validate unversioned path: no
 
   validator_index:
     runs-on: ubuntu-latest
@@ -75,7 +75,7 @@ jobs:
           port: 3213
           path: /
           all versioned paths: yes
-          validate_unversioned_path: yes
+          validate unversioned path: yes
 
       - name: Run action (setting path to empty string)
         uses: ./
@@ -83,7 +83,7 @@ jobs:
           port: 3213
           path: ""
           all versioned paths: yes
-          validate_unversioned_path: yes
+          validate unversioned path: yes
 
   bats:
     runs-on: ubuntu-latest
@@ -176,7 +176,7 @@ jobs:
           RESULTS: "${{ steps.action.outputs.results }}"
         run: python .github/workflows/ci_helper.py default
 
-      - name: Run action with all_versioned_paths to retrieve output
+      - name: Run action with "all versioned paths" to retrieve output
         id: action_all
         uses: ./
         with:
@@ -185,21 +185,21 @@ jobs:
           create output: true
           all versioned paths: true
 
-      - name: Check "all_versioned_paths" output
+      - name: Check "all versioned paths" output
         env:
           RESULTS: "${{ steps.action_all.outputs.results }}"
         run: python .github/workflows/ci_helper.py all_versioned_paths
 
-      - name: Run action with validate_unversioned_path to retrieve output
+      - name: Run action with "validate unversioned path" to retrieve output
         id: action_unversioned
         uses: ./
         with:
           port: 3213
           path: /
           create output: true
-          validate_unversioned_path: true
+          validate unversioned path: true
 
-      - name: Check "validate_unversioned_path" output
+      - name: Check "validate unversioned path" output
         env:
           RESULTS: "${{ steps.action_unversioned.outputs.results }}"
         run: python .github/workflows/ci_helper.py validate_unversioned_path
