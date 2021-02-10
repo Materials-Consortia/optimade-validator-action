@@ -113,11 +113,9 @@ case ${INPUT_INDEX} in
         ;;
 esac
 
-if [ -n "${INPUT_AS_TYPE}" ]; then
-    # Echo line is for testing
-    echo "run_validator: ${run_validator}${INPUT_PATH}${index}" > ./.entrypoint-run_validator.txt
-    sh -c "${run_validator}${INPUT_PATH}${index}" | tee "astype.json"
-else
+if [ -z "${INPUT_AS_TYPE}" ]; then
+    # If `as type` is defined, don't run this validation.
+
     # Run validator for unversioned base URL
     # Echo line is for testing
     case ${INPUT_VALIDATE_UNVERSIONED_PATH} in
@@ -133,7 +131,14 @@ else
     esac
 fi
 
-if [ -z "${INPUT_AS_TYPE}" ]; then
+if [ -n "${INPUT_AS_TYPE}" ]; then
+    # `as type` is defined. Run special run
+    # Note, `--index` is not allowed, hence, it is removed/ignored here.
+
+    # Echo line is for testing
+    echo "run_validator: ${run_validator}${INPUT_PATH}" > ./.entrypoint-run_validator.txt
+    sh -c "${run_validator}${INPUT_PATH}" | tee "astype.json"
+else
     # `as type` is not defined, i.e., we need to adapt the URL path / can run validator for versioned base URLs
 
     # Run validator for versioned base URL(s)
@@ -167,10 +172,6 @@ if [ -z "${INPUT_AS_TYPE}" ]; then
             sh -c "${run_validator}" | tee "v${API_VERSION[0]}.json"
             ;;
     esac
-else
-    # pass
-    # This is here to ensure the exit code is 0
-    :
 fi
 
 # This retrieves the _latest run_ `optimade-validator` and saves the exit code,
