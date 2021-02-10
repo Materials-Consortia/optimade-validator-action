@@ -2,7 +2,7 @@
 
 load 'test_fixtures'
 
-@test "all_versioned_paths=False" {
+@test "all versioned paths=False" {
     export INPUT_ALL_VERSIONED_PATHS=False
     run ${ENTRYPOINT_SH}
     refute_output --partial "ERROR"
@@ -11,7 +11,7 @@ load 'test_fixtures'
     assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
-@test "all_versioned_paths=True" {
+@test "all versioned paths=True" {
     export INPUT_ALL_VERSIONED_PATHS=True
     run ${ENTRYPOINT_SH}
     refute_output --partial "ERROR"
@@ -23,7 +23,7 @@ run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[0]}
 run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[1]}"
 }
 
-@test "all_versioned_paths=True & validate_unversioned_path=True" {
+@test "all versioned paths=True & validate unversioned path=True" {
     export INPUT_ALL_VERSIONED_PATHS=True INPUT_VALIDATE_UNVERSIONED_PATH=True
     run ${ENTRYPOINT_SH}
     refute_output --partial "ERROR"
@@ -37,7 +37,7 @@ run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[1]}"
 }
 
 
-@test "all_versioned_paths=invalid_value" {
+@test "all versioned paths=invalid_value" {
     # For an invalid value, it should fallback to the default (false)
     export INPUT_ALL_VERSIONED_PATHS=invalid_value
     run ${ENTRYPOINT_SH}
@@ -48,7 +48,7 @@ run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[1]}"
     assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
-@test "all_versioned_paths=True for old spec v0.10.1" {
+@test "all versioned paths=True for old spec v0.10.1" {
     # Unfortunately, we cannot test the correct parsing of `__api_version__`,
     # since we do not support OPTIMADE Python tools versions < 0.10.0.
     # The change from __api_version__ 1.0.0-rc1 to 1.0.0 happened for version 0.9.7.

@@ -2,7 +2,7 @@
 
 load 'test_fixtures'
 
-@test "validate_unversioned_path=False" {
+@test "validate unversioned path=False" {
     export INPUT_VALIDATE_UNVERSIONED_PATH=False
     run ${ENTRYPOINT_SH}
     refute_output --partial "ERROR"
@@ -11,7 +11,7 @@ load 'test_fixtures'
     assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
-@test "validate_unversioned_path=True" {
+@test "validate unversioned path=True" {
     export INPUT_VALIDATE_UNVERSIONED_PATH=True
     run ${ENTRYPOINT_SH}
     refute_output --partial "ERROR"
@@ -22,7 +22,7 @@ load 'test_fixtures'
 run_validator: ${TEST_MAJOR_RUN_VALIDATOR}"
 }
 
-@test "validate_unversioned_path=invalid_value" {
+@test "validate unversioned path=invalid_value" {
     # For an invalid value, it should fallback to the default (false)
     export INPUT_VALIDATE_UNVERSIONED_PATH=invalid_value
     run ${ENTRYPOINT_SH}
