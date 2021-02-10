@@ -175,6 +175,7 @@ fi
 # as well as `set -o pipefail`, meaning the script should instantly exit and fail
 # if any error occurs.
 EXIT_CODE=${PIPESTATUS[0]}
+echo "found EXIT_CODE from pipestatus: ${EXIT_CODE}"
 
 # Create output 'results'
 RESULTS=$(python /helper.py results)
