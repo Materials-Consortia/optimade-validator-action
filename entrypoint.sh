@@ -167,6 +167,10 @@ if [ -z "${INPUT_AS_TYPE}" ]; then
             sh -c "${run_validator}" | tee "v${API_VERSION[0]}.json"
             ;;
     esac
+else
+    # pass
+    # This is here to ensure the exit code is 0
+    :
 fi
 
 # This retrieves the _latest run_ `optimade-validator` and saves the exit code,
@@ -175,7 +179,6 @@ fi
 # as well as `set -o pipefail`, meaning the script should instantly exit and fail
 # if any error occurs.
 EXIT_CODE=${PIPESTATUS[0]}
-echo "found EXIT_CODE from pipestatus: ${EXIT_CODE}"
 
 # Create output 'results'
 RESULTS=$(python /helper.py results)
