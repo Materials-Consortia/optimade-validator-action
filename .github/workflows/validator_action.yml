@@ -212,7 +212,6 @@ jobs:
           path: /v1.0/structures
           create output: true
           as type: structures
-          validator version: try-as_type-fix-validator
 
       - name: Check "as type" output
         env:
