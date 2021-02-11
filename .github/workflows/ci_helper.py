@@ -17,17 +17,22 @@ def check_output(expected_keys: list):
 
 
 if __name__ == "__main__":
-    commands = ["default", "all_versioned_paths", "validate_unversioned_path"]
+    commands = ["default", "all_versioned_paths", "validate_unversioned_path", "as_type"]
 
     parser = argparse.ArgumentParser()
     parser.add_argument("cmd", help="Command to run.", type=str, choices=commands)
     args = parser.parse_args()
 
-    if args.cmd == "default":
-        check_output(["v1"])
-    elif args.cmd == "all_versioned_paths":
-        check_output(["v1", "v1.0", "v1.0.0"])
-    elif args.cmd == "validate_unversioned_path":
-        check_output(["unversioned", "v1"])
+    cmd_output_mapping = {
+        "default": ["v1"],
+        "all_versioned_paths": ["v1", "v1.0", "v1.0.0"],
+        "validate_unversioned_path": ["unversioned", "v1"],
+        "as_type": ["astype"],
+    }
+
+    try:
+        check_output(cmd_output_mapping[args.cmd])
+    except Exception as exc:
+        exit(f"An exception occurred while running check_output:\n{exc!r}")
     else:
-        exit(f"Wrong command, it must be one of {commands}")
+        exit(0)

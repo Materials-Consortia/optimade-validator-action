@@ -203,3 +203,17 @@ jobs:
         env:
           RESULTS: "${{ steps.action_unversioned.outputs.results }}"
         run: python .github/workflows/ci_helper.py validate_unversioned_path
+
+      - name: Run action with "as type" to retrieve output
+        id: action_astype
+        uses: ./
+        with:
+          port: 3213
+          path: /v1.0/structures
+          create output: true
+          as type: structures
+
+      - name: Check "as type" output
+        env:
+          RESULTS: "${{ steps.action_astype.outputs.results }}"
+        run: python .github/workflows/ci_helper.py as_type
