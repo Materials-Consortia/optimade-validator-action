@@ -67,6 +67,7 @@ This can be chosen using the input `validator version`.
 | `port` | Port for the OPTIMADE URL. | Optional | `5000` | `v1+`
 | `protocol` | Protocol for the OPTIMADE URL. | Optional | `http` | `v1+`
 | `skip optional` | Whether or not to skip tests for optional features. | Optional | `false` | `v2+`
+| `minimal` | Whether or not to reduce the validation to a minimal test set that only checks responses and not filters. | Optional | `false` | `v2.4.1+`
 | `validator version` | Full version of an OPTIMADE Python tools release to PyPI, e.g., `'v0.6.0'` or `'0.3.4'`, which hosts the `optimade-validator`. It can also be a branch, tag, or git commit to use from the GitHub repository, e.g., `'master'` or `'5a5e903'`.<br>See [the pip documentation](https://pip.pypa.io/en/latest/reference/pip_install/#git) for more information of what is allowed here.<br>Finally, it may also be `'latest'` (default), which is understood to be the latest official release of the `optimade` package on PyPI.<br>Note, for the latest development version, choose `'master'`. | **Required** | `latest` | `v1+`
 | `verbosity` | The verbosity of the output.<br>`0`: minimalistic, `1`: informational, `2`+: debug | Optional | `1` | `v1+`
 
