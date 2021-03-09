@@ -82,6 +82,18 @@ case ${INPUT_SKIP_OPTIONAL} in
         ;;
 esac
 
+case ${INPUT_MINIMAL} in
+    y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
+        echo "Running a minimal test set."
+        run_validator="${run_validator} --minimal"
+        ;;
+    n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
+        ;;
+    *)
+        echo "Non-valid input for 'minimal': ${INPUT_MINIMAL}. Will use default (false)."
+        ;;
+esac
+
 case ${INPUT_FAIL_FAST} in
     y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
         echo "Will exit on first failure."

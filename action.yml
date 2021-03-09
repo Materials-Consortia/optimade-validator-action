@@ -75,6 +75,11 @@ inputs:
     required: false
     default: false
 
+  minimal:
+    description: Whether or not to reduce the validation to a minimal test set that only checks responses and not filters.
+    required: false
+    default: false
+
   validator version:
     description: >
       Full version of an OPTIMADE Python tools release to PyPI, e.g., '0.6.0' or '0.3.4', which hosts the `optimade-validator`.

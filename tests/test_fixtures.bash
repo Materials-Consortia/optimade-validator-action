@@ -16,6 +16,7 @@ load "${BATS_TEST_HELPERS}/bats-assert/load.bash"
 function setup_file() {
     # Set all input parameter defaults
     export INPUT_ALL_VERSIONED_PATHS=false
+    export INPUT_VALIDATE_UNVERSIONED_PATH=false
     export INPUT_DOMAIN=gh_actions_host
     export INPUT_FAIL_FAST=false
     export INPUT_INDEX=false
@@ -23,6 +24,7 @@ function setup_file() {
     export INPUT_PATH=/
     export INPUT_PROTOCOL=http
     export INPUT_SKIP_OPTIONAL=false
+    export INPUT_MINIMAL=false
     export INPUT_VALIDATOR_VERSION=latest
     export INPUT_VERBOSITY=1
 
