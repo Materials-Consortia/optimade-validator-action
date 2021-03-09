@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     cmd_output_mapping = {
         "default": ["v1"],
-        "all_versioned_paths": ["v1", "v1.0", "v1.0.0"],
+        "all_versioned_paths": ["v1", "v1.0", "v1.0.1"],
         "validate_unversioned_path": ["unversioned", "v1"],
         "as_type": ["astype"],
     }
