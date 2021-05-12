@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Regular server
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Set up and run regular server
         run: |
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Index server
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Set up and run index server
         run: |
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     name: All versioned paths for regular server
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Set up and run regular server (which includes all versioned base URLs)
         run: |
@@ -89,7 +89,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Run BATS test suite for entrypoint.sh
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Build BATS environment
         run: docker build -t optimade_bats ./tests
@@ -101,7 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Use validator from git commit sha
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Set up and run regular server
         run: |
@@ -121,7 +121,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Use validator with wrong version
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Set up and run regular server
         run: |
@@ -149,7 +149,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Retrieve and check validator results
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Set up Python 3.7
         uses: actions/setup-python@v2
