@@ -1,6 +1,7 @@
 FROM python:3.9
 
-RUN echo $(ip route | awk '{print $3}') > /docker_host_ip
+RUN set -o pipefail \
+    echo $(ip route | awk '{print $3}') > /docker_host_ip
 
 COPY helper.py /helper.py
 
