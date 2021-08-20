@@ -1,3 +1,4 @@
 # File used for tests
-/tests/.entrypoint-run_validator.txt
+*.entrypoint-run_validator.txt
 /tests/.entrypoint.sh
+*v*.json

@@ -26,7 +26,7 @@ with:
   index: yes
 ```
 
-To run `optimade-validator` for a regular OPTIMADE _deployed_ implementation, testing all possible versioned base URLs:
+To run `optimade-validator` for a regular OPTIMADE _deployed_ implementation, testing all possible versioned base URLs, for example:
 
 - `https://example.org:443/optimade/example/v1`
 - `https://example.org:443/optimade/example/v1.0`
@@ -128,5 +128,5 @@ To keep it simple, this overview will only consider the major versions of this A
 
 | Action version | `optimade` package versions | Supported OPTIMADE API specification version(s) |
 | :---: | :---: | :---: |
-| [`v2`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v2.0.0) | [`v0.10.0`](https://github.com/Materials-Consortia/optimade-python-tools/releases/v0.10.0)+ | [`v1.0.0`](https://github.com/Materials-Consortia/OPTIMADE/blob/v1.0.0/optimade.rst) |
+| [`v2`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v2.0.0) | [`v0.10.0`](https://github.com/Materials-Consortia/optimade-python-tools/releases/v0.10.0)+ | [`v1.0.0`](https://github.com/Materials-Consortia/OPTIMADE/blob/v1.0.0/optimade.rst) - [latest](https://github.com/Materials-Consortia/OPTIMADE/blob/master/optimade.rst) |
 | [`v1`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v1.2.0) | [`v0.7.0`](https://github.com/Materials-Consortia/optimade-python-tools/releases/v0.7.0) - [`v0.9.8`](https://github.com/Materials-Consortia/optimade-python-tools/releases/v0.9.8) | [`v0.10.0`](https://github.com/Materials-Consortia/OPTIMADE/blob/v0.10.0/optimade.md) - [`v1.0.0-rc2`](https://github.com/Materials-Consortia/OPTIMADE/blob/v1.0.0-rc2/optimade.rst) |
