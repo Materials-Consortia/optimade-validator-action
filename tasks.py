@@ -29,7 +29,9 @@ def setver(_, ver=""):
     """Sets the OPTIMADE Validator Action version"""
     match = re.fullmatch(r"v?([0-9]+\.[0-9]+\.[0-9]+)", ver)
     if not match or (match and len(match.groups()) != 1):
-        sys.exit("Error: Please specify version as 'Major.Minor.Patch' or 'vMajor.Minor.Patch'")
+        sys.exit(
+            "Error: Please specify version as 'Major.Minor.Patch' or 'vMajor.Minor.Patch'"
+        )
     ver = match.group(1)
 
     major_version = ver.split(".")[0]

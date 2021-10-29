@@ -9,7 +9,7 @@ def create_output():
 
     results = {}
     for filename in iglob("*.json"):
-        name = filename[:-len(".json")]
+        name = filename[: -len(".json")]
         with open(filename) as handle:
             try:
                 results[name] = json.load(handle)
@@ -28,7 +28,9 @@ def delete_files(path):
         else:
             import warnings
 
-            warnings.warn(f"{filename!r} does not seem to be a file, did not remove it.")
+            warnings.warn(
+                f"{filename!r} does not seem to be a file, did not remove it."
+            )
 
 
 def optimade_api_version():
@@ -39,11 +41,11 @@ def optimade_api_version():
         exit("optimade MUST be installed to run 'api-version'")
 
     versions = [
-        __api_version__.split('-')[0].split('+')[0].split('.')[0],
-        '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:2]),
-        '.'.join(__api_version__.split('-')[0].split('+')[0].split('.')[:3]),
+        __api_version__.split("-")[0].split("+")[0].split(".")[0],
+        ".".join(__api_version__.split("-")[0].split("+")[0].split(".")[:2]),
+        ".".join(__api_version__.split("-")[0].split("+")[0].split(".")[:3]),
     ]
-    print(' '.join(versions))
+    print(" ".join(versions))
 
 
 def optimade_package_version():
@@ -53,7 +55,7 @@ def optimade_package_version():
     except ImportError:
         exit("optimade MUST be installed to run 'package-version'")
 
-    print(__version__.split('-')[0].split('+')[0].replace('.', ' '))
+    print(__version__.split("-")[0].split("+")[0].replace(".", " "))
 
 
 if __name__ == "__main__":
