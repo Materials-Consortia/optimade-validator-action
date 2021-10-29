@@ -1,5 +1,3 @@
-#!/usr/bin/env bats
-
 load 'test_fixtures'
 
 @test "Default 'as type' (general run with all defaults)" {

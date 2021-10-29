@@ -1,16 +1,22 @@
-#!/usr/bin/env python3
+"""Helper commands for the action.
+
+These commands are useful to check OPTIMADE Python tools-specific things,
+as well as parsing JSON files to stdout.
+"""
+# pylint: disable=import-outside-toplevel
 import argparse
 from glob import iglob
+import sys
 
 
-def create_output():
-    """Create single JSON object from found JSON files"""
+def create_output() -> None:
+    """Create single JSON object from found JSON files."""
     import json
 
     results = {}
     for filename in iglob("*.json"):
         name = filename[: -len(".json")]
-        with open(filename) as handle:
+        with open(filename, encoding="utf8") as handle:
             try:
                 results[name] = json.load(handle)
             except json.JSONDecodeError:
@@ -18,8 +24,13 @@ def create_output():
     print(json.dumps(results, indent=None, separators=(",", ":")))
 
 
-def delete_files(path):
-    """Deletes all files matching the pattern passed in `path`."""
+def delete_files(path: str) -> None:
+    """Deletes all files matching the pattern passed in `path`.
+
+    Parameters:
+        path: Glob path string.
+
+    """
     import os
 
     for filename in iglob(path):
@@ -33,29 +44,41 @@ def delete_files(path):
             )
 
 
-def optimade_api_version():
-    """Print OPTIMADE API version supported in currently installed optimade package as input for shell array"""
+def optimade_api_version() -> None:
+    """Print OPTIMADE API version supported in currently installed optimade package as
+    input for shell array."""
     try:
         from optimade import __api_version__
     except ImportError:
-        exit("optimade MUST be installed to run 'api-version'")
+        sys.exit("optimade MUST be installed to run 'api-version'")
 
     versions = [
-        __api_version__.split("-")[0].split("+")[0].split(".")[0],
-        ".".join(__api_version__.split("-")[0].split("+")[0].split(".")[:2]),
-        ".".join(__api_version__.split("-")[0].split("+")[0].split(".")[:3]),
+        __api_version__.split("-", maxsplit=1)[0]
+        .split("+", maxsplit=1)[0]
+        .split(".", maxsplit=1)[0],
+        ".".join(
+            __api_version__.split("-", maxsplit=1)[0]
+            .split("+", maxsplit=1)[0]
+            .split(".")[:2]
+        ),
+        ".".join(
+            __api_version__.split("-", maxsplit=1)[0]
+            .split("+", maxsplit=1)[0]
+            .split(".")[:3]
+        ),
     ]
     print(" ".join(versions))
 
 
-def optimade_package_version():
-    """Print optimade package version in currently installed environment as input for shell array"""
+def optimade_package_version() -> None:
+    """Print optimade package version in currently installed environment as input for
+    shell array."""
     try:
         from optimade import __version__
     except ImportError:
-        exit("optimade MUST be installed to run 'package-version'")
+        sys.exit("optimade MUST be installed to run 'package-version'")
 
-    print(__version__.split("-")[0].split("+")[0].replace(".", " "))
+    print(__version__.split("-", maxsplit=1)[0].split("+")[0].replace(".", " "))
 
 
 if __name__ == "__main__":
@@ -73,4 +96,4 @@ if __name__ == "__main__":
         create_output()
         delete_files("*.json")
     else:
-        exit(f"Wrong command, it must be one of {commands}")
+        sys.exit(f"Wrong command, it must be one of {commands}")

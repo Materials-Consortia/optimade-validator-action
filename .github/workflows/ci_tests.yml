@@ -80,7 +80,6 @@ jobs:
       - name: Run safety
         run: pip freeze | safety check --stdin
 
-
   validator_regular:
     runs-on: ubuntu-latest
     name: Regular server
