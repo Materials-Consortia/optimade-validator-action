@@ -9,6 +9,78 @@ on:
 
 jobs:
 
+  pre-commit:
+    runs-on: ubuntu-latest
+    name: Pre-commit
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Retrieve Python version to install
+        run: |
+          FIRST_LINE=$(cat Dockerfile | sed -n 1p)
+          if [[ "${FIRST_LINE}" =~ ^.*python:(.*)-slim-buster.*$ ]]; then
+            echo "PY_VERSION=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+          else
+            echo "Could not determine Python version used in Dockerfile!"
+            exit 1
+          fi
+
+      - name: Setup Python ${{ env.PY_VERSION }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PY_VERSION }}
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install -U pip
+          pip install -U setuptools wheel
+
+          while IFS="" read -r line || [ -n "${line}" ]; do
+            if [[ "${line}" =~ ^pre-commit.*$ ]]; then
+              pre_commit="${line}"
+            fi
+          done < requirements.txt
+
+          pip install ${pre_commit}
+
+      - name: Run pre-commit
+        run: SKIP=pylint pre-commit run --all-files --show-diff-on-failure
+
+  pylint-safety:
+    runs-on: ubuntu-latest
+    name: PyLint & Safety
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Retrieve Python version to install
+        run: |
+          FIRST_LINE=$(cat Dockerfile | sed -n 1p)
+          if [[ "${FIRST_LINE}" =~ ^.*python:(.*)-slim-buster.*$ ]]; then
+            echo "PY_VERSION=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+          else
+            echo "Could not determine Python version used in Dockerfile!"
+            exit 1
+          fi
+
+      - name: Setup Python ${{ env.PY_VERSION }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PY_VERSION }}
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install -U pip
+          pip install -U setuptools wheel
+          pip install -r requirements.txt
+          pip install safety
+
+      - name: Run pylint
+        run: pylint --rcfile=pyproject.toml *.py
+
+      - name: Run safety
+        run: pip freeze | safety check --stdin
+
+
   validator_regular:
     runs-on: ubuntu-latest
     name: Regular server
