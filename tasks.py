@@ -44,7 +44,7 @@ def setver(_, ver=""):
         "https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/"
     )
     update_file(
-        TOP_DIR.joinpath("README.md"),
+        TOP_DIR / "README.md",
         (
             (
                 fr"`v{major_version}` \| \[`v{major_version}(\.[0-9]+){{2}}.*"
@@ -56,3 +56,25 @@ def setver(_, ver=""):
     )
 
     print(f"Bumped version to {ver}")
+
+
+@task
+def check_dockerfile_python_version(_):
+    """Check CI and config files are using the same Python version as in the
+    Dockerfile."""
+    with open(TOP_DIR / "Dockerfile", "r", encoding="utf8") as handle:
+        for line in handle:
+            match = re.match(
+                r".*python:(?P<version>.*)-slim-buster.*",
+                line,
+            )
+            if match:
+                dockerfile_python_version: str = match.group("version")
+                break
+        else:
+            sys.exit("Couldn't determine the Python version used in Dockerfile.")
+
+    # TODO: Finish!
+    # update_file(
+    #     TOP_DIR /
+    # )

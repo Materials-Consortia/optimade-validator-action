@@ -7,6 +7,9 @@ on:
     - master
     - 'push-action/**'
 
+env:
+  PYTHON_VERSION: 3.9
+
 jobs:
 
   pre-commit:
@@ -15,20 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Retrieve Python version to install
-        run: |
-          FIRST_LINE=$(cat Dockerfile | sed -n 1p)
-          if [[ "${FIRST_LINE}" =~ ^.*python:(.*)-slim-buster.*$ ]]; then
-            echo "PY_VERSION=${BASH_REMATCH[1]}" >> $GITHUB_ENV
-          else
-            echo "Could not determine Python version used in Dockerfile!"
-            exit 1
-          fi
-
-      - name: Setup Python ${{ env.PY_VERSION }}
+      - name: Setup Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ env.PY_VERSION }}
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install Python dependencies
         run: |
@@ -52,20 +45,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Retrieve Python version to install
-        run: |
-          FIRST_LINE=$(cat Dockerfile | sed -n 1p)
-          if [[ "${FIRST_LINE}" =~ ^.*python:(.*)-slim-buster.*$ ]]; then
-            echo "PY_VERSION=${BASH_REMATCH[1]}" >> $GITHUB_ENV
-          else
-            echo "Could not determine Python version used in Dockerfile!"
-            exit 1
-          fi
-
-      - name: Setup Python ${{ env.PY_VERSION }}
+      - name: Setup Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ env.PY_VERSION }}
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install Python dependencies
         run: |
