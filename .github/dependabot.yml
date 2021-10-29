@@ -4,21 +4,24 @@ updates:
   directory: "/"
   schedule:
     interval: daily
-  target-branch: master
+    time: "04:43"
+  target-branch: ci/dependabot-updates
   labels:
   - docker_dependencies
 - package-ecosystem: github-actions
   directory: "/"
   schedule:
     interval: daily
-  target-branch: master
+    time: "04:38"
+  target-branch: ci/dependabot-updates
   labels:
   - CI
 - package-ecosystem: docker
   directory: "/tests"
   schedule:
     interval: daily
-  target-branch: master
+    time: "04:33"
+  target-branch: ci/dependabot-updates
   labels:
   - docker_dependencies
   - tests

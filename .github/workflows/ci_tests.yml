@@ -19,7 +19,7 @@ jobs:
         run: |
           git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
           docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
-          .github/workflows/wait_for_it.sh localhost:3213 -t 120
+          .github/utils/wait_for_it.sh localhost:3213 -t 120
           sleep 15
 
       - name: Run action (validating the unversioned path)
@@ -46,7 +46,7 @@ jobs:
         run: |
           git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
           docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade-index &
-          .github/workflows/wait_for_it.sh localhost:3214 -t 120
+          .github/utils/wait_for_it.sh localhost:3214 -t 120
           sleep 15
 
       - name: Run action
@@ -66,7 +66,7 @@ jobs:
         run: |
           git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
           docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
-          .github/workflows/wait_for_it.sh localhost:3213 -t 120
+          .github/utils/wait_for_it.sh localhost:3213 -t 120
           sleep 15
 
       - name: Run action
@@ -107,7 +107,7 @@ jobs:
         run: |
           git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
           docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
-          .github/workflows/wait_for_it.sh localhost:3213 -t 120
+          .github/utils/wait_for_it.sh localhost:3213 -t 120
           sleep 15
 
       - name: Run action
@@ -127,7 +127,7 @@ jobs:
         run: |
           git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
           docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
-          .github/workflows/wait_for_it.sh localhost:3213 -t 120
+          .github/utils/wait_for_it.sh localhost:3213 -t 120
           sleep 15
 
       - name: Run action
@@ -160,7 +160,7 @@ jobs:
         run: |
           git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
           docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
-          .github/workflows/wait_for_it.sh localhost:3213 -t 120
+          .github/utils/wait_for_it.sh localhost:3213 -t 120
           sleep 15
 
       - name: Run action to retrieve output
@@ -174,7 +174,7 @@ jobs:
       - name: Check "default" output
         env:
           RESULTS: "${{ steps.action.outputs.results }}"
-        run: python .github/workflows/ci_helper.py default
+        run: python .github/utils/ci_helper.py default
 
       - name: Run action with "all versioned paths" to retrieve output
         id: action_all
@@ -188,7 +188,7 @@ jobs:
       - name: Check "all versioned paths" output
         env:
           RESULTS: "${{ steps.action_all.outputs.results }}"
-        run: python .github/workflows/ci_helper.py all_versioned_paths
+        run: python .github/utils/ci_helper.py all_versioned_paths
 
       - name: Run action with "validate unversioned path" to retrieve output
         id: action_unversioned
@@ -202,7 +202,7 @@ jobs:
       - name: Check "validate unversioned path" output
         env:
           RESULTS: "${{ steps.action_unversioned.outputs.results }}"
-        run: python .github/workflows/ci_helper.py validate_unversioned_path
+        run: python .github/utils/ci_helper.py validate_unversioned_path
 
       - name: Run action with "as type" to retrieve output
         id: action_astype
@@ -216,4 +216,4 @@ jobs:
       - name: Check "as type" output
         env:
           RESULTS: "${{ steps.action_astype.outputs.results }}"
-        run: python .github/workflows/ci_helper.py as_type
+        run: python .github/utils/ci_helper.py as_type
