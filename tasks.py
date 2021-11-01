@@ -10,22 +10,28 @@ except ImportError:
     sys.exit("'invoke' MUST be installed to run these tasks.")
 
 if TYPE_CHECKING:
-    from typing import Tuple
+    from typing import Tuple, Union
 
 
 TOP_DIR = Path(__file__).parent.resolve()
 
 
-def update_file(filename: str, sub_line: "Tuple[str, str]", strip: str = None) -> None:
+def update_file(
+    filename: "Union[Path, str]", sub_line: "Tuple[str, str]", strip: str = None
+) -> None:
     """Utility function for tasks to read, update, and write files."""
-    with open(filename, "r", encoding="utf8") as handle:
-        lines = [
-            re.sub(sub_line[0], sub_line[1], line.rstrip(strip)) for line in handle
-        ]
+    if isinstance(filename, str):
+        filename = Path(filename)
 
-    with open(filename, "w", encoding="utf8") as handle:
-        handle.write("\n".join(lines))
-        handle.write("\n")
+    if not filename.exists():
+        raise FileNotFoundError(f"Could not find file to be updated: {filename}")
+
+    lines = [
+        re.sub(sub_line[0], sub_line[1], line.rstrip(strip))
+        for line in filename.read_text(encoding="utf8").splitlines()
+    ]
+
+    filename.write_text("\n".join(lines) + "\n", encoding="utf8")
 
 
 @task(help={"ver": "OPTIMADE Validator Action version to set"})
@@ -62,7 +68,7 @@ def setver(_, ver=""):
 def check_dockerfile_python_version(_):
     """Check CI and config files are using the same Python version as in the
     Dockerfile."""
-    with open(TOP_DIR / "Dockerfile", "r", encoding="utf8") as handle:
+    with (TOP_DIR / "Dockerfile").open() as handle:
         for line in handle:
             match = re.match(
                 r".*python:(?P<version>.*)-slim-buster.*",
@@ -74,7 +80,16 @@ def check_dockerfile_python_version(_):
         else:
             sys.exit("Couldn't determine the Python version used in Dockerfile.")
 
-    # TODO: Finish!
-    # update_file(
-    #     TOP_DIR /
-    # )
+    update_file(
+        TOP_DIR / ".github" / "workflows" / "ci_tests.yml",
+        (r"PYTHON_VERSION: 3\.[0-9]+", f"PYTHON_VERSION: {dockerfile_python_version}"),
+    )
+    update_file(
+        TOP_DIR / "pyproject.toml",
+        (r"python_version = \".*\"", f'python_version = "{dockerfile_python_version}"'),
+    )
+
+    print(
+        "Successfully updated CI and config files to use Python "
+        f"{dockerfile_python_version}"
+    )
