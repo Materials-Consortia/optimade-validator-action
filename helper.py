@@ -52,22 +52,15 @@ def optimade_api_version() -> None:
     except ImportError:
         sys.exit("optimade MUST be installed to run 'api-version'")
 
-    versions = [
-        __api_version__.split("-", maxsplit=1)[0]
-        .split("+", maxsplit=1)[0]
-        .split(".", maxsplit=1)[0],
-        ".".join(
-            __api_version__.split("-", maxsplit=1)[0]
-            .split("+", maxsplit=1)[0]
-            .split(".")[:2]
-        ),
-        ".".join(
-            __api_version__.split("-", maxsplit=1)[0]
-            .split("+", maxsplit=1)[0]
-            .split(".")[:3]
-        ),
-    ]
-    print(" ".join(versions))
+    split_version = (
+        __api_version__.split("-", maxsplit=1)[0].split("+", maxsplit=1)[0].split(".")
+    )
+
+    print(
+        " ".join(
+            [split_version[0], ".".join(split_version[:2]), ".".join(split_version[:3])]
+        )
+    )
 
 
 def optimade_package_version() -> None:
