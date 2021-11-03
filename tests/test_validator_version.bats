@@ -1,5 +1,3 @@
-#!/usr/bin/env bats
-
 load 'test_fixtures'
 
 @test "validator_version='latest'" {

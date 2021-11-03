@@ -34,6 +34,30 @@ jobs:
         git fetch origin ${{ env.DEPENDABOT_BRANCH }}:${{ env.DEPENDABOT_BRANCH }}
         git reset --hard ${{ env.DEPENDABOT_BRANCH }}
 
+    - name: Auto-update `pre-commit` hooks
+      run: |
+        pre-commit autoupdate
+
+        if [ -n "$(git status --porcelain .pre-commit-config.yaml)" ]; then
+          # Set environment variable notifying next steps that the hooks changed
+          echo "Pre-commit hooks have been updated !"
+          echo "UPDATED_PRE_COMMIT_HOOKS=true" >> $GITHUB_ENV
+        else
+          echo "No pre-commit hooks have been updated."
+          echo "UPDATED_PRE_COMMIT_HOOKS=false" >> $GITHUB_ENV
+        fi
+
+    - name: Possibly run `pre-commit` with updated hooks
+      if: env.UPDATED_PRE_COMMIT_HOOKS == 'true'
+      continue-on-error: true  # Still create the PR if this step fails
+      run: SKIP=pylint pre-commit run --all-files
+
+    - name: Possibly commit changes and updates
+      if: env.UPDATED_PRE_COMMIT_HOOKS == 'true'
+      run: |
+        git add .
+        git commit -m "Update \`pre-commit\` hooks"
+
     - name: Fetch PR body
       id: pr_body
       uses: chuhlomin/render-template@v1.2
