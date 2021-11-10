@@ -82,11 +82,17 @@ def check_dockerfile_python_version(_):
 
     update_file(
         TOP_DIR / ".github" / "workflows" / "ci_tests.yml",
-        (r"PYTHON_VERSION: 3\.[0-9]+", f"PYTHON_VERSION: {dockerfile_python_version}"),
+        (
+            r"PYTHON_VERSION: 3\.[0-9]+.*",
+            f"PYTHON_VERSION: {dockerfile_python_version}",
+        ),
     )
     update_file(
         TOP_DIR / "pyproject.toml",
-        (r"python_version = \".*\"", f'python_version = "{dockerfile_python_version}"'),
+        (
+            r"python_version = \".*\"",
+            f"python_version = \"{'.'.join(dockerfile_python_version.split('.')[:2])}\"",
+        ),
     )
 
     print(

@@ -42,7 +42,7 @@ jobs:
           if [[ "${line}" =~ ^invoke.*$ ]]; then
             invoke="${line}"
           fi
-        done < requirements_docs.txt
+        done < requirements.txt
 
         pip install ${invoke}
 
