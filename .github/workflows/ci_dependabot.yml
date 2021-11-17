@@ -24,6 +24,24 @@ jobs:
       with:
         ref: ${{ env.DEFAULT_REPO_BRANCH }}
 
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install `pre-commit`
+      run: |
+        python -m pip install -U pip
+        pip install -U setuptools wheel
+
+        while IFS="" read -r line || [ -n "${line}" ]; do
+          if [[ "${line}" =~ ^pre-commit.*$ ]]; then
+            pre_commit="${line}"
+          fi
+        done < requirements.txt
+
+        pip install ${pre_commit}
+
     - name: Set up git user info
       run: |
         git config --global user.name "${{ env.GIT_USER_NAME }}"
