@@ -1,4 +1,4 @@
-FROM bats/bats:1.5.0
+FROM bats/bats:1.6.0
 
 RUN echo "**** Installing Python 3 ****" && \
     apk add --no-cache python3 && \
