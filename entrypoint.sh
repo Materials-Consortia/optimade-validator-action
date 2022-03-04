@@ -17,6 +17,7 @@ else
     echo "Installing branch, tag or commit ${INPUT_VALIDATOR_VERSION} of optimade (from GitHub)"
     python -m pip install --no-cache -U "https://github.com/Materials-Consortia/optimade-python-tools/tarball/${INPUT_VALIDATOR_VERSION}"
 fi
+python -m pip install pyyaml # Required since latest versions of optimade deps lose this requirement
 
 # Check optimade-python-tools version is >0.10
 PACKAGE_VERSION=($(python /helper.py package-version))
