@@ -44,6 +44,7 @@ jobs:
       with:
         token: ${{ secrets.RELEASE_PAT_CASPER }}
         release_branch: ${{ env.PUBLISH_UPDATE_BRANCH }}
+        exclude_tags: "duplicate,question,invalid,wontfix,docker_dependencies"
 
     - name: Update version and tags
       run: .github/utils/update_version.sh
@@ -67,6 +68,7 @@ jobs:
         release_branch: ${{ env.PUBLISH_UPDATE_BRANCH }}
         since_tag: "${{ env.PREVIOUS_VERSION }}"
         output: "release_changelog.md"
+        exclude_tags: "duplicate,question,invalid,wontfix,docker_dependencies"
 
     - name: Append changelog to release body
       run: |
