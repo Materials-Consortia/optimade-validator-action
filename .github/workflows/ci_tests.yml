@@ -73,7 +73,7 @@ jobs:
         ports:
           - 3213:5000
         env:
-          OPTIMADE_BASE_URL: http://localhost:3213
+          OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
       - uses: actions/checkout@v3
@@ -103,7 +103,7 @@ jobs:
           - 3214:5000
         env:
           MAIN: main_index
-          OPTIMADE_BASE_URL: http://localhost:3214
+          OPTIMADE_BASE_URL: http://gh_actions_host:3214
 
     steps:
       - uses: actions/checkout@v3
@@ -125,7 +125,7 @@ jobs:
         ports:
           - 3213:5000
         env:
-          OPTIMADE_BASE_URL: http://localhost:3213
+          OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
       - uses: actions/checkout@v3
@@ -168,7 +168,7 @@ jobs:
         ports:
           - 3213:5000
         env:
-          OPTIMADE_BASE_URL: http://localhost:3213
+          OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
       - uses: actions/checkout@v3
@@ -190,7 +190,7 @@ jobs:
         ports:
           - 3213:5000
         env:
-          OPTIMADE_BASE_URL: http://localhost:3213
+          OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
       - uses: actions/checkout@v3
@@ -220,7 +220,7 @@ jobs:
         ports:
           - 3213:5000
         env:
-          OPTIMADE_BASE_URL: http://localhost:3213
+          OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
       - uses: actions/checkout@v3
