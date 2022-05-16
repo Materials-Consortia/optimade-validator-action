@@ -66,15 +66,15 @@ jobs:
   validator_regular:
     runs-on: ubuntu-latest
     name: Regular server
+
+    services:
+      optimade:
+        image: ghcr.io/materials-consortia/optimade:develop
+        ports:
+          - 3213:5000
+
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up and run regular server
-        run: |
-          git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
-          docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
-          .github/utils/wait_for_it.sh localhost:3213 -t 120
-          sleep 15
 
       - name: Run action (validating the unversioned path)
         uses: ./
@@ -93,15 +93,17 @@ jobs:
   validator_index:
     runs-on: ubuntu-latest
     name: Index server
+
+    services:
+      optimade_index:
+        image: ghcr.io/materials-consortia/optimade:develop
+        ports:
+          - 3214:5000
+        env:
+          MAIN: main_index
+
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up and run index server
-        run: |
-          git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
-          docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade-index &
-          .github/utils/wait_for_it.sh localhost:3214 -t 120
-          sleep 15
 
       - name: Run action
         uses: ./
@@ -113,15 +115,15 @@ jobs:
   all_versioned_paths:
     runs-on: ubuntu-latest
     name: All versioned paths for regular server
+
+    services:
+      optimade:
+        image: ghcr.io/materials-consortia/optimade:develop
+        ports:
+          - 3213:5000
+
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up and run regular server (which includes all versioned base URLs)
-        run: |
-          git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
-          docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
-          .github/utils/wait_for_it.sh localhost:3213 -t 120
-          sleep 15
 
       - name: Run action
         uses: ./
@@ -154,15 +156,15 @@ jobs:
   validator_version:
     runs-on: ubuntu-latest
     name: Use validator from git commit sha
+
+    services:
+      optimade:
+        image: ghcr.io/materials-consortia/optimade:develop
+        ports:
+          - 3213:5000
+
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up and run regular server
-        run: |
-          git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
-          docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
-          .github/utils/wait_for_it.sh localhost:3213 -t 120
-          sleep 15
 
       - name: Run action
         uses: ./
@@ -174,15 +176,15 @@ jobs:
   validator_version_fail:
     runs-on: ubuntu-latest
     name: Use validator with wrong version
+
+    services:
+      optimade:
+        image: ghcr.io/materials-consortia/optimade:develop
+        ports:
+          - 3213:5000
+
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up and run regular server
-        run: |
-          git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
-          docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
-          .github/utils/wait_for_it.sh localhost:3213 -t 120
-          sleep 15
 
       - name: Run action
         id: action
@@ -202,20 +204,20 @@ jobs:
   results_output:
     runs-on: ubuntu-latest
     name: Retrieve and check validator results
+
+    services:
+      optimade:
+        image: ghcr.io/materials-consortia/optimade:develop
+        ports:
+          - 3213:5000
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Set up Python 3.7
         uses: actions/setup-python@v3
         with:
-          python-version: 3.7
-
-      - name: Set up and run regular server
-        run: |
-          git clone --recurse-submodules https://github.com/Materials-Consortia/optimade-python-tools
-          docker-compose -f ./optimade-python-tools/docker-compose.yml up optimade &
-          .github/utils/wait_for_it.sh localhost:3213 -t 120
-          sleep 15
+          python-version: "3.7"
 
       - name: Run action to retrieve output
         id: action

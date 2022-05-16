@@ -16,7 +16,7 @@ Latest versions:
 ## Example usage
 
 To run `optimade-validator` for an index meta-database at `http://gh_actions_host:5001/` do the following:  
-Within the same job, first, start a server, e.g., using the `docker-compose.yml` setup from the [OPTIMADE Python tools repository](https://github.com/Materials-Consortia/optimade-python-tools/blob/master/docker-compose.yml), and then add the step
+Within the same job, first, start a server, e.g., using the [`ghcr.io/materials-consortia/optimade` container image](https://github.com/Materials-Consortia/optimade-python-tools/pkgs/container/optimade) as a service, and then add the step
 
 ```yml
 uses: Materials-Consortia/optimade-validator-action@v2
