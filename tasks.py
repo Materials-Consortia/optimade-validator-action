@@ -53,8 +53,8 @@ def setver(_, ver=""):
         TOP_DIR / "README.md",
         (
             (
-                fr"`v{major_version}` \| \[`v{major_version}(\.[0-9]+){{2}}.*"
-                fr"v{major_version}(\.[0-9]+){{2}}"
+                rf"`v{major_version}` \| \[`v{major_version}(\.[0-9]+){{2}}.*"
+                rf"v{major_version}(\.[0-9]+){{2}}"
             ),
             f"`v{major_version}` | [`v{ver}`]({tag_url}v{ver}",
         ),
