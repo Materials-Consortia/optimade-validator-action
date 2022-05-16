@@ -26,6 +26,18 @@ with:
   index: yes
 ```
 
+> **Note**: The service should be used with a set `OPTIMADE_BASE_URL`:
+>
+> ```yml
+> services:
+>   optimade_index:
+>     image: ghcr.io/materials-consortia/optimade
+>     ports:
+>       - 5001:5000
+>     env:
+>       OPTIMADE_BASE_URL: http://gh_actions_host:5001
+> ```
+
 To run `optimade-validator` for a regular OPTIMADE _deployed_ implementation, testing all possible versioned base URLs, for example:
 
 - `https://example.org:443/optimade/example/v1`
