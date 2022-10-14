@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster
+FROM python:3.9.15-slim-buster
 
 RUN apt update && apt install -y iproute2
 RUN ["/bin/bash", "-c", "set -o pipefail && ip route | awk '{print $3}' > docker_host_ip"]
