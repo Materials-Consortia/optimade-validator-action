@@ -10,14 +10,16 @@ except ImportError:
     sys.exit("'invoke' MUST be installed to run these tasks.")
 
 if TYPE_CHECKING:
-    from typing import Tuple, Union
+    from typing import Optional, Tuple, Union
 
 
 TOP_DIR = Path(__file__).parent.resolve()
 
 
 def update_file(
-    filename: "Union[Path, str]", sub_line: "Tuple[str, str]", strip: str = None
+    filename: "Union[Path, str]",
+    sub_line: "Tuple[str, str]",
+    strip: "Optional[str]" = None,
 ) -> None:
     """Utility function for tasks to read, update, and write files."""
     if isinstance(filename, str):
