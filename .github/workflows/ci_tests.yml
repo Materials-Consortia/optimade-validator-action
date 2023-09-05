@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Pre-commit
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v4
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     name: PyLint & Safety
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v4
@@ -76,7 +76,7 @@ jobs:
           OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Run action (validating the unversioned path)
         uses: ./
@@ -106,7 +106,7 @@ jobs:
           OPTIMADE_BASE_URL: http://gh_actions_host:3214
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Run action
         uses: ./
@@ -128,7 +128,7 @@ jobs:
           OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Run action
         uses: ./
@@ -150,7 +150,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Run BATS test suite for entrypoint.sh
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Build BATS environment
         run: docker build -t optimade_bats ./tests
@@ -171,7 +171,7 @@ jobs:
           OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Run action
         uses: ./
@@ -193,7 +193,7 @@ jobs:
           OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Run action
         id: action
@@ -223,7 +223,7 @@ jobs:
           OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Python 3.7
         uses: actions/setup-python@v4
