@@ -3,6 +3,7 @@
 These commands are useful to check OPTIMADE Python tools-specific things,
 as well as parsing JSON files to stdout.
 """
+
 # pylint: disable=import-outside-toplevel
 import argparse
 from glob import iglob
