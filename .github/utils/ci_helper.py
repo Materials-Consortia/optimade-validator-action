@@ -9,6 +9,7 @@ This script takes in four different commands:
 
 Each of these maps onto what the expected output from a CI job may be.
 """
+
 import argparse
 import json
 import os
