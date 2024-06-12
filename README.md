@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD033 -->
 # GitHub Action - OPTIMADE validator
 
 [![GitHub Marketplace](https://img.shields.io/badge/Marketplace-v2-undefined.svg?logo=github&logoColor=white&style=flat)](https://github.com/marketplace/actions/optimade-validator)
@@ -10,8 +11,8 @@ Latest versions:
 
 | Used tag | Effective version |
 | :---: | :---: |
-| `v2` | [`v2.7.0`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v2.7.0)
-| `v1` | [`v1.2.0`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v1.2.0)
+| `v2` | [`v2.7.0`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v2.7.0) |
+| `v1` | [`v1.2.0`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v1.2.0) |
 
 ## Example usage
 
@@ -69,19 +70,19 @@ This can be chosen using the input `validator version`.
 
 | Input | Description | Usage | Default | Action version |
 | :---: |    :---     | :---: |  :---:  |      :---:     |
-| `all versioned paths` | Whether to test the optional versioned base URLs:<br><br>/vMAJOR<br>/vMAJOR.MINOR<br>/vMAJOR.MINOR.PATCH<br><br>If `false`, only the mandatory /vMAJOR URL will be tested. | Optional | `false` | `v1+`
-| `validate unversioned path` | Whether to validate the input URL as a full OPTIMADE implementation without appending any version.<br><br>This action assumes that the 'path' parameter will contain an unversioned URL. As it is not mandatory to run a full OPTIMADE implementation from the unversioned URL, by default, this action will not perform any validation of this URL, beyond checking the mandatory `/versions` endpoint. | Optional | `false` | `v2.3+`
-| `as type` | Validate the request URL with the provided type, rather than scanning the entire implementation.<br>Example values: `structures`, `reference`. For a full list of values see the [OPTIMADE Python tools documentation](https://www.optimade.org/optimade-python-tools/api_reference/validator/validator/#optimade.validator.validator.ImplementationValidator.__init__).<br>It is expected that `path` points to the exact endpoint to be validated. You must include any versions or similar if desired, as the `path` will be used as given.<br>**NB**: This input takes precedence over `all versioned paths`, `validate unversioned path`, and `index`, meaning these will be _ignored_ if `as type` is defined. | Optional | - | `v1+`
-| `domain` | Domain for the OPTIMADE URL (defaults to the GitHub Actions runner host). | Optional | `gh_actions_host` | `v1+`
-| `fail fast` | Whether or not to exit and return a non-zero error code on first failure. | Optional | `false` | `v2+`
-| `index` | Whether or not this is an index meta-database. | Optional | `false` | `v1+`
-| `path` | Path to append to the domain to reach the OPTIMADE unversioned base URL - MUST start with `/`.<br>The path MUST NOT include the versioned part of the base URL. Rather, it MUST point to the unversioned base URL of your OPTIMADE implementation (**except** if `as type` is defined, then `path` should define the full path to the endpoint to be validated, including also the versioned part if desired, e.g., `/v1.0/structures`). | Optional | `/` | `v1+`
-| `port` | Port for the OPTIMADE URL. | Optional | `5000` | `v1+`
-| `protocol` | Protocol for the OPTIMADE URL. | Optional | `http` | `v1+`
-| `skip optional` | Whether or not to skip tests for optional features. | Optional | `false` | `v2+`
-| `minimal` | Whether or not to reduce the validation to a minimal test set that only checks responses and not filters. | Optional | `false` | `v2.4.1+`
-| `validator version` | Full version of an OPTIMADE Python tools release to PyPI, e.g., `'v0.6.0'` or `'0.3.4'`, which hosts the `optimade-validator`. It can also be a branch, tag, or git commit to use from the GitHub repository, e.g., `'master'` or `'5a5e903'`.<br>See [the pip documentation](https://pip.pypa.io/en/latest/reference/pip_install/#git) for more information of what is allowed here.<br>Finally, it may also be `'latest'` (default), which is understood to be the latest official release of the `optimade` package on PyPI.<br>Note, for the latest development version, choose `'master'`. | **Required** | `latest` | `v1+`
-| `verbosity` | The verbosity of the output.<br>`0`: minimalistic, `1`: informational, `2`+: debug | Optional | `1` | `v1+`
+| `all versioned paths` | Whether to test the optional versioned base URLs:<br><br>/vMAJOR<br>/vMAJOR.MINOR<br>/vMAJOR.MINOR.PATCH<br><br>If `false`, only the mandatory /vMAJOR URL will be tested. | Optional | `false` | `v1+` |
+| `validate unversioned path` | Whether to validate the input URL as a full OPTIMADE implementation without appending any version.<br><br>This action assumes that the 'path' parameter will contain an unversioned URL. As it is not mandatory to run a full OPTIMADE implementation from the unversioned URL, by default, this action will not perform any validation of this URL, beyond checking the mandatory `/versions` endpoint. | Optional | `false` | `v2.3+` |
+| `as type` | Validate the request URL with the provided type, rather than scanning the entire implementation.<br>Example values: `structures`, `reference`. For a full list of values see the [OPTIMADE Python tools documentation](https://www.optimade.org/optimade-python-tools/api_reference/validator/validator/#optimade.validator.validator.ImplementationValidator.__init__).<br>It is expected that `path` points to the exact endpoint to be validated. You must include any versions or similar if desired, as the `path` will be used as given.<br>**NB**: This input takes precedence over `all versioned paths`, `validate unversioned path`, and `index`, meaning these will be _ignored_ if `as type` is defined. | Optional | - | `v1+` |
+| `domain` | Domain for the OPTIMADE URL (defaults to the GitHub Actions runner host). | Optional | `gh_actions_host` | `v1+` |
+| `fail fast` | Whether or not to exit and return a non-zero error code on first failure. | Optional | `false` | `v2+` |
+| `index` | Whether or not this is an index meta-database. | Optional | `false` | `v1+` |
+| `path` | Path to append to the domain to reach the OPTIMADE unversioned base URL - MUST start with `/`.<br>The path MUST NOT include the versioned part of the base URL. Rather, it MUST point to the unversioned base URL of your OPTIMADE implementation (**except** if `as type` is defined, then `path` should define the full path to the endpoint to be validated, including also the versioned part if desired, e.g., `/v1.0/structures`). | Optional | `/` | `v1+` |
+| `port` | Port for the OPTIMADE URL. | Optional | `5000` | `v1+` |
+| `protocol` | Protocol for the OPTIMADE URL. | Optional | `http` | `v1+` |
+| `skip optional` | Whether or not to skip tests for optional features. | Optional | `false` | `v2+` |
+| `minimal` | Whether or not to reduce the validation to a minimal test set that only checks responses and not filters. | Optional | `false` | `v2.4.1+` |
+| `validator version` | Full version of an OPTIMADE Python tools release to PyPI, e.g., `'v0.6.0'` or `'0.3.4'`, which hosts the `optimade-validator`. It can also be a branch, tag, or git commit to use from the GitHub repository, e.g., `'master'` or `'5a5e903'`.<br>See [the pip documentation](https://pip.pypa.io/en/latest/reference/pip_install/#git) for more information of what is allowed here.<br>Finally, it may also be `'latest'` (default), which is understood to be the latest official release of the `optimade` package on PyPI.<br>Note, for the latest development version, choose `'master'`. | **Required** | `latest` | `v1+` |
+| `verbosity` | The verbosity of the output.<br>`0`: minimalistic, `1`: informational, `2`+: debug | Optional | `1` | `v1+` |
 
 ## Running test suite (developers)
 
