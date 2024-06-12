@@ -1,19 +1,20 @@
-FROM bats/bats:v1.10.0
+FROM materials-consortia/bats:1.11.0
 
-RUN echo "**** Installing Python 3 ****" && \
-    apk add --no-cache python3 && \
+ENV PYTHONUNBUFFERED 1
+# Install Python 3
+RUN apk add --update --no-cache python3 && \
     if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
-    echo "**** Installing pip ****" && \
+# Install pip and pipx
     python -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --no-cache --upgrade pip setuptools wheel && \
+    pip3 install --no-cache --upgrade pip setuptools wheel virtualenv && \
     if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi
 
 ENV BATS_TEST_HELPERS /test_helpers
-RUN echo "**** Updating BATS with bats-support and bats-assert ****" && \
-    apk add --no-cache git && \
+# Install git and update BATS with bats-support and bats-assert
+RUN apk add --no-cache git && \
     git clone https://github.com/bats-core/bats-support ${BATS_TEST_HELPERS}/bats-support && \
     git clone https://github.com/bats-core/bats-assert ${BATS_TEST_HELPERS}/bats-assert
 
-RUN echo "**** Imitating the Action's Dockerfile, retrieving Docker host IP ****" && \
-    echo $(ip route | awk '{print $3}') > /docker_host_ip
+# Imitate the Action's Dockerfile, retrieving the Docker host IP
+RUN echo $(ip route | awk '{print $3}') > /docker_host_ip
