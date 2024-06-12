@@ -5,7 +5,7 @@ set -o pipefail
 # Setup and activate virtual environment
 rm -rf /venvs
 mkdir -p /venvs
-python -m venv --clear /venvs/optimade-validator
+python -m virtualenv /venvs/optimade-validator
 source /venvs/optimade-validator/bin/activate
 
 # Install OPTIMADE Python tools
