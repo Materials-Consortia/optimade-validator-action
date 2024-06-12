@@ -7,7 +7,7 @@ RUN apk add --update --no-cache python3 && \
 # Install pip and pipx
     python -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --no-cache --upgrade pip setuptools wheel virtualenv && \
+    pip3 install --no-cache --upgrade pip setuptools wheel && \
     if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi
 
 ENV BATS_TEST_HELPERS /test_helpers
