@@ -2,20 +2,26 @@
 set -e
 set -o pipefail
 
+# Setup and activate virtual environment
+rm -rf /venvs
+mkdir -p /venvs
+python -m virtualenv /venvs/optimade-validator
+source /venvs/optimade-validator/bin/activate
+
 # Install OPTIMADE Python tools
 if [ "${INPUT_VALIDATOR_VERSION}" = "latest" ]; then
     echo "Installing latest version of optimade"
-    python -m pip install --no-cache -U --upgrade-strategy=eager optimade
+    python -m pip install --no-cache optimade
 elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
     echo "Installing version ${INPUT_VALIDATOR_VERSION} of optimade"
-    python -m pip install --no-cache -U optimade==${INPUT_VALIDATOR_VERSION}
+    python -m pip install --no-cache optimade==${INPUT_VALIDATOR_VERSION}
 elif echo ${INPUT_VALIDATOR_VERSION} | grep -Eq '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
     OPTIMADE_VERSION=$(echo ${INPUT_VALIDATOR_VERSION} | cut -c 2-)
     echo "Installing version ${OPTIMADE_VERSION} of optimade"
-    python -m pip install --no-cache -U optimade==${OPTIMADE_VERSION}
+    python -m pip install --no-cache optimade==${OPTIMADE_VERSION}
 else
     echo "Installing branch, tag or commit ${INPUT_VALIDATOR_VERSION} of optimade (from GitHub)"
-    python -m pip install --no-cache -U "https://github.com/Materials-Consortia/optimade-python-tools/tarball/${INPUT_VALIDATOR_VERSION}"
+    python -m pip install --no-cache "https://github.com/Materials-Consortia/optimade-python-tools/tarball/${INPUT_VALIDATOR_VERSION}"
 fi
 
 # Check optimade-python-tools version is >0.10
@@ -195,6 +201,13 @@ EXIT_CODE=${PIPESTATUS[0]}
 
 # Create output 'results'
 RESULTS=$(python /helper.py results)
-echo "::set-output name=results::${RESULTS}"
+
+if [ "${GITHUB_ACTIONS}" == "true" ]; then
+    echo "results=${RESULTS}" >> $GITHUB_OUTPUT
+fi
+
+# Deactivate and remove virtual environment
+deactivate
+rm -rf /venvs
 
 exit ${EXIT_CODE}
