@@ -170,7 +170,7 @@ jobs:
 
       - name: Build BATS environment
         run: |
-          docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           docker build -t optimade_bats ./tests
 
       - name: Run BATS tests
