@@ -183,6 +183,7 @@ jobs:
         with:
           context: ./tests
           push: false
+          load: true
           tags: optimade_bats
 
       - name: Run BATS tests
