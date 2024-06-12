@@ -90,16 +90,24 @@ The test suite is based on [BATS](https://github.com/bats-core/bats-core) and sh
 The reason to run in Docker, is that the `entrypoint.sh` file will install the `optimade` package.
 And to not pollute your local environment, it is safer to run it in a Docker container.
 
+Furthermore, for each test run, the `optimade` package will be installed in a virtual environment within the Docker file, since changing the `optimade` version is part of the test suite.
+
 Steps to setup your test environment:
 
+1. Git clone the bats-core repository to your local environment
 1. Git clone this repository to your local environment
 1. Install Docker (this depends on your OS, see [the Docker documentation](https://docs.docker.com/install/))
-1. Run in a terminal (based on a Unix system):
+1. Build the Docker images (based on a Unix system):
 
-   ```sh
-   cd /path/to/optimade-validator-action
-   docker build --tag optimade_bats ./tests
-   ```
+  ```sh
+  cd /path/to/bats-core
+  docker build --tag materials-consortia/bats:1.11.0 --build-arg bashver=alpine3.15 .
+
+  cd /path/to/optimade-validator-action
+  docker build --tag optimade_bats ./tests
+  ```
+
+> **Note**: It is necessary to build the `bats-core` image first, since the `optimade-validator-action` image requires at minimum Python 3.9, so the `alpine3.15` image is used.
 
 Now you can run
 
