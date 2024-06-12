@@ -2,3 +2,5 @@
 *.entrypoint-run_validator.txt
 /tests/.entrypoint.sh
 *v*.json
+
+.*_cache/
