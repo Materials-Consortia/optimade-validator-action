@@ -154,6 +154,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Run BATS test suite for entrypoint.sh
 
+    permissions:
+      packages: read
+
     env:
       # Latest BATS version
       # If a new BATS version is released, a new Docker image should be built
