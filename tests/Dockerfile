@@ -1,4 +1,4 @@
-FROM materials-consortia/bats:1.11.0
+FROM ghcr.io/materials-consortia/bats:1.11.0
 
 ENV PYTHONUNBUFFERED 1
 # Install Python 3
