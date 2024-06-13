@@ -1,3 +1,14 @@
+# pre-commit.ci configuration
+ci:
+  autofix_prs: false
+  autoupdate_branch: 'master'
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: monthly
+  # Both of these require external Python libs to be installed in the environment
+  skip: [pylint, align-python-version]
+  submodules: false
+
+# pre-commit hooks
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.6.0
