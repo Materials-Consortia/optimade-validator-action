@@ -14,7 +14,6 @@ jobs:
 
   pre-commit:
     runs-on: ubuntu-latest
-    name: Pre-commit
     steps:
       - uses: actions/checkout@v4
 
@@ -41,7 +40,7 @@ jobs:
 
   pylint-safety:
     runs-on: ubuntu-latest
-    name: PyLint & Safety
+    name: pylint & safety
     steps:
       - uses: actions/checkout@v4
 
