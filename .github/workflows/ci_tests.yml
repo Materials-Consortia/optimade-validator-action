@@ -30,10 +30,12 @@ jobs:
           while IFS="" read -r line || [ -n "${line}" ]; do
             if [[ "${line}" =~ ^pre-commit.*$ ]]; then
               pre_commit="${line}"
+            elif [[ "${line}" =~ ^invoke.*$ ]]; then
+              invoke="${line}"
             fi
           done < requirements.txt
 
-          pip install ${pre_commit}
+          pip install ${pre_commit} ${invoke}
 
       - name: Run pre-commit
         run: SKIP=pylint pre-commit run --all-files --show-diff-on-failure
