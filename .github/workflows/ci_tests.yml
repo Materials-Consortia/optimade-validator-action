@@ -154,38 +154,40 @@ jobs:
     runs-on: ubuntu-latest
     name: Run BATS test suite for entrypoint.sh
 
+    permissions:
+      packages: read
+
     env:
       # Latest BATS version
-      # This should manually be updated when a new version is released
-      # Tries to match the latest Docker tag for the BATS image at:
-      # https://hub.docker.com/r/bats/bats/tags
+      # If a new BATS version is released, a new Docker image should be built
+      # and uploaded to ghcr.io/materials-consortia/bats with the new version tag
+      # as well as an approprate alpine version (using the `bashver` build arg).
       BATS_VERSION: '1.11.0'
-      # The latest alpine version with Python3.9
-      # For more information use the alpine package search:
-      # https://pkgs.alpinelinux.org/packages?name=python3&branch=v3.15
-      BASH_DOCKER_TAG: alpine3.15
 
     steps:
-      - name: Checkout bats-core/bats-core
+      - name: Checkout the repository
         uses: actions/checkout@v4
-        with:
-          repository: bats-core/bats-core
-          path: bats-core
 
-      - name: Build BATS Docker image
-        run: docker build -t materials-consortia/bats:${{ env.BATS_VERSION }} --build-arg bashver=${{ env.BASH_DOCKER_TAG }} ./bats-core
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Checkout the local repository
-        uses: actions/checkout@v4
+      - name: Login to ghrc.io
+        uses: docker/login-action@v3
         with:
-          path: main
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build BATS environment
-        run: docker build -t optimade_bats ./main/tests
+        uses: docker/build-push-action@v5
+        with:
+          context: ./tests
+          push: false
+          load: true
+          tags: optimade_bats
 
       - name: Run BATS tests
         run: ./run_tests.sh
-        working-directory: main
 
   validator_version:
     runs-on: ubuntu-latest
