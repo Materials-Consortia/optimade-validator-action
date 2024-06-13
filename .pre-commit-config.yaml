@@ -40,3 +40,11 @@ repos:
     language: python
     types: [python]
     require_serial: true
+  - id: align-python-version
+    name: Align Python Version
+    entry: invoke
+    args: [check-dockerfile-python-version]
+    language: system
+    files: ^(Dockerfile|.github/workflows/ci_tests.yml|pyproject.toml)$
+    pass_filenames: false
+    description: 'Check that the Python version in the Dockerfile, GitHub Actions, and pyproject.toml are aligned.'
