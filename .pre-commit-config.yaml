@@ -1,3 +1,14 @@
+# pre-commit.ci configuration
+ci:
+  autofix_prs: false
+  autoupdate_branch: 'master'
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: monthly
+  # Both of these require external Python libs to be installed in the environment
+  skip: [pylint, align-python-version]
+  submodules: false
+
+# pre-commit hooks
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.6.0
@@ -40,3 +51,11 @@ repos:
     language: python
     types: [python]
     require_serial: true
+  - id: align-python-version
+    name: Align Python Version
+    entry: invoke
+    args: [check-dockerfile-python-version]
+    language: system
+    files: ^(Dockerfile|.github/workflows/ci_tests.yml|pyproject.toml)$
+    pass_filenames: false
+    description: 'Check that the Python version in the Dockerfile, GitHub Actions, and pyproject.toml are aligned.'

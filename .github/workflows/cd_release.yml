@@ -24,7 +24,7 @@ jobs:
     - name: Set up Python 3.9
       uses: actions/setup-python@v5
       with:
-        python-version: 3.9
+        python-version: '3.9'
 
     - name: Install Python dependencies
       run: |
@@ -39,12 +39,19 @@ jobs:
 
         pip install ${invoke}
 
+    - name: Setup changelog configuration
+      id: changelog_config
+      run: |
+        echo "project=$(echo $GITHUB_REPOSITORY | cut -d/ -f2- )" >> $GITHUB_OUTPUT
+        echo "exclude_labels=duplicate,question,invalid,wontfix,docker_dependencies" >> $GITHUB_OUTPUT
+
+        # For the release-specific changelog
+        echo "output_file=release_changelog.md" >> $GITHUB_OUTPUT
+
     - name: Update changelog
-      uses: CharMixer/auto-changelog-action@v1
+      uses: docker://githubchangeloggenerator/github-changelog-generator:1.16.2
       with:
-        token: ${{ secrets.RELEASE_PAT_CASPER }}
-        release_branch: ${{ env.PUBLISH_UPDATE_BRANCH }}
-        exclude_tags: "duplicate,question,invalid,wontfix,docker_dependencies"
+        args: --user "${{ github.repository_owner }}" --project "${{ steps.changelog_config.outputs.project }}" --token "${{ secrets.RELEASE_PAT_CASPER }}" --release-branch "${{ env.PUBLISH_UPDATE_BRANCH }}" --exclude-labels "${{ steps.changelog_config.outputs.exclude_labels }}"
 
     - name: Update version and tags
       run: .github/utils/update_version.sh
@@ -58,22 +65,19 @@ jobs:
         force: true
         tags: true
 
-    - name: Get tagged versions
-      run: echo "PREVIOUS_VERSION=$(git tag -l --sort -version:refname | sed -n 2p)" >> $GITHUB_ENV
+    - name: Get previous version
+      id: get_previous_version
+      run: echo "previous_version=$(git tag -l --sort -version:refname | sed -n 2p)" >> $GITHUB_OUTPUT
 
     - name: Create release-specific changelog
-      uses: CharMixer/auto-changelog-action@v1
+      uses: docker://githubchangeloggenerator/github-changelog-generator:1.16.2
       with:
-        token: ${{ secrets.RELEASE_PAT_CASPER }}
-        release_branch: ${{ env.PUBLISH_UPDATE_BRANCH }}
-        since_tag: "${{ env.PREVIOUS_VERSION }}"
-        output: "release_changelog.md"
-        exclude_tags: "duplicate,question,invalid,wontfix,docker_dependencies"
+        args: --user "${{ github.repository_owner }}" --project "${{ steps.changelog_config.outputs.project }}" --token "${{ secrets.RELEASE_PAT_CASPER }}" --release-branch "${{ env.PUBLISH_UPDATE_BRANCH }}" --since-tag "${{ steps.get_previous_version.outputs.previous_version }}" --output "${{ steps.changelog_config.outputs.output_file }}" --exclude-labels "${{ steps.changelog_config.outputs.exclude_labels }}" --usernames-as-github-logins
 
     - name: Append changelog to release body
       run: |
         gh api /repos/${{ github.repository }}/releases/${{ github.event.release.id }} --jq '.body' > release_body.md
-        cat release_changelog.md >> release_body.md
+        cat ${{ steps.changelog_config.outputs.output_file }} >> release_body.md
         gh api /repos/${{ github.repository }}/releases/${{ github.event.release.id }} -X PATCH -F body='@release_body.md'
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_PAT_CASPER }}

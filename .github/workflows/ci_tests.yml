@@ -14,14 +14,13 @@ jobs:
 
   pre-commit:
     runs-on: ubuntu-latest
-    name: Pre-commit
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version: '${{ env.PYTHON_VERSION }}'
 
       - name: Install Python dependencies
         run: |
@@ -31,24 +30,26 @@ jobs:
           while IFS="" read -r line || [ -n "${line}" ]; do
             if [[ "${line}" =~ ^pre-commit.*$ ]]; then
               pre_commit="${line}"
+            elif [[ "${line}" =~ ^invoke.*$ ]]; then
+              invoke="${line}"
             fi
           done < requirements.txt
 
-          pip install ${pre_commit}
+          pip install ${pre_commit} ${invoke}
 
       - name: Run pre-commit
         run: SKIP=pylint pre-commit run --all-files --show-diff-on-failure
 
   pylint-safety:
     runs-on: ubuntu-latest
-    name: PyLint & Safety
+    name: pylint & safety
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version: '${{ env.PYTHON_VERSION }}'
 
       - name: Install Python dependencies
         run: |

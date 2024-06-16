@@ -5,23 +5,43 @@ updates:
   schedule:
     interval: daily
     time: "04:43"
-  target-branch: ci/dependabot-updates
+  target-branch: master
   labels:
   - docker_dependencies
+  groups:
+    docker:
+      applies-to: version-updates
+      dependency-type: production
+    docker-security:
+      applies-to: security-updates
+      dependency-type: production
 - package-ecosystem: github-actions
   directory: "/"
   schedule:
     interval: daily
     time: "04:38"
-  target-branch: ci/dependabot-updates
+  target-branch: master
   labels:
   - CI
-- package-ecosystem: docker
-  directory: "/tests"
+  groups:
+    gh-actions:
+      applies-to: version-updates
+      dependency-type: production
+    gh-actions-security:
+      applies-to: security-updates
+      dependency-type: production
+- package-ecosystem: pip
+  directory: "/"
   schedule:
     interval: daily
-    time: "04:33"
-  target-branch: ci/dependabot-updates
+    time: "04:53"
+  target-branch: master
   labels:
-  - docker_dependencies
-  - tests
+  - CI
+  groups:
+    python:
+      applies-to: version-updates
+      dependency-type: production
+    python-security:
+      applies-to: security-updates
+      dependency-type: production
