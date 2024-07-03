@@ -1,42 +1,58 @@
 # Changelog
 
-## [v2.7.0](https://github.com/Materials-Consortia/optimade-validator-action/tree/v2.7.0) (2022-05-16)
+## [v2.8.0](https://github.com/Materials-Consortia/optimade-validator-action/tree/v2.8.0) (2024-07-02)
 
-[Full Changelog](https://github.com/Materials-Consortia/optimade-validator-action/compare/v2...v2.7.0)
+[Full Changelog](https://github.com/Materials-Consortia/optimade-validator-action/compare/v2...v2.8.0)
 
 **Implemented enhancements:**
 
-- Update dependabot frequency [\#104](https://github.com/Materials-Consortia/optimade-validator-action/issues/104)
-- Add pre-commit [\#77](https://github.com/Materials-Consortia/optimade-validator-action/pull/77) ([CasperWA](https://github.com/CasperWA))
-- Update dependabot automation [\#76](https://github.com/Materials-Consortia/optimade-validator-action/pull/76) ([CasperWA](https://github.com/CasperWA))
+- Use Dependabot `groups` [\#148](https://github.com/Materials-Consortia/optimade-validator-action/issues/148)
+- Update usage of `set-output` GH Actions command [\#123](https://github.com/Materials-Consortia/optimade-validator-action/issues/123)
+
+**Fixed bugs:**
+
+- Issue with BATS docker image [\#142](https://github.com/Materials-Consortia/optimade-validator-action/issues/142)
+- Docker-compose references should be removed [\#106](https://github.com/Materials-Consortia/optimade-validator-action/issues/106)
+
+**Closed issues:**
+
+- Use the OPTIMADE bot user for CI jobs [\#149](https://github.com/Materials-Consortia/optimade-validator-action/issues/149)
+- Use BATS Docker image from ghcr.io [\#146](https://github.com/Materials-Consortia/optimade-validator-action/issues/146)
+
+**Merged pull requests:**
+
+- \[pre-commit.ci\] pre-commit autoupdate [\#154](https://github.com/Materials-Consortia/optimade-validator-action/pull/154) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
+- Bump docker/build-push-action from 5 to 6 in the gh-actions group [\#153](https://github.com/Materials-Consortia/optimade-validator-action/pull/153) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump the python group with 3 updates [\#152](https://github.com/Materials-Consortia/optimade-validator-action/pull/152) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Update CI/CD and dependabot [\#150](https://github.com/Materials-Consortia/optimade-validator-action/pull/150) ([CasperWA](https://github.com/CasperWA))
+- Use the newly created bats image on ghcr.io [\#147](https://github.com/Materials-Consortia/optimade-validator-action/pull/147) ([CasperWA](https://github.com/CasperWA))
+- Build BATS Docker image locally [\#143](https://github.com/Materials-Consortia/optimade-validator-action/pull/143) ([CasperWA](https://github.com/CasperWA))
+- Use the `optimade` container image as a service [\#107](https://github.com/Materials-Consortia/optimade-validator-action/pull/107) ([CasperWA](https://github.com/CasperWA))
+
+## [v2](https://github.com/Materials-Consortia/optimade-validator-action/tree/v2) (2022-05-16)
+
+[Full Changelog](https://github.com/Materials-Consortia/optimade-validator-action/compare/v2.7.0...v2)
+
+## [v2.7.0](https://github.com/Materials-Consortia/optimade-validator-action/tree/v2.7.0) (2022-05-16)
+
+[Full Changelog](https://github.com/Materials-Consortia/optimade-validator-action/compare/v2.6.0...v2.7.0)
 
 **Fixed bugs:**
 
 - GH GraphQL type issue in auto-merge workflow [\#94](https://github.com/Materials-Consortia/optimade-validator-action/issues/94)
-- Auto-merge dependabot PRs workflow failing [\#80](https://github.com/Materials-Consortia/optimade-validator-action/issues/80)
 
 **Closed issues:**
 
 - Failure to install optimade package deps [\#98](https://github.com/Materials-Consortia/optimade-validator-action/issues/98)
-- Dependabot single PR workflow failing [\#82](https://github.com/Materials-Consortia/optimade-validator-action/issues/82)
 
 **Merged pull requests:**
 
 - Update frequency for dependencies update PRs [\#105](https://github.com/Materials-Consortia/optimade-validator-action/pull/105) ([CasperWA](https://github.com/CasperWA))
 - Use `ID!` type instead of `String!` [\#95](https://github.com/Materials-Consortia/optimade-validator-action/pull/95) ([CasperWA](https://github.com/CasperWA))
-- Update dependencies [\#91](https://github.com/Materials-Consortia/optimade-validator-action/pull/91) ([CasperWA](https://github.com/CasperWA))
-- Update dependencies [\#88](https://github.com/Materials-Consortia/optimade-validator-action/pull/88) ([CasperWA](https://github.com/CasperWA))
 - Use Python tools logic for checking PR body [\#87](https://github.com/Materials-Consortia/optimade-validator-action/pull/87) ([CasperWA](https://github.com/CasperWA))
-- Update dependencies [\#86](https://github.com/Materials-Consortia/optimade-validator-action/pull/86) ([CasperWA](https://github.com/CasperWA))
-- Update dependencies [\#85](https://github.com/Materials-Consortia/optimade-validator-action/pull/85) ([CasperWA](https://github.com/CasperWA))
 - Add steps to install `pre-commit` [\#83](https://github.com/Materials-Consortia/optimade-validator-action/pull/83) ([CasperWA](https://github.com/CasperWA))
 - Fix workflow and python-version task [\#81](https://github.com/Materials-Consortia/optimade-validator-action/pull/81) ([CasperWA](https://github.com/CasperWA))
-- Update dependencies [\#78](https://github.com/Materials-Consortia/optimade-validator-action/pull/78) ([CasperWA](https://github.com/CasperWA))
 - Bump CasperWA/push-protected from 2.4.0 to 2.5.0 [\#74](https://github.com/Materials-Consortia/optimade-validator-action/pull/74) ([dependabot[bot]](https://github.com/apps/dependabot))
-
-## [v2](https://github.com/Materials-Consortia/optimade-validator-action/tree/v2) (2021-08-20)
-
-[Full Changelog](https://github.com/Materials-Consortia/optimade-validator-action/compare/v2.6.0...v2)
 
 ## [v2.6.0](https://github.com/Materials-Consortia/optimade-validator-action/tree/v2.6.0) (2021-08-20)
 
