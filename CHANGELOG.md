@@ -1,8 +1,41 @@
 # Changelog
 
-## [v2.8.0](https://github.com/Materials-Consortia/optimade-validator-action/tree/v2.8.0) (2024-07-02)
+## [Unreleased](https://github.com/Materials-Consortia/optimade-validator-action/tree/HEAD)
 
-[Full Changelog](https://github.com/Materials-Consortia/optimade-validator-action/compare/v2...v2.8.0)
+[Full Changelog](https://github.com/Materials-Consortia/optimade-validator-action/compare/v2.9.0...HEAD)
+
+## Upgrade Python 3.9 -> 3.10
+
+Use Python 3.10 in the action as well as in all CI workflows.
+
+Also, update dependencies and dev tools (pre-commit hooks) to the latest versions.
+
+## [v2.9.0](https://github.com/Materials-Consortia/optimade-validator-action/tree/v2.9.0) (2024-10-12)
+
+[Full Changelog](https://github.com/Materials-Consortia/optimade-validator-action/compare/v2...v2.9.0)
+
+## Upgrade Python 3.9 -> 3.10
+
+Use Python 3.10 in the action as well as in all CI workflows.
+
+Also, update dependencies and dev tools (pre-commit hooks) to the latest versions.
+
+**Merged pull requests:**
+
+- Bump Python to 3.10 [\#160](https://github.com/Materials-Consortia/optimade-validator-action/pull/160) ([ml-evs](https://github.com/ml-evs))
+- Update pre-commit requirement from ~=3.8 to ~=4.0 in the python group [\#159](https://github.com/Materials-Consortia/optimade-validator-action/pull/159) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Update pylint requirement from ~=3.2 to ~=3.3 in the python group [\#158](https://github.com/Materials-Consortia/optimade-validator-action/pull/158) ([dependabot[bot]](https://github.com/apps/dependabot))
+- \[pre-commit.ci\] pre-commit autoupdate [\#157](https://github.com/Materials-Consortia/optimade-validator-action/pull/157) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [\#156](https://github.com/Materials-Consortia/optimade-validator-action/pull/156) ([pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci))
+- Update pre-commit requirement from ~=3.7 to ~=3.8 in the python group [\#155](https://github.com/Materials-Consortia/optimade-validator-action/pull/155) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v2](https://github.com/Materials-Consortia/optimade-validator-action/tree/v2) (2024-07-03)
+
+[Full Changelog](https://github.com/Materials-Consortia/optimade-validator-action/compare/v2.8.0...v2)
+
+## [v2.8.0](https://github.com/Materials-Consortia/optimade-validator-action/tree/v2.8.0) (2024-07-03)
+
+[Full Changelog](https://github.com/Materials-Consortia/optimade-validator-action/compare/v2.7.0...v2.8.0)
 
 **Implemented enhancements:**
 
@@ -28,10 +61,6 @@
 - Use the newly created bats image on ghcr.io [\#147](https://github.com/Materials-Consortia/optimade-validator-action/pull/147) ([CasperWA](https://github.com/CasperWA))
 - Build BATS Docker image locally [\#143](https://github.com/Materials-Consortia/optimade-validator-action/pull/143) ([CasperWA](https://github.com/CasperWA))
 - Use the `optimade` container image as a service [\#107](https://github.com/Materials-Consortia/optimade-validator-action/pull/107) ([CasperWA](https://github.com/CasperWA))
-
-## [v2](https://github.com/Materials-Consortia/optimade-validator-action/tree/v2) (2022-05-16)
-
-[Full Changelog](https://github.com/Materials-Consortia/optimade-validator-action/compare/v2.7.0...v2)
 
 ## [v2.7.0](https://github.com/Materials-Consortia/optimade-validator-action/tree/v2.7.0) (2022-05-16)
 

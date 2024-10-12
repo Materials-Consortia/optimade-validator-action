@@ -11,7 +11,7 @@ Latest versions:
 
 | Used tag | Effective version |
 | :---: | :---: |
-| `v2` | [`v2.8.0`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v2.8.0) |
+| `v2` | [`v2.9.0`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v2.9.0) |
 | `v1` | [`v1.2.0`](https://github.com/Materials-Consortia/optimade-validator-action/releases/tag/v1.2.0) |
 
 ## Example usage
