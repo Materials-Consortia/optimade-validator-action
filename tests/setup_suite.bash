@@ -2,7 +2,11 @@
 
 # Set workdir to Docker default if not set already
 if [ -z "${DOCKER_BATS_WORKDIR}" ]; then
-    export DOCKER_BATS_WORKDIR=/code
+    if [ -n "${CI}" ]; then
+        export DOCKER_BATS_WORKDIR=${GITHUB_WORKSPACE}
+    else
+        export DOCKER_BATS_WORKDIR=/code
+    fi
 fi
 
 # Absolute path to entrypoint.sh
