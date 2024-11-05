@@ -4,6 +4,9 @@ if [ -z "${DOCKER_BATS_WORKDIR}" ]; then
 fi
 
 # Load BATS extensions (installed in ./tests/Dockerfile)
+if [ -n "${BATS_LIB_PATH}" ]; then
+    export BATS_TEST_HELPERS=${BATS_LIB_PATH}
+fi
 load "${BATS_TEST_HELPERS}/bats-support/load.bash"
 load "${BATS_TEST_HELPERS}/bats-assert/load.bash"
 
