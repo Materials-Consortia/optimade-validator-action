@@ -178,6 +178,12 @@ jobs:
           detik-install: false
           file-install: false
 
+      - name: Imitate the Action's Dockerfile
+        shell: bash
+        run: |
+          sudo apt-get update && sudo apt-get install --no-install-recommends -fqqy iproute2
+          set -o pipefail && ip route | awk '{print $3}' > /tmp/docker_host_ip
+
       - name: Run BATS tests
         shell: bash
         env:

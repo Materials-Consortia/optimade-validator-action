@@ -17,4 +17,4 @@ RUN apk add --no-cache git && \
     git clone https://github.com/bats-core/bats-assert ${BATS_TEST_HELPERS}/bats-assert
 
 # Imitate the Action's Dockerfile, retrieving the Docker host IP
-RUN echo $(ip route | awk '{print $3}') > /docker_host_ip
+RUN echo $(ip route | awk '{print $3}') > /tmp/docker_host_ip
