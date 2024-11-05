@@ -112,11 +112,13 @@ case ${INPUT_FAIL_FAST} in
         ;;
 esac
 
+clean_domain=$(python /helper.py remove-trailing-slash ${INPUT_DOMAIN})
 if [ -n "${INPUT_PORT}" ]; then
-    BASE_URL="${INPUT_PROTOCOL}://${INPUT_DOMAIN}:${INPUT_PORT}"
+    BASE_URL="${INPUT_PROTOCOL}://${clean_domain}:${INPUT_PORT}"
 else
-    BASE_URL="${INPUT_PROTOCOL}://${INPUT_DOMAIN}"
+    BASE_URL="${INPUT_PROTOCOL}://${clean_domain}"
 fi
+BASE_URL=$(python /helper.py remove-trailing-slash ${BASE_URL})
 run_validator="${run_validator} ${BASE_URL}"
 
 index=""
@@ -131,6 +133,9 @@ case ${INPUT_INDEX} in
         ;;
 esac
 
+path=$(python /helper.py remove-trailing-slash ${INPUT_PATH})
+path=$(python /helper.py assert-leading-slash ${path})
+
 if [ -z "${INPUT_AS_TYPE}" ]; then
     # If `as type` is defined, don't run this validation.
 
@@ -138,8 +143,8 @@ if [ -z "${INPUT_AS_TYPE}" ]; then
     # Echo line is for testing
     case ${INPUT_VALIDATE_UNVERSIONED_PATH} in
         y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
-            echo "run_validator: ${run_validator}${INPUT_PATH}${index}" > ./.entrypoint-run_validator.txt
-            sh -c "${run_validator}${INPUT_PATH}${index}" | tee "unversioned.json"
+            echo "run_validator: ${run_validator}${path}${index}" > ./.entrypoint-run_validator.txt
+            sh -c "${run_validator}${path}${index}" | tee "unversioned.json"
             ;;
         n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
             ;;
@@ -154,15 +159,16 @@ if [ -n "${INPUT_AS_TYPE}" ]; then
     # Note, `--index` is not allowed, hence, it is removed/ignored here.
 
     # Echo line is for testing
-    echo "run_validator: ${run_validator}${INPUT_PATH}" > ./.entrypoint-run_validator.txt
-    sh -c "${run_validator}${INPUT_PATH}" | tee "astype.json"
+    echo "run_validator: ${run_validator}${path}" > ./.entrypoint-run_validator.txt
+    sh -c "${run_validator}${path}" | tee "astype.json"
 else
     # `as type` is not defined, i.e., we need to adapt the URL path / can run validator for versioned base URLs
 
     # Run validator for versioned base URL(s)
-    if [ "${INPUT_PATH}" = "/" ]; then
+    if [ "${path}" = "/" ]; then
         filler="v"
     else
+        # path is either "/" or a full path with no trailing slash
         filler="/v"
     fi
 
@@ -170,21 +176,21 @@ else
     case ${INPUT_ALL_VERSIONED_PATHS} in
         y | Y | yes | Yes | YES | true | True | TRUE | on | On | ON)
             for version in "${API_VERSION[@]}"; do
-                run_validator_version="${run_validator}${INPUT_PATH}${filler}${version}${index}"
+                run_validator_version="${run_validator}${path}${filler}${version}${index}"
                 # Echo line is for testing
                 echo "run_validator: ${run_validator_version}" >> ./.entrypoint-run_validator.txt
                 sh -c "${run_validator_version}" | tee "v${version}.json"
             done
             ;;
         n | N | no | No | NO | false | False | FALSE | off | Off | OFF)
-            run_validator="${run_validator}${INPUT_PATH}${filler}${API_VERSION[0]}${index}"
+            run_validator="${run_validator}${path}${filler}${API_VERSION[0]}${index}"
             # Echo line is for testing
             echo "run_validator: ${run_validator}" >> ./.entrypoint-run_validator.txt
             sh -c "${run_validator}" | tee "v${API_VERSION[0]}.json"
             ;;
         *)
             echo "Non-valid input for 'all versioned paths': ${INPUT_ALL_VERSIONED_PATHS}. Will use default (false)."
-            run_validator="${run_validator}${INPUT_PATH}${filler}${API_VERSION[0]}${index}"
+            run_validator="${run_validator}${path}${filler}${API_VERSION[0]}${index}"
             # Echo line is for testing
             echo "run_validator: ${run_validator}" >> ./.entrypoint-run_validator.txt
             sh -c "${run_validator}" | tee "v${API_VERSION[0]}.json"

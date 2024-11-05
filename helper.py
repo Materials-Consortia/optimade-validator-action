@@ -75,8 +75,27 @@ def optimade_package_version() -> None:
     print(__version__.split("-", maxsplit=1)[0].split("+")[0].replace(".", " "))
 
 
+def remove_trailing_slash(string: str) -> None:
+    """Remove trailing slashes."""
+    print(string.rstrip("/"))
+
+
+def assert_leading_slash(string: str) -> None:
+    """Assert that a string has a leading slash."""
+    if not string.startswith("/"):
+        print(f"/{string}")
+    else:
+        print(string)
+
+
 if __name__ == "__main__":
-    commands = ["api-versions", "package-version", "results"]
+    commands = [
+        "api-versions",
+        "package-version",
+        "results",
+        "remove-trailing-slash",
+        "assert-leading-slash",
+    ]
 
     parser = argparse.ArgumentParser()
     parser.add_argument("cmd", help="Command to run.", type=str, choices=commands)
@@ -89,5 +108,9 @@ if __name__ == "__main__":
     elif args.cmd == "results":
         create_output()
         delete_files("*.json")
+    elif args.cmd == "remove-trailing-slash":
+        remove_trailing_slash(sys.argv[2])
+    elif args.cmd == "assert-leading-slash":
+        assert_leading_slash(sys.argv[2])
     else:
         sys.exit(f"Wrong command, it must be one of {commands}")
