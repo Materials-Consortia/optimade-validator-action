@@ -158,37 +158,42 @@ jobs:
     permissions:
       packages: read
 
-    env:
-      # Latest BATS version
-      # If a new BATS version is released, a new Docker image should be built
-      # and uploaded to ghcr.io/materials-consortia/bats with the new version tag
-      # as well as an approprate alpine version (using the `bashver` build arg).
-      BATS_VERSION: '1.11.0'
-
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
 
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to ghrc.io
-        uses: docker/login-action@v3
+      - name: Install Python 3.10 (minimum supported OPT version)
+        uses: actions/setup-python@v5
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          python-version: "3.10"
 
-      - name: Build BATS environment
-        uses: docker/build-push-action@v6
+      - name: Setup BATS and BATS libs
+        id: setup-bats
+        uses: bats-core/bats-action@3.0.0
         with:
-          context: ./tests
-          push: false
-          load: true
-          tags: optimade_bats
+          support-install: true
+          support-path: "${{ github.workspace }}/tests/bats-support"
+          assert-install: true
+          assert-path: "${{ github.workspace }}/tests/bats-assert"
+          detik-install: false
+          file-install: false
+
+      - name: Imitate the Action's Dockerfile
+        shell: bash
+        run: |
+          echo "Installing iproute2 and getting the host IP address"
+          sudo apt-get -qq update && sudo apt-get install --no-install-recommends -fqqy iproute2
+          set -o pipefail && ip route | awk '{print $3}' > /tmp/docker_host_ip
+
+          echo "Installing Python dependencies"
+          python -m pip install -U -q pip
+          pip install -U -q setuptools wheel virtualenv
 
       - name: Run BATS tests
-        run: ./run_tests.sh
+        shell: bash
+        env:
+          BATS_LIB_PATH: ${{ steps.setup-bats.outputs.lib-path }}
+        run: bats ./tests
 
   validator_version:
     runs-on: ubuntu-latest
