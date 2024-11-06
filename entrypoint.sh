@@ -3,10 +3,10 @@ set -e
 set -o pipefail
 
 # Setup and activate virtual environment
-rm -rf /venvs
-mkdir -p /venvs
-python -m virtualenv /venvs/optimade-validator
-source /venvs/optimade-validator/bin/activate
+rm -rf /tmp/venvs
+mkdir -p /tmp/venvs
+python -m virtualenv /tmp/venvs/optimade-validator
+source /tmp/venvs/optimade-validator/bin/activate
 
 # Install OPTIMADE Python tools
 if [ "${INPUT_VALIDATOR_VERSION}" = "latest" ]; then
@@ -33,7 +33,7 @@ if [ ${PACKAGE_VERSION[0]} -eq 0 ] && [ ${PACKAGE_VERSION[1]} -lt 10 ]; then
 fi
 
 # Retrieve and add GitHub Actions host runner IP to known hosts
-DOCKER_HOST_IP=$(cat /docker_host_ip)
+DOCKER_HOST_IP=$(cat /tmp/docker_host_ip)
 echo ${DOCKER_HOST_IP} gh_actions_host >> /etc/hosts
 
 run_validator="optimade-validator"
@@ -208,6 +208,6 @@ fi
 
 # Deactivate and remove virtual environment
 deactivate
-rm -rf /venvs
+rm -rf /tmp/venvs
 
 exit ${EXIT_CODE}

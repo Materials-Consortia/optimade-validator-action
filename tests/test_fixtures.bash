@@ -1,11 +1,18 @@
 # Set workdir to Docker default if not set already
 if [ -z "${DOCKER_BATS_WORKDIR}" ]; then
-    export DOCKER_BATS_WORKDIR=/code
+    if [ -n "${CI}" ]; then
+        export DOCKER_BATS_WORKDIR=${GITHUB_WORKSPACE}
+    else
+        export DOCKER_BATS_WORKDIR=/code
+    fi
 fi
 
 # Load BATS extensions (installed in ./tests/Dockerfile)
-load "${BATS_TEST_HELPERS}/bats-support/load.bash"
-load "${BATS_TEST_HELPERS}/bats-assert/load.bash"
+if [ -z "${BATS_LIB_PATH}" ]; then
+    export BATS_LIB_PATH=${BATS_TEST_HELPERS}
+fi
+bats_load_library bats-support
+bats_load_library bats-assert
 
 function setup() {
     # Set all input parameter defaults
