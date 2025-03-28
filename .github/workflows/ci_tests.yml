@@ -169,7 +169,7 @@ jobs:
 
       - name: Setup BATS and BATS libs
         id: setup-bats
-        uses: bats-core/bats-action@3.0.0
+        uses: bats-core/bats-action@3.0.1
         with:
           support-install: true
           support-path: "${{ github.workspace }}/tests/bats-support"
