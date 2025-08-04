@@ -74,7 +74,7 @@ def check_dockerfile_python_version(_):
     with (TOP_DIR / "Dockerfile").open() as handle:
         for line in handle:
             match = re.match(
-                r".*python:(?P<version>.*)-slim-buster.*",
+                r".*python:(?P<version>.*)-slim*",
                 line,
             )
             if match:
