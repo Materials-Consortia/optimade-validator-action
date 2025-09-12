@@ -313,7 +313,7 @@ jobs:
         uses: ./
         with:
           port: 3213
-          path: /v1.1/structures
+          path: /v1.2/structures
           create output: true
           as type: structures
 

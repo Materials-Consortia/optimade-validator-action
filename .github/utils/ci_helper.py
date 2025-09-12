@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
     cmd_output_mapping = {
         "default": ["v1"],
-        "all_versioned_paths": ["v1", "v1.1", "v1.1.0"],
+        "all_versioned_paths": ["v1", "v1.2", "v1.2.0"],
         "validate_unversioned_path": ["unversioned", "v1"],
         "as_type": ["astype"],
     }
