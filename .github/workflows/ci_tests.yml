@@ -15,10 +15,10 @@ jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Python ${{ env.PYTHON_VERSION }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
@@ -44,10 +44,10 @@ jobs:
     runs-on: ubuntu-latest
     name: pylint & safety
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Python ${{ env.PYTHON_VERSION }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
@@ -81,7 +81,7 @@ jobs:
           OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Run action (validating the unversioned path)
         uses: ./
@@ -111,7 +111,7 @@ jobs:
           OPTIMADE_BASE_URL: http://gh_actions_host:3214
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Run action
         uses: ./
@@ -133,7 +133,7 @@ jobs:
           OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Run action
         uses: ./
@@ -160,16 +160,16 @@ jobs:
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Python 3.10 (minimum supported OPT version)
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.10"
 
       - name: Setup BATS and BATS libs
         id: setup-bats
-        uses: bats-core/bats-action@3.0.0
+        uses: bats-core/bats-action@3.0.1
         with:
           support-install: true
           support-path: "${{ github.workspace }}/tests/bats-support"
@@ -208,7 +208,7 @@ jobs:
           OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Run action
         uses: ./
@@ -230,7 +230,7 @@ jobs:
           OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Run action
         id: action
@@ -260,10 +260,10 @@ jobs:
           OPTIMADE_BASE_URL: http://gh_actions_host:3213
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up Python ${{ env.PYTHON_VERSION }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
@@ -313,7 +313,7 @@ jobs:
         uses: ./
         with:
           port: 3213
-          path: /v1.1/structures
+          path: /v1.2/structures
           create output: true
           as type: structures
 

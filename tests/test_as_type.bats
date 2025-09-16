@@ -26,7 +26,7 @@ load 'test_fixtures'
 @test "as type='non_valid_inputs' (invalid value, should fail with status 1 and message)" {
     INVALID_AS_TYPE_VALUE=non_valid_inputs
     export INPUT_AS_TYPE=${INVALID_AS_TYPE_VALUE}
-    export INPUT_PATH=${INPUT_PATH}v1.1/${INVALID_AS_TYPE_VALUE}
+    export INPUT_PATH=${INPUT_PATH}v1.2/${INVALID_AS_TYPE_VALUE}
     # Don't use real entrypoint.sh here, since the error code comes from running the validator.
     run ${ENTRYPOINT_SH}
     assert_output --partial "Validating as type: ${INVALID_AS_TYPE_VALUE}"

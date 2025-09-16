@@ -14,7 +14,7 @@ load 'test_fixtures'
     run ${ENTRYPOINT_SH}
     refute_output --partial "ERROR"
 
-    OPTIMADE_VERSION=("v1.1" "v1.1.0")
+    OPTIMADE_VERSION=("v1.2" "v1.2.0")
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_MAJOR_RUN_VALIDATOR}
 run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[0]}
@@ -26,7 +26,7 @@ run_validator: ${TEST_BASE_RUN_VALIDATOR}${OPTIMADE_VERSION[1]}"
     run ${ENTRYPOINT_SH}
     refute_output --partial "ERROR"
 
-    OPTIMADE_VERSION=("v1.1" "v1.1.0")
+    OPTIMADE_VERSION=("v1.2" "v1.2.0")
     run cat ${DOCKER_BATS_WORKDIR}/.entrypoint-run_validator.txt
     assert_output "run_validator: ${TEST_BASE_RUN_VALIDATOR}
 run_validator: ${TEST_MAJOR_RUN_VALIDATOR}
