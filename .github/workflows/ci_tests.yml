@@ -74,7 +74,7 @@ jobs:
 
     services:
       optimade:
-        image: ghcr.io/materials-consortia/optimade:develop
+        image: ghcr.io/materials-consortia/optimade:latest
         ports:
           - 3213:5000
         env:
@@ -103,7 +103,7 @@ jobs:
 
     services:
       optimade_index:
-        image: ghcr.io/materials-consortia/optimade:develop
+        image: ghcr.io/materials-consortia/optimade:latest
         ports:
           - 3214:5000
         env:
@@ -126,7 +126,7 @@ jobs:
 
     services:
       optimade:
-        image: ghcr.io/materials-consortia/optimade:develop
+        image: ghcr.io/materials-consortia/optimade:latest
         ports:
           - 3213:5000
         env:
@@ -201,7 +201,7 @@ jobs:
 
     services:
       optimade:
-        image: ghcr.io/materials-consortia/optimade:develop
+        image: ghcr.io/materials-consortia/optimade:latest
         ports:
           - 3213:5000
         env:
@@ -223,7 +223,7 @@ jobs:
 
     services:
       optimade:
-        image: ghcr.io/materials-consortia/optimade:develop
+        image: ghcr.io/materials-consortia/optimade:latest
         ports:
           - 3213:5000
         env:
@@ -253,7 +253,7 @@ jobs:
 
     services:
       optimade:
-        image: ghcr.io/materials-consortia/optimade:develop
+        image: ghcr.io/materials-consortia/optimade:latest
         ports:
           - 3213:5000
         env:
