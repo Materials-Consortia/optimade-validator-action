@@ -67,9 +67,13 @@ def optimade_api_version() -> None:
 def optimade_package_version() -> None:
     """Print optimade package version in currently installed environment as input for
     shell array."""
+    # Read from the package metadata rather than importing `optimade`, since old
+    # versions import `pkg_resources`, which is no longer shipped with setuptools.
+    from importlib.metadata import PackageNotFoundError, version
+
     try:
-        from optimade import __version__
-    except ImportError:
+        __version__ = version("optimade")
+    except PackageNotFoundError:
         sys.exit("optimade MUST be installed to run 'package-version'")
 
     print(__version__.split("-", maxsplit=1)[0].split("+")[0].replace(".", " "))
