@@ -8,7 +8,7 @@ on:
     - 'push-action/**'
 
 env:
-  PYTHON_VERSION: "3.10"
+  PYTHON_VERSION: "3.11"
 
 jobs:
 
@@ -74,7 +74,7 @@ jobs:
 
     services:
       optimade:
-        image: ghcr.io/materials-consortia/optimade:develop
+        image: ghcr.io/materials-consortia/optimade:latest
         ports:
           - 3213:5000
         env:
@@ -103,7 +103,7 @@ jobs:
 
     services:
       optimade_index:
-        image: ghcr.io/materials-consortia/optimade:develop
+        image: ghcr.io/materials-consortia/optimade:latest
         ports:
           - 3214:5000
         env:
@@ -126,7 +126,7 @@ jobs:
 
     services:
       optimade:
-        image: ghcr.io/materials-consortia/optimade:develop
+        image: ghcr.io/materials-consortia/optimade:latest
         ports:
           - 3213:5000
         env:
@@ -162,10 +162,10 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v6
 
-      - name: Install Python 3.10 (minimum supported OPT version)
+      - name: Install Python 3.11 (minimum supported OPT version)
         uses: actions/setup-python@v6
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
       - name: Setup BATS and BATS libs
         id: setup-bats
@@ -201,7 +201,7 @@ jobs:
 
     services:
       optimade:
-        image: ghcr.io/materials-consortia/optimade:develop
+        image: ghcr.io/materials-consortia/optimade:latest
         ports:
           - 3213:5000
         env:
@@ -223,7 +223,7 @@ jobs:
 
     services:
       optimade:
-        image: ghcr.io/materials-consortia/optimade:develop
+        image: ghcr.io/materials-consortia/optimade:latest
         ports:
           - 3213:5000
         env:
@@ -253,7 +253,7 @@ jobs:
 
     services:
       optimade:
-        image: ghcr.io/materials-consortia/optimade:develop
+        image: ghcr.io/materials-consortia/optimade:latest
         ports:
           - 3213:5000
         env:
